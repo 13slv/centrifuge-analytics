@@ -6,6 +6,14 @@ import { PoolsTable } from "@/components/PoolsTable";
 import { AssetClassDrift } from "@/components/AssetClassDrift";
 import { CrossPoolOverlapList } from "@/components/CrossPoolOverlap";
 import { AlertsPanel } from "@/components/AlertsPanel";
+import { SectionNote } from "@/components/SectionNote";
+import {
+  assetClassDriftInsight,
+  breakdownInsight,
+  crossPoolInsight,
+  poolsTableInsight,
+  totalTvlInsight,
+} from "@/lib/insights";
 
 export const revalidate = 3600;
 
@@ -55,12 +63,20 @@ export default async function HomePage() {
       </section>
 
       <section className="mb-10">
-        <h2 className="text-sm text-neutral-400 mb-3">Total TVL — all Centrifuge pools</h2>
+        <h2 className="text-sm text-neutral-400 mb-2">Total TVL — all Centrifuge pools</h2>
+        <SectionNote
+          read="Area = sum of every pool's USD TVL, one dot per day. Flat stretches + sudden step-ups are typical of RWA pools where value is added in discrete tranches (pool launches or admin mints)."
+          insight={totalTvlInsight(total)}
+        />
         <TvlChart data={total} height={320} />
       </section>
 
       <section className="mb-10">
-        <h2 className="text-sm text-neutral-400 mb-3">Recent notable activity (last 14 days)</h2>
+        <h2 className="text-sm text-neutral-400 mb-2">Recent notable activity (last 14 days)</h2>
+        <SectionNote
+          read="Rows auto-generated from the last two weeks: large single-day redeems (>5% TVL), big inflows (>10% TVL), APY drops >100bps, and top-10 concentration jumps >10pp. Click a row to open the pool."
+          insight={null}
+        />
         <AlertsPanel
           pools={pools}
           histories={histories}
@@ -70,39 +86,59 @@ export default async function HomePage() {
       </section>
 
       <section className="mb-10">
-        <h2 className="text-sm text-neutral-400 mb-3">
+        <h2 className="text-sm text-neutral-400 mb-2">
           Asset-class market-share drift (stacked, % of total TVL)
         </h2>
+        <SectionNote
+          read="Each colour = one asset class; height at a given date = its share of total Centrifuge TVL. Changes in slice width show rotation between asset classes over time."
+          insight={assetClassDriftInsight(pools, histories)}
+        />
         <AssetClassDrift pools={pools} histories={histories} mode="share" />
       </section>
 
       <section className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
         <div>
-          <h2 className="text-sm text-neutral-400 mb-3">TVL by asset class</h2>
+          <h2 className="text-sm text-neutral-400 mb-2">TVL by asset class</h2>
+          <SectionNote
+            read="Snapshot at today's close. Bar width = class's share of total TVL."
+            insight={breakdownInsight(classRows, "class")}
+          />
           <BreakdownList rows={classRows} />
         </div>
         <div>
-          <h2 className="text-sm text-neutral-400 mb-3">TVL by chain</h2>
+          <h2 className="text-sm text-neutral-400 mb-2">TVL by chain</h2>
+          <SectionNote
+            read="Sum of TVL for all pools living on each chain."
+            insight={breakdownInsight(chainRows, "chain")}
+          />
           <BreakdownList rows={chainRows} />
         </div>
       </section>
 
       {crossPoolOverlap && crossPoolOverlap.length > 0 && (
         <section className="mb-10">
-          <h2 className="text-sm text-neutral-400 mb-3">
+          <h2 className="text-sm text-neutral-400 mb-2">
             Cross-pool investor overlap — where the same whales appear
           </h2>
+          <SectionNote
+            read="For each pair of pools, count addresses that hold a non-dust balance in both. 'Co-held' ≈ min(balance in A, balance in B) × current price — a rough lower bound on how much capital sits in both names at once."
+            insight={crossPoolInsight(crossPoolOverlap, pools)}
+          />
           <CrossPoolOverlapList overlap={crossPoolOverlap} pools={pools} limit={10} />
         </section>
       )}
 
       <section>
-        <div className="flex items-baseline justify-between mb-3">
+        <div className="flex items-baseline justify-between mb-2">
           <h2 className="text-sm text-neutral-400">All pools</h2>
           <Link href="/compare" className="text-xs text-violet-400 hover:text-violet-300">
             compare pools →
           </Link>
         </div>
+        <SectionNote
+          read="TVL = latest USD. Peak = max in window. 30d% = TVL change vs 30 days ago. APY = 30-day realised yield annualised on 365 basis. Top-10 = % of supply held by the 10 largest accounts."
+          insight={poolsTableInsight(pools, histories)}
+        />
         <PoolsTable pools={pools} histories={histories} poolHolders={poolHolders} />
       </section>
 

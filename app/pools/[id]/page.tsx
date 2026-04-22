@@ -6,6 +6,8 @@ import { PoolCharts } from "@/components/PoolCharts";
 import { HoldersPanel } from "@/components/HoldersPanel";
 import { CohortTable } from "@/components/CohortTable";
 import { CsvExportButton } from "@/components/CsvExport";
+import { SectionNote } from "@/components/SectionNote";
+import { holdersInsight, cohortInsight } from "@/lib/insights";
 
 export const revalidate = 3600;
 
@@ -113,7 +115,11 @@ export default async function PoolPage({
 
       {holders && holders.series.length > 0 && (
         <section className="mb-8">
-          <h2 className="text-sm text-neutral-400 mb-3">Holders & concentration</h2>
+          <h2 className="text-sm text-neutral-400 mb-2">Holders & concentration</h2>
+          <SectionNote
+            read="Balances reconstructed by replaying every investor transaction since Jan 2025. Gini: 0 = equal, 1 = one address owns everything. HHI: same idea, > 0.25 = concentrated market. Top-10 share: % of supply in the 10 largest accounts."
+            insight={holdersInsight(holders.series)}
+          />
           <HoldersPanel
             series={holders.series}
             top={holders.top}
@@ -124,7 +130,11 @@ export default async function PoolPage({
 
       {holders && holders.cohorts.length > 0 && (
         <section className="mb-8">
-          <h2 className="text-sm text-neutral-400 mb-3">Cohort retention</h2>
+          <h2 className="text-sm text-neutral-400 mb-2">Cohort retention</h2>
+          <SectionNote
+            read="Rows = month of investor's first deposit. Columns = months since that cohort entered. Cell = % of the cohort still holding a non-dust balance. Deep violet = sticky, pale = churn."
+            insight={cohortInsight(holders.cohorts)}
+          />
           <CohortTable cohorts={holders.cohorts} />
         </section>
       )}

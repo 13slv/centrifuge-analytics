@@ -10,6 +10,12 @@ import type {
 import { TvlChart } from "@/components/TvlChart";
 import { FlowsChart } from "@/components/FlowsChart";
 import { EventsList } from "@/components/EventsList";
+import { SectionNote } from "@/components/SectionNote";
+import {
+  tvlChartInsight,
+  flowInsight,
+  eventsInsight,
+} from "@/lib/insights";
 
 type Range = "30d" | "90d" | "YTD" | "all";
 
@@ -76,10 +82,14 @@ export function PoolCharts({
       </div>
 
       <section className="mb-8">
-        <h2 className="text-sm text-neutral-400 mb-3">
+        <h2 className="text-sm text-neutral-400 mb-2">
           TVL <span className="text-violet-400">(left)</span> · APY 30d{" "}
           <span className="text-amber-400">(right)</span> · events on the curve
         </h2>
+        <SectionNote
+          read={`Violet area = pool TVL (left axis). Amber line = realised 30-day APY, annualised 365 basis (right axis)${benchmark ? `. Dashed grey line = ${benchmarkLabel} from FRED` : ""}. Green dots = large deposits, red dots = large redeems.`}
+          insight={tvlChartInsight(filtered.series, filtered.apy, filtered.benchmark, benchmarkLabel)}
+        />
         <TvlChart
           data={filtered.series}
           flows={filtered.flows}
@@ -88,23 +98,25 @@ export function PoolCharts({
           benchmarkLabel={benchmarkLabel}
           height={340}
         />
-        {benchmark && (
-          <p className="text-xs text-neutral-500 mt-1">
-            Dashed grey line: <span className="text-neutral-300">{benchmarkLabel}</span>{" "}
-            (FRED) — benchmark for this asset class.
-          </p>
-        )}
       </section>
 
       <section className="mb-8">
-        <h2 className="text-sm text-neutral-400 mb-3">
+        <h2 className="text-sm text-neutral-400 mb-2">
           Daily flow decomposition — inflow / outflow / yield
         </h2>
+        <SectionNote
+          read="Every daily ΔTVL split into three parts. Green = DEPOSIT_CLAIMABLE (new money arriving), red = REDEEM_CLAIMABLE (money leaving), violet = residual NAV appreciation (yield) that isn't explained by flows. Bars stack around zero: positive above, negative below."
+          insight={flowInsight(filtered.flows)}
+        />
         <FlowsChart flows={filtered.flows} height={220} />
       </section>
 
       <section className="mb-8">
-        <h2 className="text-sm text-neutral-400 mb-3">Largest events</h2>
+        <h2 className="text-sm text-neutral-400 mb-2">Largest events</h2>
+        <SectionNote
+          read="Biggest single transactions in the window, sorted by size. Click a tx hash to open the explorer, click an account hash to see its history."
+          insight={eventsInsight(filtered.flows)}
+        />
         <EventsList flows={filtered.flows} chain={chain} limit={12} />
       </section>
     </>
