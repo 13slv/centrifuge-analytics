@@ -5,6 +5,8 @@ import { formatUsd, peakTvl, currentTvl } from "@/lib/data";
 import { TvlChart } from "@/components/TvlChart";
 import { FlowsChart } from "@/components/FlowsChart";
 import { EventsList } from "@/components/EventsList";
+import { HoldersPanel } from "@/components/HoldersPanel";
+import { CohortTable } from "@/components/CohortTable";
 
 export const revalidate = 3600;
 
@@ -15,7 +17,7 @@ export default async function PoolPage({
 }) {
   const { id } = await params;
   const poolId = decodeURIComponent(id);
-  const { pools, histories, poolFlows } = await getDataset();
+  const { pools, histories, poolFlows, poolHolders } = await getDataset();
   const pool = pools.find((p) => p.id === poolId);
   if (!pool) notFound();
   const history = histories.find((h) => h.poolId === pool.id);
@@ -28,6 +30,7 @@ export default async function PoolPage({
   const totalInflow = flows.reduce((s, f) => s + f.inflow_usd, 0);
   const totalOutflow = flows.reduce((s, f) => s + f.outflow_usd, 0);
   const totalYield = flows.reduce((s, f) => s + f.yield_usd, 0);
+  const holders = poolHolders?.find((h) => h.poolId === pool.id);
 
   return (
     <main className="max-w-5xl mx-auto px-6 py-10">
@@ -97,6 +100,24 @@ export default async function PoolPage({
         <h2 className="text-sm text-neutral-400 mb-3">Largest events</h2>
         <EventsList flows={flows} chain={pool.chain} limit={12} />
       </section>
+
+      {holders && holders.series.length > 0 && (
+        <section className="mb-8">
+          <h2 className="text-sm text-neutral-400 mb-3">Holders & concentration</h2>
+          <HoldersPanel
+            series={holders.series}
+            top={holders.top}
+            chain={pool.chain}
+          />
+        </section>
+      )}
+
+      {holders && holders.cohorts.length > 0 && (
+        <section className="mb-8">
+          <h2 className="text-sm text-neutral-400 mb-3">Cohort retention</h2>
+          <CohortTable cohorts={holders.cohorts} />
+        </section>
+      )}
 
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <div>

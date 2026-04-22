@@ -9,6 +9,7 @@
     "discover": "tsx scripts/discover-pools.ts",
     "backfill": "tsx scripts/backfill.ts",
     "flows": "tsx scripts/flows.ts",
+    "holders": "tsx scripts/holders.ts",
     "update": "tsx scripts/update-daily.ts"
   },
   "dependencies": {

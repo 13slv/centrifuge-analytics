@@ -77,6 +77,34 @@ export type PoolFlows = {
   flows: DailyFlow[];
 };
 
+export type HolderSnapshot = {
+  date: string;
+  holders: number;
+  top10_share: number; // 0..1
+  hhi: number; // Herfindahl-Hirschman 0..1
+  gini: number; // 0..1
+};
+
+export type TopHolder = {
+  account: string;
+  balance_usd: number;
+  share: number; // 0..1
+  first_seen: string;
+};
+
+export type CohortRow = {
+  cohort: string; // YYYY-MM
+  initial_investors: number;
+  retention: { month_offset: number; surviving: number }[];
+};
+
+export type PoolHolders = {
+  poolId: string;
+  series: HolderSnapshot[];
+  top: TopHolder[];
+  cohorts: CohortRow[];
+};
+
 export type Dataset = {
   generatedAt: string;
   startDate: string;
@@ -84,4 +112,5 @@ export type Dataset = {
   pools: Pool[];
   histories: PoolHistory[];
   poolFlows?: PoolFlows[];
+  poolHolders?: PoolHolders[];
 };
