@@ -2,11 +2,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDataset } from "@/lib/data.server";
 import { formatUsd, peakTvl, currentTvl } from "@/lib/data";
-import { TvlChart } from "@/components/TvlChart";
-import { FlowsChart } from "@/components/FlowsChart";
-import { EventsList } from "@/components/EventsList";
+import { PoolCharts } from "@/components/PoolCharts";
 import { HoldersPanel } from "@/components/HoldersPanel";
 import { CohortTable } from "@/components/CohortTable";
+import { CsvExportButton } from "@/components/CsvExport";
 
 export const revalidate = 3600;
 
@@ -55,7 +54,8 @@ export default async function PoolPage({
         </Link>
       </nav>
 
-      <header className="mb-6">
+      <header className="mb-6 flex items-start justify-between">
+        <div>
         <div className="flex items-baseline gap-3">
           <h1 className="text-2xl font-semibold">{pool.name}</h1>
           <span className="text-xs text-neutral-500 uppercase">
@@ -75,6 +75,14 @@ export default async function PoolPage({
           {pool.issuer ? `${pool.issuer} · ` : ""}
           {pool.assetClass} · {pool.chain} · {pool.currency}
         </p>
+        </div>
+        <CsvExportButton
+          pool={pool}
+          series={series}
+          flows={flows}
+          apy={apy}
+          holders={holders?.series ?? []}
+        />
       </header>
 
       <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
@@ -87,47 +95,21 @@ export default async function PoolPage({
         <Stat label="Tranches" value={pool.tranches.length.toString()} />
       </section>
 
-      <section className="mb-8">
-        <h2 className="text-sm text-neutral-400 mb-3">
-          TVL <span className="text-violet-400">(left)</span> · APY 30d{" "}
-          <span className="text-amber-400">(right)</span> · events marked on the curve
-        </h2>
-        <TvlChart
-          data={series}
-          flows={flows}
-          apy={apy}
-          benchmark={benchmark}
-          benchmarkLabel={benchmarkLabel}
-          height={340}
-        />
-        {benchmark && (
-          <p className="text-xs text-neutral-500 mt-1">
-            Dashed grey line: <span className="text-neutral-300">{benchmarkLabel}</span>{" "}
-            (FRED) — benchmark for this asset class.
-          </p>
-        )}
-      </section>
-
-      <section className="mb-8">
-        <div className="flex items-baseline justify-between mb-3">
-          <h2 className="text-sm text-neutral-400">
-            Daily flow decomposition — inflow / outflow / yield
-          </h2>
-          <div className="text-xs text-neutral-500 tabular-nums">
-            <span className="text-emerald-400">in {formatUsd(totalInflow)}</span>
-            <span className="mx-2 text-neutral-700">·</span>
-            <span className="text-rose-400">out {formatUsd(totalOutflow)}</span>
-            <span className="mx-2 text-neutral-700">·</span>
-            <span className="text-violet-400">yield {formatUsd(totalYield)}</span>
-          </div>
-        </div>
-        <FlowsChart flows={flows} height={220} />
-      </section>
-
-      <section className="mb-8">
-        <h2 className="text-sm text-neutral-400 mb-3">Largest events</h2>
-        <EventsList flows={flows} chain={pool.chain} limit={12} />
-      </section>
+      <div className="text-xs text-neutral-500 tabular-nums mb-3 text-right">
+        <span className="text-emerald-400">in {formatUsd(totalInflow)}</span>
+        <span className="mx-2 text-neutral-700">·</span>
+        <span className="text-rose-400">out {formatUsd(totalOutflow)}</span>
+        <span className="mx-2 text-neutral-700">·</span>
+        <span className="text-violet-400">yield {formatUsd(totalYield)}</span>
+      </div>
+      <PoolCharts
+        series={series}
+        flows={flows}
+        apy={apy}
+        benchmark={benchmark}
+        benchmarkLabel={benchmarkLabel}
+        chain={pool.chain}
+      />
 
       {holders && holders.series.length > 0 && (
         <section className="mb-8">

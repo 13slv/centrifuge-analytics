@@ -148,11 +148,14 @@ async function discoverV3(): Promise<Pool[]> {
     const rawCurrency = p.currency;
     const currencySymbol =
       rawCurrency === "840" ? "USDC" : rawCurrency === null ? "?" : "USD-variant";
+    const firstSym = tranches.find((t) => t.symbol && !t.symbol.startsWith("SHARE"))?.symbol;
+    const fallbackName =
+      p.name || (firstSym ? `${firstSym} (Pool ${p.id.slice(-4)})` : `Pool ${p.id.slice(-4)}`);
     pools.push({
       id: p.id,
       version: "cfg_v3",
       chain: chainInfo.chain as Pool["chain"],
-      name: ipfs?.pool?.name || p.name || `Pool ${p.id}`,
+      name: ipfs?.pool?.name || fallbackName,
       issuer: ipfs?.pool?.issuer?.name,
       assetClass: ipfs?.pool?.asset?.class || ipfs?.pool?.asset?.subClass || "Unknown",
       currency: currencySymbol,

@@ -5,11 +5,12 @@ import { TvlChart } from "@/components/TvlChart";
 import { PoolsTable } from "@/components/PoolsTable";
 import { AssetClassDrift } from "@/components/AssetClassDrift";
 import { CrossPoolOverlapList } from "@/components/CrossPoolOverlap";
+import { AlertsPanel } from "@/components/AlertsPanel";
 
 export const revalidate = 3600;
 
 export default async function HomePage() {
-  const { pools, histories, generatedAt, startDate, endDate, crossPoolOverlap } =
+  const { pools, histories, generatedAt, startDate, endDate, crossPoolOverlap, poolHolders, poolFlows } =
     await getDataset();
   const histMap = new Map(histories.map((h) => [h.poolId, h]));
   const total = totalTvlByDate(pools, histories);
@@ -59,6 +60,16 @@ export default async function HomePage() {
       </section>
 
       <section className="mb-10">
+        <h2 className="text-sm text-neutral-400 mb-3">Recent notable activity (last 14 days)</h2>
+        <AlertsPanel
+          pools={pools}
+          histories={histories}
+          poolFlows={poolFlows}
+          poolHolders={poolHolders}
+        />
+      </section>
+
+      <section className="mb-10">
         <h2 className="text-sm text-neutral-400 mb-3">
           Asset-class market-share drift (stacked, % of total TVL)
         </h2>
@@ -88,11 +99,11 @@ export default async function HomePage() {
       <section>
         <div className="flex items-baseline justify-between mb-3">
           <h2 className="text-sm text-neutral-400">All pools</h2>
-          <Link href="#" className="text-xs text-neutral-600">
-            click a row for detail
+          <Link href="/compare" className="text-xs text-violet-400 hover:text-violet-300">
+            compare pools →
           </Link>
         </div>
-        <PoolsTable pools={pools} histories={histories} />
+        <PoolsTable pools={pools} histories={histories} poolHolders={poolHolders} />
       </section>
 
       <footer className="mt-12 text-xs text-neutral-600">
