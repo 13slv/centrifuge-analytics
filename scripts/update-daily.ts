@@ -15,6 +15,7 @@ config({ path: ".env.local", override: true });
 try {
   execSync("tsx scripts/discover-pools.ts", { stdio: "inherit" });
   execSync("tsx scripts/backfill.ts", { stdio: "inherit" });
+  execSync("tsx scripts/flows.ts", { stdio: "inherit" });
 } catch (e) {
   console.error((e as Error).message);
   process.exit(1);

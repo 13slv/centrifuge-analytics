@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { getDataset } from "@/lib/data.server";
 import { formatUsd, peakTvl, currentTvl } from "@/lib/data";
 import { TvlChart } from "@/components/TvlChart";
+import { FlowsChart } from "@/components/FlowsChart";
+import { EventsList } from "@/components/EventsList";
 
 export const revalidate = 3600;
 
@@ -13,13 +15,19 @@ export default async function PoolPage({
 }) {
   const { id } = await params;
   const poolId = decodeURIComponent(id);
-  const { pools, histories } = await getDataset();
+  const { pools, histories, poolFlows } = await getDataset();
   const pool = pools.find((p) => p.id === poolId);
   if (!pool) notFound();
   const history = histories.find((h) => h.poolId === pool.id);
   const series = history?.series ?? [];
   const current = currentTvl(series);
   const peak = peakTvl(series);
+  const apy = history?.apySeries ?? [];
+  const latestApy = apy.length > 0 ? apy[apy.length - 1].apy : null;
+  const flows = poolFlows?.find((f) => f.poolId === pool.id)?.flows ?? [];
+  const totalInflow = flows.reduce((s, f) => s + f.inflow_usd, 0);
+  const totalOutflow = flows.reduce((s, f) => s + f.outflow_usd, 0);
+  const totalYield = flows.reduce((s, f) => s + f.yield_usd, 0);
 
   return (
     <main className="max-w-5xl mx-auto px-6 py-10">
@@ -51,15 +59,43 @@ export default async function PoolPage({
         </p>
       </header>
 
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <Stat label="Current TVL" value={current > 0 ? formatUsd(current) : "—"} />
         <Stat label="Peak TVL" value={peak > 0 ? formatUsd(peak) : "—"} />
+        <Stat
+          label="APY 30d"
+          value={latestApy != null ? `${(latestApy * 100).toFixed(2)}%` : "—"}
+        />
         <Stat label="Tranches" value={pool.tranches.length.toString()} />
       </section>
 
       <section className="mb-8">
-        <h2 className="text-sm text-neutral-400 mb-3">TVL since inception of data</h2>
-        <TvlChart data={series} height={340} />
+        <h2 className="text-sm text-neutral-400 mb-3">
+          TVL <span className="text-violet-400">(left)</span> · APY 30d{" "}
+          <span className="text-amber-400">(right)</span> · events marked on the curve
+        </h2>
+        <TvlChart data={series} flows={flows} apy={apy} height={340} />
+      </section>
+
+      <section className="mb-8">
+        <div className="flex items-baseline justify-between mb-3">
+          <h2 className="text-sm text-neutral-400">
+            Daily flow decomposition — inflow / outflow / yield
+          </h2>
+          <div className="text-xs text-neutral-500 tabular-nums">
+            <span className="text-emerald-400">in {formatUsd(totalInflow)}</span>
+            <span className="mx-2 text-neutral-700">·</span>
+            <span className="text-rose-400">out {formatUsd(totalOutflow)}</span>
+            <span className="mx-2 text-neutral-700">·</span>
+            <span className="text-violet-400">yield {formatUsd(totalYield)}</span>
+          </div>
+        </div>
+        <FlowsChart flows={flows} height={220} />
+      </section>
+
+      <section className="mb-8">
+        <h2 className="text-sm text-neutral-400 mb-3">Largest events</h2>
+        <EventsList flows={flows} chain={pool.chain} limit={12} />
       </section>
 
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">

@@ -14,7 +14,7 @@ import { fileURLToPath } from "node:url";
 import { parseAbi, formatUnits } from "viem";
 import { gql } from "../lib/centrifuge-api.js";
 import { ethClient, blockForTimestamp, dailyDatesUtc } from "../lib/alchemy.js";
-import type { Dataset, Pool, PoolHistory, TvlPoint } from "../lib/types.js";
+import type { ApyPoint, Dataset, Pool, PoolHistory, TvlPoint } from "../lib/types.js";
 
 config({ path: ".env.local", override: true });
 
@@ -25,14 +25,22 @@ const DATASET_PATH = join(__dirname, "..", "public", "data", "dataset.json");
 const START_DATE = "2025-01-01";
 const END_DATE = new Date().toISOString().slice(0, 10);
 
+type InstanceSnapshot = {
+  timestamp: string;
+  centrifugeId: string;
+  tokenPrice: string | null;
+  totalIssuance: string | null;
+};
+
 type TokenSnapshot = {
   id: string;
   timestamp: string;
-  totalIssuance: string;
-  tokenPrice: string | null;
+  yield30d365: string | null;
 };
 
 type V3Token = { id: string; poolId: string; decimals: number | null };
+
+type TokenInstance = { tokenId: string; centrifugeId: string };
 
 async function allV3Tokens(): Promise<V3Token[]> {
   const all: V3Token[] = [];
@@ -48,7 +56,40 @@ async function allV3Tokens(): Promise<V3Token[]> {
   return all;
 }
 
-async function tokenSnapshots(tokenId: string): Promise<TokenSnapshot[]> {
+async function instancesForToken(tokenId: string): Promise<TokenInstance[]> {
+  const res = await gql<{ tokenInstances: { items: TokenInstance[] } }>(
+    `query($tid: String!) { tokenInstances(where: { tokenId: $tid }, limit: 50) {
+        items { tokenId centrifugeId } } }`,
+    { tid: tokenId },
+  );
+  return res.tokenInstances.items;
+}
+
+async function instanceSnapshots(
+  tokenId: string,
+  centrifugeId: string,
+): Promise<InstanceSnapshot[]> {
+  const all: InstanceSnapshot[] = [];
+  let offset = 0;
+  const limit = 1000;
+  while (true) {
+    const res = await gql<{ tokenInstanceSnapshots: { items: InstanceSnapshot[] } }>(
+      `query($tid: String!, $cid: String!) { tokenInstanceSnapshots(
+          where: { tokenId: $tid, centrifugeId: $cid },
+          orderBy: "timestamp", orderDirection: "asc",
+          limit: ${limit}, offset: ${offset}
+        ) { items { timestamp centrifugeId tokenPrice totalIssuance } } }`,
+      { tid: tokenId, cid: centrifugeId },
+    );
+    all.push(...res.tokenInstanceSnapshots.items);
+    if (res.tokenInstanceSnapshots.items.length < limit) break;
+    offset += limit;
+    if (offset > 20_000) break;
+  }
+  return all;
+}
+
+async function apySnapshots(tokenId: string): Promise<TokenSnapshot[]> {
   const all: TokenSnapshot[] = [];
   let offset = 0;
   const limit = 1000;
@@ -58,7 +99,7 @@ async function tokenSnapshots(tokenId: string): Promise<TokenSnapshot[]> {
           where: { id: $id },
           orderBy: "timestamp", orderDirection: "asc",
           limit: ${limit}, offset: ${offset}
-        ) { items { id timestamp totalIssuance tokenPrice } } }`,
+        ) { items { id timestamp yield30d365 } } }`,
       { id: tokenId },
     );
     all.push(...res.tokenSnapshots.items);
@@ -70,50 +111,90 @@ async function tokenSnapshots(tokenId: string): Promise<TokenSnapshot[]> {
 }
 
 function buildTvlSeries(
-  snapshotsByToken: Map<string, TokenSnapshot[]>,
+  instanceSnaps: Map<string, InstanceSnapshot[]>, // key = tokenId|centrifugeId
+  apySnaps: Map<string, TokenSnapshot[]>, // key = tokenId
   decimalsByToken: Map<string, number>,
-): TvlPoint[] {
-  // per-day, per-token latest TVL — then forward-fill gaps and sum per day.
-  const dayTokenTvl = new Map<string, Map<string, number>>(); // date -> tokenId -> tvl
+): { tvl: TvlPoint[]; apy: ApyPoint[] } {
+  const dayInstanceTvl = new Map<string, Map<string, number>>(); // date -> instanceKey -> tvl
+  const dayTokenApy = new Map<string, Map<string, number>>();
   const startMs = new Date(START_DATE + "T00:00:00Z").getTime();
+  const tokenByInstance = new Map<string, string>();
 
-  for (const [tokenId, snaps] of snapshotsByToken) {
+  for (const [instKey, snaps] of instanceSnaps) {
+    const tokenId = instKey.split("|")[0];
+    tokenByInstance.set(instKey, tokenId);
     const dec = decimalsByToken.get(tokenId) ?? 18;
     for (const s of snaps) {
       const tMs = Number(s.timestamp);
       if (tMs < startMs) continue;
       const date = new Date(tMs).toISOString().slice(0, 10);
       const supply = Number(formatUnits(BigInt(s.totalIssuance || "0"), dec));
-      // tokenPrice in Centrifuge protocol is 18-dec fixed
-      const price = s.tokenPrice && s.tokenPrice !== "0"
-        ? Number(formatUnits(BigInt(s.tokenPrice), 18))
-        : 0;
+      const price =
+        s.tokenPrice && s.tokenPrice !== "0"
+          ? Number(formatUnits(BigInt(s.tokenPrice), 18))
+          : 0;
       const tvl = supply * price;
-      let inner = dayTokenTvl.get(date);
+      let inner = dayInstanceTvl.get(date);
       if (!inner) {
         inner = new Map();
-        dayTokenTvl.set(date, inner);
+        dayInstanceTvl.set(date, inner);
       }
-      inner.set(tokenId, tvl); // asc order → last write in the day wins
+      inner.set(instKey, tvl);
+    }
+  }
+
+  for (const [tokenId, snaps] of apySnaps) {
+    for (const s of snaps) {
+      const tMs = Number(s.timestamp);
+      if (tMs < startMs) continue;
+      const date = new Date(tMs).toISOString().slice(0, 10);
+      if (s.yield30d365 && s.yield30d365 !== "0") {
+        const apy = Number(formatUnits(BigInt(s.yield30d365), 27));
+        let inA = dayTokenApy.get(date);
+        if (!inA) {
+          inA = new Map();
+          dayTokenApy.set(date, inA);
+        }
+        inA.set(tokenId, apy);
+      }
     }
   }
 
   const dates = dailyDatesUtc(START_DATE, END_DATE);
-  const last = new Map<string, number>();
-  const series: TvlPoint[] = [];
+  const lastInstTvl = new Map<string, number>();
+  const lastApy = new Map<string, number>();
+  const tvl: TvlPoint[] = [];
+  const apy: ApyPoint[] = [];
   let sawAny = false;
   for (const date of dates) {
-    const daily = dayTokenTvl.get(date);
+    const daily = dayInstanceTvl.get(date);
+    const dailyA = dayTokenApy.get(date);
     if (daily) {
       sawAny = true;
-      for (const [tid, tvl] of daily) last.set(tid, tvl);
+      for (const [k, v] of daily) lastInstTvl.set(k, v);
     }
+    if (dailyA) for (const [tid, v] of dailyA) lastApy.set(tid, v);
     if (!sawAny) continue;
     let total = 0;
-    for (const v of last.values()) total += v;
-    series.push({ date, tvl_usd: total });
+    const tokenTvl = new Map<string, number>();
+    for (const [instKey, v] of lastInstTvl) {
+      total += v;
+      const tid = tokenByInstance.get(instKey)!;
+      tokenTvl.set(tid, (tokenTvl.get(tid) ?? 0) + v);
+    }
+    tvl.push({ date, tvl_usd: total });
+    let num = 0;
+    let den = 0;
+    for (const [tid, t] of tokenTvl) {
+      const a = lastApy.get(tid);
+      if (a != null && t > 0) {
+        num += a * t;
+        den += t;
+      }
+    }
+    if (den > 0) apy.push({ date, apy: num / den });
   }
-  return series;
+  return { tvl, apy };
 }
 
 // --- Tinlake v2 on-chain reads ---
@@ -234,17 +315,27 @@ async function main() {
       continue;
     }
     try {
-      const snapsByToken = new Map<string, TokenSnapshot[]>();
+      const instSnaps = new Map<string, InstanceSnapshot[]>();
+      const apyByToken = new Map<string, TokenSnapshot[]>();
       const decByToken = new Map<string, number>();
       for (const t of poolTokens) {
         decByToken.set(t.id, t.decimals ?? 18);
-        const snaps = await tokenSnapshots(t.id);
-        snapsByToken.set(t.id, snaps);
+        const instances = await instancesForToken(t.id);
+        for (const inst of instances) {
+          const key = `${t.id}|${inst.centrifugeId}`;
+          const snaps = await instanceSnapshots(t.id, inst.centrifugeId);
+          instSnaps.set(key, snaps);
+        }
+        apyByToken.set(t.id, await apySnapshots(t.id));
       }
-      const series = buildTvlSeries(snapsByToken, decByToken);
-      histories.push({ poolId: p.id, series });
-      const peak = series.reduce((m, s) => Math.max(m, s.tvl_usd), 0);
-      console.log(`${series.length.toString().padStart(4)}d, peak $${(peak / 1e6).toFixed(2)}M`);
+      const { tvl, apy } = buildTvlSeries(instSnaps, apyByToken, decByToken);
+      histories.push({ poolId: p.id, series: tvl, apySeries: apy });
+      const peak = tvl.reduce((m, s) => Math.max(m, s.tvl_usd), 0);
+      const lastApy = apy[apy.length - 1]?.apy;
+      const apyStr = lastApy != null ? ` · APY ${(lastApy * 100).toFixed(2)}%` : "";
+      console.log(
+        `${tvl.length.toString().padStart(4)}d, peak $${(peak / 1e6).toFixed(2)}M${apyStr}`,
+      );
     } catch (e) {
       console.log(`ERROR: ${(e as Error).message}`);
       histories.push({ poolId: p.id, series: [] });

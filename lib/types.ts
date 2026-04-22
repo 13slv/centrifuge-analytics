@@ -46,9 +46,35 @@ export type TvlPoint = {
   tvl_usd: number;
 };
 
+export type ApyPoint = {
+  date: string;
+  apy: number; // annualized (0.035 = 3.5%), computed from 30d yield on 365 basis
+};
+
 export type PoolHistory = {
   poolId: string;
   series: TvlPoint[];
+  apySeries?: ApyPoint[];
+};
+
+export type LargeEvent = {
+  type: "deposit" | "redeem" | "transfer";
+  amount_usd: number;
+  account: string;
+  txHash: string;
+};
+
+export type DailyFlow = {
+  date: string;
+  inflow_usd: number;
+  outflow_usd: number;
+  yield_usd: number;
+  large_events: LargeEvent[];
+};
+
+export type PoolFlows = {
+  poolId: string;
+  flows: DailyFlow[];
 };
 
 export type Dataset = {
@@ -57,4 +83,5 @@ export type Dataset = {
   endDate: string;
   pools: Pool[];
   histories: PoolHistory[];
+  poolFlows?: PoolFlows[];
 };
