@@ -13,6 +13,7 @@ import { formatUnits } from "viem";
 import { gql } from "../lib/centrifuge-api.js";
 import type {
   CohortRow,
+  CrossPoolOverlap,
   HolderSnapshot,
   Pool,
   PoolHistory,
@@ -117,6 +118,10 @@ async function main() {
   for (const t of tokensRes.tokens.items) decByToken.set(t.id, t.decimals ?? 18);
 
   const poolHolders: PoolHolders[] = [];
+
+  // Global: for cross-pool overlap, we also maintain a unified balance map
+  // (account, poolId) → shares, replayed across *all* pools ordered by time.
+  const globalBalance = new Map<string, Map<string, number>>(); // account → poolId → shares
 
   for (const p of pools) {
     const history = histMap.get(p.id)?.series ?? [];
@@ -277,6 +282,17 @@ async function main() {
 
     poolHolders.push({ poolId: p.id, series, top, cohorts });
 
+    // Contribute this pool's final balances to the global map
+    for (const [acct, shares] of balance) {
+      if (shares <= DUST) continue;
+      let inner = globalBalance.get(acct);
+      if (!inner) {
+        inner = new Map();
+        globalBalance.set(acct, inner);
+      }
+      inner.set(p.id, shares);
+    }
+
     const latest = series[series.length - 1];
     if (latest && latest.holders > 0) {
       console.log(
@@ -285,12 +301,70 @@ async function main() {
     }
   }
 
-  await writeFile(HOLDERS_PATH, JSON.stringify({ poolHolders }));
+  // Cross-pool overlap: for each pair of pools A,B — count investors holding
+  // active balances in both. Compute "migrated" USD as the minimum of the
+  // two balances (proxy for co-holding, not strictly migration).
+  const poolPrice = new Map<string, number>();
+  for (const p of pools) {
+    const h = histMap.get(p.id);
+    const last = h?.series[h.series.length - 1];
+    const totalShares = Array.from(globalBalance.values()).reduce(
+      (s, inner) => s + (inner.get(p.id) ?? 0),
+      0,
+    );
+    poolPrice.set(p.id, totalShares > 0 && last ? last.tvl_usd / totalShares : 1);
+  }
+
+  const pairCounts = new Map<string, { shared: number; usd: number }>();
+  for (const inner of globalBalance.values()) {
+    const poolIds = Array.from(inner.keys());
+    if (poolIds.length < 2) continue;
+    for (let i = 0; i < poolIds.length; i++) {
+      for (let j = i + 1; j < poolIds.length; j++) {
+        const a = poolIds[i];
+        const b = poolIds[j];
+        const key = a < b ? `${a}|${b}` : `${b}|${a}`;
+        const balA = inner.get(a) ?? 0;
+        const balB = inner.get(b) ?? 0;
+        const usdA = balA * (poolPrice.get(a) ?? 1);
+        const usdB = balB * (poolPrice.get(b) ?? 1);
+        const cur = pairCounts.get(key) ?? { shared: 0, usd: 0 };
+        cur.shared += 1;
+        cur.usd += Math.min(usdA, usdB);
+        pairCounts.set(key, cur);
+      }
+    }
+  }
+
+  const crossPoolOverlap: CrossPoolOverlap[] = Array.from(pairCounts.entries())
+    .map(([k, v]) => {
+      const [poolA, poolB] = k.split("|");
+      return {
+        poolA,
+        poolB,
+        shared_investors: v.shared,
+        migrated_amount_usd: v.usd,
+      };
+    })
+    .sort((a, b) => b.shared_investors - a.shared_investors);
+
+  await writeFile(HOLDERS_PATH, JSON.stringify({ poolHolders, crossPoolOverlap }));
   const current = JSON.parse(await readFile(DATASET_PATH, "utf-8")) as Record<string, unknown>;
   current.poolHolders = poolHolders;
+  current.crossPoolOverlap = crossPoolOverlap;
   current.generatedAt = new Date().toISOString();
   await writeFile(DATASET_PATH, JSON.stringify(current));
-  console.log(`\nWrote ${poolHolders.length} holder series → dataset.json`);
+  console.log(
+    `\nWrote ${poolHolders.length} holder series + ${crossPoolOverlap.length} pool-pairs → dataset.json`,
+  );
+  console.log("\nTop 5 shared-investor pairs:");
+  for (const pair of crossPoolOverlap.slice(0, 5)) {
+    const a = pools.find((p) => p.id === pair.poolA);
+    const b = pools.find((p) => p.id === pair.poolB);
+    console.log(
+      `  ${(a?.name || pair.poolA).slice(0, 32).padEnd(33)} × ${(b?.name || pair.poolB).slice(0, 32).padEnd(33)}: ${pair.shared_investors} investors, $${(pair.migrated_amount_usd / 1e6).toFixed(2)}M co-held`,
+    );
+  }
 }
 
 main().catch((e) => {

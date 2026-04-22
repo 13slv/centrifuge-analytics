@@ -25,6 +25,7 @@ type Row = {
   date: string;
   tvl_usd: number;
   apy_pct?: number | null;
+  bench_pct?: number | null;
   deposit?: number | null;
   redeem?: number | null;
   eventLabel?: string;
@@ -34,6 +35,8 @@ type TvlWithEvents = {
   data: TvlPoint[];
   flows?: DailyFlow[];
   apy?: ApyPoint[];
+  benchmark?: { date: string; value: number }[];
+  benchmarkLabel?: string;
   height?: number;
   color?: string;
 };
@@ -67,6 +70,8 @@ export function TvlChart({
   data,
   flows,
   apy,
+  benchmark,
+  benchmarkLabel,
   height = 280,
   color = "#7c5cff",
 }: TvlWithEvents) {
@@ -75,16 +80,22 @@ export function TvlChart({
     if (flows) for (const f of flows) flowMap.set(f.date, f);
     const apyMap = new Map<string, number>();
     if (apy) for (const a of apy) apyMap.set(a.date, a.apy);
+    const benchMap = new Map<string, number>();
+    if (benchmark) for (const b of benchmark) benchMap.set(b.date, b.value);
+    // forward-fill benchmark (FRED has gaps on weekends)
+    let lastBench: number | null = null;
     return data.map((p) => {
       const f = flowMap.get(p.date);
       const topEvent: LargeEvent | undefined = f?.large_events?.[0];
       const isDeposit = topEvent?.type === "deposit";
       const isRedeem = topEvent?.type === "redeem";
       const aVal = apyMap.get(p.date);
+      if (benchMap.has(p.date)) lastBench = benchMap.get(p.date)!;
       return {
         date: p.date,
         tvl_usd: p.tvl_usd,
         apy_pct: aVal != null ? aVal * 100 : null,
+        bench_pct: lastBench != null ? lastBench * 100 : null,
         deposit: isDeposit ? p.tvl_usd : null,
         redeem: isRedeem ? p.tvl_usd : null,
         eventLabel: topEvent
@@ -92,8 +103,9 @@ export function TvlChart({
           : undefined,
       };
     });
-  }, [data, flows, apy]);
+  }, [data, flows, apy, benchmark]);
   const hasApy = rows.some((r) => r.apy_pct != null);
+  const hasBench = rows.some((r) => r.bench_pct != null);
 
   if (rows.length === 0) {
     return (
@@ -130,7 +142,7 @@ export function TvlChart({
           tickFormatter={fmt}
           width={60}
         />
-        {hasApy && (
+        {(hasApy || hasBench) && (
           <YAxis
             yAxisId="apy"
             orientation="right"
@@ -156,6 +168,10 @@ export function TvlChart({
               const num = Number(v ?? 0);
               return [`${num.toFixed(2)}%`, "APY 30d"];
             }
+            if (nm === "bench_pct") {
+              const num = Number(v ?? 0);
+              return [`${num.toFixed(2)}%`, benchmarkLabel ?? "Benchmark"];
+            }
             const payload = item?.payload as Row | undefined;
             if (nm === "deposit") return [payload?.eventLabel ?? "", "Large deposit"];
             if (nm === "redeem") return [payload?.eventLabel ?? "", "Large redeem"];
@@ -178,6 +194,18 @@ export function TvlChart({
             dataKey="apy_pct"
             stroke="#f59e0b"
             strokeWidth={1.5}
+            dot={false}
+            isAnimationActive={false}
+          />
+        )}
+        {hasBench && (
+          <Line
+            yAxisId="apy"
+            type="monotone"
+            dataKey="bench_pct"
+            stroke="#64748b"
+            strokeWidth={1.5}
+            strokeDasharray="4 3"
             dot={false}
             isAnimationActive={false}
           />

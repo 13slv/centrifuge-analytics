@@ -3,11 +3,14 @@ import { getDataset } from "@/lib/data.server";
 import { formatUsd, totalTvlByDate, currentTvl } from "@/lib/data";
 import { TvlChart } from "@/components/TvlChart";
 import { PoolsTable } from "@/components/PoolsTable";
+import { AssetClassDrift } from "@/components/AssetClassDrift";
+import { CrossPoolOverlapList } from "@/components/CrossPoolOverlap";
 
 export const revalidate = 3600;
 
 export default async function HomePage() {
-  const { pools, histories, generatedAt, startDate, endDate } = await getDataset();
+  const { pools, histories, generatedAt, startDate, endDate, crossPoolOverlap } =
+    await getDataset();
   const histMap = new Map(histories.map((h) => [h.poolId, h]));
   const total = totalTvlByDate(pools, histories);
   const latest = total[total.length - 1]?.tvl_usd ?? 0;
@@ -55,6 +58,13 @@ export default async function HomePage() {
         <TvlChart data={total} height={320} />
       </section>
 
+      <section className="mb-10">
+        <h2 className="text-sm text-neutral-400 mb-3">
+          Asset-class market-share drift (stacked, % of total TVL)
+        </h2>
+        <AssetClassDrift pools={pools} histories={histories} mode="share" />
+      </section>
+
       <section className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
         <div>
           <h2 className="text-sm text-neutral-400 mb-3">TVL by asset class</h2>
@@ -65,6 +75,15 @@ export default async function HomePage() {
           <BreakdownList rows={chainRows} />
         </div>
       </section>
+
+      {crossPoolOverlap && crossPoolOverlap.length > 0 && (
+        <section className="mb-10">
+          <h2 className="text-sm text-neutral-400 mb-3">
+            Cross-pool investor overlap — where the same whales appear
+          </h2>
+          <CrossPoolOverlapList overlap={crossPoolOverlap} pools={pools} limit={10} />
+        </section>
+      )}
 
       <section>
         <div className="flex items-baseline justify-between mb-3">

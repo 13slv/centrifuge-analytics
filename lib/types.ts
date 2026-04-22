@@ -113,4 +113,16 @@ export type Dataset = {
   histories: PoolHistory[];
   poolFlows?: PoolFlows[];
   poolHolders?: PoolHolders[];
+  benchmarks?: {
+    ust_3m: { date: string; value: number }[];
+    aaa_corp: { date: string; value: number }[];
+  };
+  crossPoolOverlap?: CrossPoolOverlap[];
+};
+
+export type CrossPoolOverlap = {
+  poolA: string;
+  poolB: string;
+  shared_investors: number;
+  migrated_amount_usd: number; // shares that moved between the two (rough)
 };

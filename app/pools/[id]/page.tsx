@@ -17,7 +17,7 @@ export default async function PoolPage({
 }) {
   const { id } = await params;
   const poolId = decodeURIComponent(id);
-  const { pools, histories, poolFlows, poolHolders } = await getDataset();
+  const { pools, histories, poolFlows, poolHolders, benchmarks } = await getDataset();
   const pool = pools.find((p) => p.id === poolId);
   if (!pool) notFound();
   const history = histories.find((h) => h.poolId === pool.id);
@@ -31,6 +31,21 @@ export default async function PoolPage({
   const totalOutflow = flows.reduce((s, f) => s + f.outflow_usd, 0);
   const totalYield = flows.reduce((s, f) => s + f.yield_usd, 0);
   const holders = poolHolders?.find((h) => h.poolId === pool.id);
+
+  // Pick a relevant benchmark by asset class
+  const classLower = pool.assetClass.toLowerCase();
+  const benchmark =
+    classLower.includes("treasury") || classLower.includes("tokenized notes") || classLower.includes("public credit")
+      ? benchmarks?.ust_3m
+      : classLower.includes("clo") || classLower.includes("structured credit") || classLower.includes("aaa")
+        ? benchmarks?.aaa_corp
+        : undefined;
+  const benchmarkLabel =
+    benchmark === benchmarks?.ust_3m
+      ? "3M T-Bill"
+      : benchmark === benchmarks?.aaa_corp
+        ? "AAA Corp"
+        : undefined;
 
   return (
     <main className="max-w-5xl mx-auto px-6 py-10">
@@ -77,7 +92,20 @@ export default async function PoolPage({
           TVL <span className="text-violet-400">(left)</span> · APY 30d{" "}
           <span className="text-amber-400">(right)</span> · events marked on the curve
         </h2>
-        <TvlChart data={series} flows={flows} apy={apy} height={340} />
+        <TvlChart
+          data={series}
+          flows={flows}
+          apy={apy}
+          benchmark={benchmark}
+          benchmarkLabel={benchmarkLabel}
+          height={340}
+        />
+        {benchmark && (
+          <p className="text-xs text-neutral-500 mt-1">
+            Dashed grey line: <span className="text-neutral-300">{benchmarkLabel}</span>{" "}
+            (FRED) — benchmark for this asset class.
+          </p>
+        )}
       </section>
 
       <section className="mb-8">

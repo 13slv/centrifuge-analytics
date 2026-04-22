@@ -10,6 +10,7 @@
     "backfill": "tsx scripts/backfill.ts",
     "flows": "tsx scripts/flows.ts",
     "holders": "tsx scripts/holders.ts",
+    "benchmarks": "tsx scripts/benchmarks.ts",
     "update": "tsx scripts/update-daily.ts"
   },
   "dependencies": {
