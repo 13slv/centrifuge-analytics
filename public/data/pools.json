@@ -1,0 +1,1022 @@
+{
+  "generatedAt": "2026-04-22T20:19:04.361Z",
+  "pools": [
+    {
+      "id": "0x09e43329552c9D81cF205Fd5f44796fBC40c822e",
+      "version": "tinlake_v2",
+      "chain": "ethereum",
+      "name": "REIF Pool",
+      "shortName": "REIF Pool",
+      "slug": "reif-pool-1",
+      "issuer": "REIF Pool LLC",
+      "assetClass": "Commercial Real Estate",
+      "currency": "DAI",
+      "status": "closed",
+      "createdAt": "",
+      "description": "REIF Financial Investments Inc. (REIF) is an asset management company focusing on acquiring commercial real estate assets from established asset originators. REIF was founded in 2021. REIF will loan capital secured by real estate to finance commercial and construction projects. This pool will consist of a portfolio of first and second secured position commercial real estate loans. The initial asset originator is Forge & Foster, a commercial real estate developer based in Ontario, Canada with $250 million CAD in assets under management of commercial real estate. The average maturity of assets is 18 months.",
+      "tranches": [
+        {
+          "id": "0x09e43329552c9D81cF205Fd5f44796fBC40c822e-senior",
+          "address": "0x51dC27863Ea67f311bD3DB0d5c027d5B04Ae6c2B",
+          "symbol": "DROP",
+          "seniority": "senior",
+          "decimals": 18
+        },
+        {
+          "id": "0x09e43329552c9D81cF205Fd5f44796fBC40c822e-junior",
+          "address": "0x428065862d8cd262E0248D57935f436eC264cBEb",
+          "symbol": "TIN",
+          "seniority": "junior",
+          "decimals": 18
+        }
+      ],
+      "rootAddress": "0x09e43329552c9D81cF205Fd5f44796fBC40c822e",
+      "reserveAddress": "0xdcc68229b0d0Fb7668F3304D88ee9A2738a7B51D",
+      "assessorAddress": "0xbAC0588400b84367E1F9601b96ac6C7f3e28F979"
+    },
+    {
+      "id": "0x0CED6166873038Ac0cc688e7E6d19E2cBE251Bf0",
+      "version": "tinlake_v2",
+      "chain": "ethereum",
+      "name": "1754 Factory (Bling Series 1)",
+      "shortName": "Bling Series 1",
+      "slug": "bling-series-1",
+      "issuer": "1754 Factory, LLC (Bling Series 1)",
+      "assetClass": "Payment Advances",
+      "currency": "DAI",
+      "status": "closed",
+      "createdAt": "",
+      "description": "1754 Factory LLC is a Delaware Series LLC created and managed by Davoa Capital to provide short term cash advances to Bling customers. Bling is a mobile app for french consumers that offers cash advances up to €200. 1754 Factory has entered  into an institutional purchase agreement to buy Bling bonds. Bling bonds are sold at par at €10,000 and they include over 125 micro loans that average €80. This Tinlake pool launched with 17 longer term Bling bonds and intends to steadily grow the pool with a rolling maturity of ninety days to provide frequent liquidity.",
+      "tranches": [
+        {
+          "id": "0x0CED6166873038Ac0cc688e7E6d19E2cBE251Bf0-senior",
+          "address": "0x1AEFc15dE9C2E1Ebb97146c3C2CDC4fc0aD539bC",
+          "symbol": "DROP",
+          "seniority": "senior",
+          "decimals": 18
+        },
+        {
+          "id": "0x0CED6166873038Ac0cc688e7E6d19E2cBE251Bf0-junior",
+          "address": "0xAC1C0F9e1FB54694F43754b044B464B981554D8d",
+          "symbol": "TIN",
+          "seniority": "junior",
+          "decimals": 18
+        }
+      ],
+      "rootAddress": "0x0CED6166873038Ac0cc688e7E6d19E2cBE251Bf0",
+      "reserveAddress": "0x932344bA99BF34035B4bc25CBd98f912eBC60371",
+      "assessorAddress": "0x2B8feA4eEDB43fCa58ccb063221FaE5858b47538"
+    },
+    {
+      "id": "0x3170D353772eD68676044f8b76F0641B2cbA084E",
+      "version": "tinlake_v2",
+      "chain": "ethereum",
+      "name": "Fortunafi Series 2",
+      "shortName": "Fortunafi 2",
+      "slug": "fortunafi-2",
+      "issuer": "Fortunafi Asset Management LLC (Series 2)",
+      "assetClass": "Institutional Loans",
+      "currency": "DAI",
+      "status": "closed",
+      "createdAt": "",
+      "description": "Fortunafi is a capital provider bringing real-world assets to DeFi. The Fortunafi Series 2 pool focuses on income generating assets primarily consisting of various structured loans, secured loans, or mezzanine financings, across a variety of sectors. Assets are originated mainly by established financial institutions which have over one billion dollars in assets under management, or an operating history including transactions with an aggregate value in excess of one billion dollars. Assets in this Tinlake pool have a maturity of 2-4 years.",
+      "tranches": [
+        {
+          "id": "0x3170D353772eD68676044f8b76F0641B2cbA084E-senior",
+          "address": "0x09bE88eB18bc1659BB1d6Ec7d8F1d37aeEdf4756",
+          "symbol": "DROP",
+          "seniority": "senior",
+          "decimals": 18
+        },
+        {
+          "id": "0x3170D353772eD68676044f8b76F0641B2cbA084E-junior",
+          "address": "0x0754576bd4e5078e6eB8B0D57346f8eB135C256A",
+          "symbol": "TIN",
+          "seniority": "junior",
+          "decimals": 18
+        }
+      ],
+      "rootAddress": "0x3170D353772eD68676044f8b76F0641B2cbA084E",
+      "reserveAddress": "0x101e8F7598639BF3d1320AC9999977A0678AA186",
+      "assessorAddress": "0x038a0a70E99D2fD12d7D9FeFD912c9A8E670eB83"
+    },
+    {
+      "id": "0x3B03863BD553C4CE07eABF2278016533451c9101",
+      "version": "tinlake_v2",
+      "chain": "ethereum",
+      "name": "Cauris Global Fintech Fund 1",
+      "shortName": "Cauris Global Fintech 1",
+      "slug": "cauris-fintech-1",
+      "issuer": "Cauris Global Fintech LLC",
+      "assetClass": "Fintech Debt Financing",
+      "currency": "DAI",
+      "status": "closed",
+      "createdAt": "",
+      "description": "Cauris is a DeFi debt fund with the mission of giving access to capital to 100 million people across the world. The pool seeks to generate uncorrelated and excess risk-adjusted returns to its investors by providing secured loans to fintechs that lend to consumers and small businesses in the Global South and Europe. Cauris was founded in 2021 and has since originated over $5M in loans that impacted over 300,000 borrowers. This Tinlake pool will consist of tranches of secured debentures with maturities ranging from one to three years.",
+      "tranches": [
+        {
+          "id": "0x3B03863BD553C4CE07eABF2278016533451c9101-senior",
+          "address": "0xB4c017D5b20A5A1C25F6223eB5D920bd1577C850",
+          "symbol": "DROP",
+          "seniority": "senior",
+          "decimals": 18
+        },
+        {
+          "id": "0x3B03863BD553C4CE07eABF2278016533451c9101-junior",
+          "address": "0x715908cf310A741F085E8487Ae981a0c2fF15F93",
+          "symbol": "TIN",
+          "seniority": "junior",
+          "decimals": 18
+        }
+      ],
+      "rootAddress": "0x3B03863BD553C4CE07eABF2278016533451c9101",
+      "reserveAddress": "0xB15cCB81F633B98845a0F6C91a89483298A41cC3",
+      "assessorAddress": "0x909127EEec2797804ee62E196e6e731D6eb2d037"
+    },
+    {
+      "id": "0x3d167bd08f762FD391694c67B5e6aF0868c45538",
+      "version": "tinlake_v2",
+      "chain": "ethereum",
+      "name": "GIG Economy Pool",
+      "shortName": "GIG Pool",
+      "slug": "gig-pool",
+      "issuer": "END_Bridge LLC",
+      "assetClass": "Gig Economy Payment Advances",
+      "currency": "DAI",
+      "status": "closed",
+      "createdAt": "",
+      "description": "The GIG Pool will help Gig economy workers to get paid on demand for their services. The GIG pool will provide payment advances to freelancers, influencers, artists and other types of Gig economy workers. Initially the GIG pool will support Gig workers from Uber, Lyft, Instacart, Doordash, Upwork, Postmates, Shipt, and Amazon Flex and it will quickly expand to additional partners. It will consist of a portfolio of payment advances structured with a typical maturity of 30-90 days.",
+      "tranches": [
+        {
+          "id": "0x3d167bd08f762FD391694c67B5e6aF0868c45538-senior",
+          "address": "0xA08399989e77B8Ce8Dd68374cC7b4345304b3161",
+          "symbol": "DROP",
+          "seniority": "senior",
+          "decimals": 18
+        },
+        {
+          "id": "0x3d167bd08f762FD391694c67B5e6aF0868c45538-junior",
+          "address": "0x6408E86B8F80F6c265a5ECDa0c3a9f654f9Cc80F",
+          "symbol": "TIN",
+          "seniority": "junior",
+          "decimals": 18
+        }
+      ],
+      "rootAddress": "0x3d167bd08f762FD391694c67B5e6aF0868c45538",
+      "reserveAddress": "0x1794A4B29fF2eCdC044Ad5d4972Fa118D4C121b9",
+      "assessorAddress": "0x87C67534d9aF78d678101f2dE0F796F4d911697a"
+    },
+    {
+      "id": "0x4597f91cC06687Bdb74147C80C097A79358Ed29b",
+      "version": "tinlake_v2",
+      "chain": "ethereum",
+      "name": "BlockTower Series 1",
+      "shortName": "BT1",
+      "slug": "blocktower-1",
+      "issuer": "BlockTower Series 1",
+      "assetClass": "Whole Loans",
+      "currency": "DAI",
+      "status": "closed",
+      "createdAt": "",
+      "description": "BlockTower Credit is the credit franchise of BlockTower Capital, an SEC-registered digital asset and blockchain investment firm founded in 2017. Within BlockTower Credit, we apply the skills of professional underwriting, structuring and investing at the intersection of real-world credit (a massive but anachronistic traditional industry) and crypto. This Tinlake Pool deploys capital into Whole Loans or Receivables purchased in bulk transactions.",
+      "tranches": [
+        {
+          "id": "0x4597f91cC06687Bdb74147C80C097A79358Ed29b-senior",
+          "address": "0x0b304DfFa350B32f608FF3c69f1cE511c11554cF",
+          "symbol": "DROP",
+          "seniority": "senior",
+          "decimals": 18
+        },
+        {
+          "id": "0x4597f91cC06687Bdb74147C80C097A79358Ed29b-junior",
+          "address": "0x2E20940022B4d8aa1E9E63000136D24957324B8B",
+          "symbol": "TIN",
+          "seniority": "junior",
+          "decimals": 18
+        }
+      ],
+      "rootAddress": "0x4597f91cC06687Bdb74147C80C097A79358Ed29b",
+      "reserveAddress": "0x50f8a1cDEdD9AEf2901C7ec0859D8adbF61B1263",
+      "assessorAddress": "0x9A359b74BaDd48c23A0A848d149D96B87816F944"
+    },
+    {
+      "id": "0x4B6CA198d257D755A5275648D471FE09931b764A",
+      "version": "tinlake_v2",
+      "chain": "ethereum",
+      "name": "Fortunafi Series 1",
+      "shortName": "Fortunafi 1",
+      "slug": "fortunafi-1",
+      "issuer": "Fortunafi Asset Management LLC (Series 1)",
+      "assetClass": "Revenue Based Financing",
+      "currency": "DAI",
+      "status": "closed",
+      "createdAt": "",
+      "description": "Fortunafi Asset Management is a technology enabled revenue based finance provider. Revenue based financing provides capital to small or growing businesses in return for a fixed percentage of ongoing gross revenues. Thus payments increase and decrease based on business revenues, typically measured as monthly revenue. Usually the returns to the investor continue until the initial capital amount, plus a multiple (also known as a cap) is repaid. This Tinlake pool is composed of a portfolio of revenue based financing agreements with an average maturity of twenty four months.",
+      "tranches": [
+        {
+          "id": "0x4B6CA198d257D755A5275648D471FE09931b764A-senior",
+          "address": "0x44718d306a8Fa89545704Ae38B2B97c06bF11FC1",
+          "symbol": "DROP",
+          "seniority": "senior",
+          "decimals": 18
+        },
+        {
+          "id": "0x4B6CA198d257D755A5275648D471FE09931b764A-junior",
+          "address": "0xf2dEB8F74C5dDA88CCD606ea88cCD3fC9FC98a1F",
+          "symbol": "TIN",
+          "seniority": "junior",
+          "decimals": 18
+        }
+      ],
+      "rootAddress": "0x4B6CA198d257D755A5275648D471FE09931b764A",
+      "reserveAddress": "0xd9Cec614db2b5A7490dF2462A4621D96bCD4bfE2",
+      "assessorAddress": "0xCC2cA000DB7Df0499667ca4048987727151b0b1f"
+    },
+    {
+      "id": "0x4cA805cE8EcE2E63FfC1F9f8F2731D3F48DF89Df",
+      "version": "tinlake_v2",
+      "chain": "ethereum",
+      "name": "Harbor Trade Credit Series 2",
+      "shortName": "Harbor Trade 2",
+      "slug": "harbor-trade-2",
+      "issuer": "Harbor Trade Credit Series LLC (Series 2)",
+      "assetClass": "Trade Receivables",
+      "currency": "DAI",
+      "status": "closed",
+      "createdAt": "",
+      "description": "Harbor is a fintech company focused on Supply Chain Finance (SCF) and working capital solutions to improve the cash conversion cycle. Harbor's trade finance programs accelerate supplier payments to achieve buyer and supplier's liquidity needs. This Tinlake pool is financing a portfolio of SCF invoices with a typical maturity of sixty to one hundred twenty days.",
+      "tranches": [
+        {
+          "id": "0x4cA805cE8EcE2E63FfC1F9f8F2731D3F48DF89Df-senior",
+          "address": "0xd511397f79b112638ee3B6902F7B53A0A23386C4",
+          "symbol": "DROP",
+          "seniority": "senior",
+          "decimals": 18
+        },
+        {
+          "id": "0x4cA805cE8EcE2E63FfC1F9f8F2731D3F48DF89Df-junior",
+          "address": "0xAA67Bb563e14fBd4E92DCc646aAac0c00c7d9526",
+          "symbol": "TIN",
+          "seniority": "junior",
+          "decimals": 18
+        }
+      ],
+      "rootAddress": "0x4cA805cE8EcE2E63FfC1F9f8F2731D3F48DF89Df",
+      "reserveAddress": "0x86284A692430c25EfF37007c5707a530A6d63A41",
+      "assessorAddress": "0xf2ED14102ee9D86606Ec24E48e89060ADB6DeFdb"
+    },
+    {
+      "id": "0x53b2d22d07E069a3b132BfeaaD275b10273d381E",
+      "version": "tinlake_v2",
+      "chain": "ethereum",
+      "name": "New Silver Series 2",
+      "shortName": "New Silver 2",
+      "slug": "new-silver-2",
+      "issuer": "NS Pool LLC",
+      "assetClass": "Real Estate Bridge Loans",
+      "currency": "DAI",
+      "status": "closed",
+      "createdAt": "",
+      "description": "Founded in 2018, New Silver is a technology enabled non-bank lender primarily focused on providing real estate-backed financing for the United States “fix and flip” sector with a concentration on single-family residential assets. Bridge loans, also referred to as fix and flip loans allow real estate investors to finance both the purchase and the construction, or in some cases, refinance an existing investment property with sufficient equity. This Tinlake pool is financing a portfolio of real estate bridge loans that are extended to real estate developers with a maturity of twelve to twenty four months.",
+      "tranches": [
+        {
+          "id": "0x53b2d22d07E069a3b132BfeaaD275b10273d381E-senior",
+          "address": "0xE4C72b4dE5b0F9ACcEA880Ad0b1F944F85A9dAA0",
+          "symbol": "DROP",
+          "seniority": "senior",
+          "decimals": 18
+        },
+        {
+          "id": "0x53b2d22d07E069a3b132BfeaaD275b10273d381E-junior",
+          "address": "0x961e1d4c9A7C0C3e05F17285f5FA34A66b62dBb1",
+          "symbol": "TIN",
+          "seniority": "junior",
+          "decimals": 18
+        }
+      ],
+      "rootAddress": "0x53b2d22d07E069a3b132BfeaaD275b10273d381E",
+      "reserveAddress": "0x1f5Fa2E665609CE4953C65CE532Ac8B47EC97cD5",
+      "assessorAddress": "0x83E2369A33104120746B589Cc90180ed776fFb91"
+    },
+    {
+      "id": "0x55d86d51Ac3bcAB7ab7d2124931FbA106c8b60c7",
+      "version": "tinlake_v2",
+      "chain": "ethereum",
+      "name": "BlockTower Series 4",
+      "shortName": "BT4",
+      "slug": "blocktower-4",
+      "issuer": "BlockTower Series 4",
+      "assetClass": "Structured Credit",
+      "currency": "DAI",
+      "status": "closed",
+      "createdAt": "",
+      "description": "BlockTower Credit is the credit franchise of BlockTower Capital, an SEC-registered digital asset and blockchain investment firm founded in 2017. Within BlockTower Credit, we apply the skills of professional underwriting, structuring and investing at the intersection of real-world credit (a massive but anachronistic traditional industry) and crypto. This Tinlake Pool deploys capital into Structured Credit products will have an investment-grade rating and typically maintain a weighted average life (WAL) of less than four years. The Structured Credit products will generally fall into three major buckets: consumer ABS, auto ABS, and CLO.",
+      "tranches": [
+        {
+          "id": "0x55d86d51Ac3bcAB7ab7d2124931FbA106c8b60c7-senior",
+          "address": "0x306cC70e3BCB03f47586b83d35698dd783C91390",
+          "symbol": "DROP",
+          "seniority": "senior",
+          "decimals": 18
+        },
+        {
+          "id": "0x55d86d51Ac3bcAB7ab7d2124931FbA106c8b60c7-junior",
+          "address": "0xf64ADB63E65950264dB47902c998EA4B1f155332",
+          "symbol": "TIN",
+          "seniority": "junior",
+          "decimals": 18
+        }
+      ],
+      "rootAddress": "0x55d86d51Ac3bcAB7ab7d2124931FbA106c8b60c7",
+      "reserveAddress": "0xeeAEb5dD73F59b985620bA957C7c1917efCAa36b",
+      "assessorAddress": "0x3540948a82B7dA7078A635f9c806023bc146eEA0"
+    },
+    {
+      "id": "0x560Ac248ce28972083B718778EEb0dbC2DE55740",
+      "version": "tinlake_v2",
+      "chain": "ethereum",
+      "name": "Branch Series 3 (1754 Factory)",
+      "shortName": "Branch Series 3",
+      "slug": "branch-3",
+      "issuer": "1754 Factory Series 3",
+      "assetClass": "Emerging Market Consumer Loans",
+      "currency": "DAI",
+      "status": "closed",
+      "createdAt": "",
+      "description": "Branch is a financial technology company that lends money to consumers using machine learning algorithms to determine credit worthiness via customers' smartphones. Branch was founded in 2015 and has operations in Kenya, Nigeria, Tanzania, Mexico and India, and has since originated over $500M in loans to over 4 millions borrowers. This Tinlake pool will consist of tranches of a secured non convertible debenture with a maturity of 3 years backed by a portfolio of loans made to customers.The current weighted average loan balance is $49 (ranging from $6 to $2,500) with average maturity of 70 days.",
+      "tranches": [
+        {
+          "id": "0x560Ac248ce28972083B718778EEb0dbC2DE55740-senior",
+          "address": "0x8d2b8Df9Cb35B875F9726F43a013caF16aEFA472",
+          "symbol": "DROP",
+          "seniority": "senior",
+          "decimals": 18
+        },
+        {
+          "id": "0x560Ac248ce28972083B718778EEb0dbC2DE55740-junior",
+          "address": "0xd0E93A90556c92eE8E100C7c2Dd008fb650B0712",
+          "symbol": "TIN",
+          "seniority": "junior",
+          "decimals": 18
+        }
+      ],
+      "rootAddress": "0x560Ac248ce28972083B718778EEb0dbC2DE55740",
+      "reserveAddress": "0xB74C0A7929F5c35E5F4e74b628eE32a35a7535D7",
+      "assessorAddress": "0x546F37C27483ffd6deC56076d0F8b4B636C5616B"
+    },
+    {
+      "id": "0x82B8617A16e388256617FeBBa1826093401a3fE5",
+      "version": "tinlake_v2",
+      "chain": "ethereum",
+      "name": "Paperchain Series 3",
+      "shortName": "Paperchain 3",
+      "slug": "paperchain-3",
+      "issuer": "Paperchain LLC (Series 3)",
+      "assetClass": "Music Streaming Invoices",
+      "currency": "DAI",
+      "status": "closed",
+      "createdAt": "",
+      "description": "Paperchain operates at the intersection of media, finance, and technology, connecting to the largest media streaming platforms and offering creators a non-dilutive funding model via innovative use of media data streams and investment products. This provides an easy and fast way for artists and media companies to access their streaming revenue. Paperchain works with Merlin, a collective licensing aggregator that represents thousands of labels worldwide negotiating licensing agreements with leading streaming platforms such as Spotify. This Tinlake pool is financing a portfolio of music streaming invoices with a maturity of forty five to sixty days.",
+      "tranches": [
+        {
+          "id": "0x82B8617A16e388256617FeBBa1826093401a3fE5-senior",
+          "address": "0x94E64afed0dB0A5E6FDb8f53efea3475E7760Dfd",
+          "symbol": "DROP",
+          "seniority": "senior",
+          "decimals": 18
+        },
+        {
+          "id": "0x82B8617A16e388256617FeBBa1826093401a3fE5-junior",
+          "address": "0xFa0576268C920f4A7EC6f0299d696D3c29a868d7",
+          "symbol": "TIN",
+          "seniority": "junior",
+          "decimals": 18
+        }
+      ],
+      "rootAddress": "0x82B8617A16e388256617FeBBa1826093401a3fE5",
+      "reserveAddress": "0xB873c152C06be54C704F891E37A7e3B554514964",
+      "assessorAddress": "0x966F53cb928ab361714AF16E301e82fDf01bCbb9"
+    },
+    {
+      "id": "0x90040F96aB8f291b6d43A8972806e977631aFFdE",
+      "version": "tinlake_v2",
+      "chain": "ethereum",
+      "name": "BlockTower Series 3",
+      "shortName": "BT3",
+      "slug": "blocktower-3",
+      "issuer": "BlockTower Series 3",
+      "assetClass": "Structured Credit",
+      "currency": "DAI",
+      "status": "closed",
+      "createdAt": "",
+      "description": "BlockTower Credit is the credit franchise of BlockTower Capital, an SEC-registered digital asset and blockchain investment firm founded in 2017. Within BlockTower Credit, we apply the skills of professional underwriting, structuring and investing at the intersection of real-world credit (a massive but anachronistic traditional industry) and crypto. This Tinlake Pool deploys capital into Structured Credit products will have an investment-grade rating and typically maintain a weighted average life (WAL) of less than four years. The Structured Credit products will generally fall into three major buckets: consumer ABS, auto ABS, and CLO.",
+      "tranches": [
+        {
+          "id": "0x90040F96aB8f291b6d43A8972806e977631aFFdE-senior",
+          "address": "0x1407e60059121780f05e90D4bCE14B14D003b8EF",
+          "symbol": "DROP",
+          "seniority": "senior",
+          "decimals": 18
+        },
+        {
+          "id": "0x90040F96aB8f291b6d43A8972806e977631aFFdE-junior",
+          "address": "0x7D8677Ed33525b64Feb7cD86dBDB66B75a6e9ffa",
+          "symbol": "TIN",
+          "seniority": "junior",
+          "decimals": 18
+        }
+      ],
+      "rootAddress": "0x90040F96aB8f291b6d43A8972806e977631aFFdE",
+      "reserveAddress": "0xB54900Bcc0674e356627B58420FD051f2D47B9e9",
+      "assessorAddress": "0xFe37f99cd0597164BFdaBFB7c9f98E4fc44BeF52"
+    },
+    {
+      "id": "0xB5c08534d1E73582FBd79e7C45694CAD6A5C5aB2",
+      "version": "tinlake_v2",
+      "chain": "ethereum",
+      "name": "BlockTower Series 2",
+      "shortName": "BT2",
+      "slug": "blocktower-2",
+      "issuer": "BlockTower Series 2",
+      "assetClass": "Debt Facilities",
+      "currency": "DAI",
+      "status": "closed",
+      "createdAt": "",
+      "description": "BlockTower Credit is the credit franchise of BlockTower Capital, an SEC-registered digital asset and blockchain investment firm founded in 2017. Within BlockTower Credit, we apply the skills of professional underwriting, structuring and investing at the intersection of real-world credit (a massive but anachronistic traditional industry) and crypto. This Tinlake pool deploys capital into traditional asset-backed private credit strategies that primarily fintech and non-bank originators via senior secured debt facilities.",
+      "tranches": [
+        {
+          "id": "0xB5c08534d1E73582FBd79e7C45694CAD6A5C5aB2-senior",
+          "address": "0x1a9cfB3c4D7202a428955D2baBdE5Bbb19621170",
+          "symbol": "DROP",
+          "seniority": "senior",
+          "decimals": 18
+        },
+        {
+          "id": "0xB5c08534d1E73582FBd79e7C45694CAD6A5C5aB2-junior",
+          "address": "0x170Ccfce8eB96418c57E5DBe47B80291D6144b18",
+          "symbol": "TIN",
+          "seniority": "junior",
+          "decimals": 18
+        }
+      ],
+      "rootAddress": "0xB5c08534d1E73582FBd79e7C45694CAD6A5C5aB2",
+      "reserveAddress": "0x86ADe02617911d2BF020b29B3035e6B3d805992d",
+      "assessorAddress": "0x03354D4E877aE79Aba6a7955fa7B80aF0A4Ace8d"
+    },
+    {
+      "id": "0xF96F18F2c70b57Ec864cC0C8b828450b82Ff63e3",
+      "version": "tinlake_v2",
+      "chain": "ethereum",
+      "name": "ALT 1.0 SPV",
+      "shortName": "ALT 1.0",
+      "slug": "alt-1",
+      "issuer": "ALT 1.0 SPV, LLC",
+      "assetClass": "Invoice Financing and Accounts Receivable",
+      "currency": "DAI",
+      "status": "closed",
+      "createdAt": "",
+      "description": "Alternative is reimagining financial services, beginning with lending, providing companies with simple, customizable financing solutions. We are fully tech-enabled and offer solutions directly to businesses as well as to businesses' end-customers. Our solutions are unique, simplistic and streamline the entire financing process so that companies may access funding on their terms.",
+      "tranches": [
+        {
+          "id": "0xF96F18F2c70b57Ec864cC0C8b828450b82Ff63e3-senior",
+          "address": "0x68480cB5fAD8e274ad1F7E68163aC3DdAE5368Aa",
+          "symbol": "DROP",
+          "seniority": "senior",
+          "decimals": 18
+        },
+        {
+          "id": "0xF96F18F2c70b57Ec864cC0C8b828450b82Ff63e3-junior",
+          "address": "0x802eDAF16Fe5892410209149bFE63505Fb946A19",
+          "symbol": "TIN",
+          "seniority": "junior",
+          "decimals": 18
+        }
+      ],
+      "rootAddress": "0xF96F18F2c70b57Ec864cC0C8b828450b82Ff63e3",
+      "reserveAddress": "0x35F7dE72c8597599ef4F2a18EAfd162257301435",
+      "assessorAddress": "0x623419515a24F2F5d9c9d48cA27969aD107E7a6f"
+    },
+    {
+      "id": "0xd8486C565098360A24f858088a6D29a380dDF7ec",
+      "version": "tinlake_v2",
+      "chain": "ethereum",
+      "name": "Flowcarbon Nature Offsets Series 1",
+      "shortName": "FNO1",
+      "slug": "flowcarbon-1",
+      "issuer": "Flowcarbon Nature Offsets LLC",
+      "assetClass": "Voluntary Carbon Offsets",
+      "currency": "DAI",
+      "status": "closed",
+      "createdAt": "",
+      "description": "Flowcarbon is a pioneering climate tech company bringing carbon offsets onto the blockchain. Its mission is to make carbon markets accessible and transparent, enabling billions of dollars to be invested directly into projects that combat climate change. This first pool was created to finance important conservation work and carbon avoidance in the Corazón Verde Del Chaco Project (VCS 2611), located in Paraguay within the Gran Chaco Forest. The Gran Chaco is the second-largest forest in South America, behind only the Amazon rainforest and it has one of the highest deforestation rates on the planet due to conversion to cropland and pasture for cattle.",
+      "tranches": [
+        {
+          "id": "0xd8486C565098360A24f858088a6D29a380dDF7ec-senior",
+          "address": "0xD8196c060D3A903750DA9B1cdcf5A3C43AAB9FD8",
+          "symbol": "DROP",
+          "seniority": "senior",
+          "decimals": 18
+        },
+        {
+          "id": "0xd8486C565098360A24f858088a6D29a380dDF7ec-junior",
+          "address": "0xf3e5FF4325a3E735262e959cdcBC969f882c1067",
+          "symbol": "TIN",
+          "seniority": "junior",
+          "decimals": 18
+        }
+      ],
+      "rootAddress": "0xd8486C565098360A24f858088a6D29a380dDF7ec",
+      "reserveAddress": "0xc156Aa23A29Ef7678b4DEC5b812B84797Ed21ee0",
+      "assessorAddress": "0x28D56f3286c400c16e2aFBBA6989d7BfAA4FCA7c"
+    },
+    {
+      "id": "0xdB3bC9fB1893222d266762e9fF857EB74D75c7D6",
+      "version": "tinlake_v2",
+      "chain": "ethereum",
+      "name": "ConsolFreight Series 4",
+      "shortName": "ConsolFreight 4",
+      "slug": "consolfreight-4",
+      "issuer": "ConsolFreight Pilot LLC (Series 4)",
+      "assetClass": "Cargo & Freight Forwarding Invoices",
+      "currency": "DAI",
+      "status": "closed",
+      "createdAt": "",
+      "description": "ConsolFreight is a trade finance and factoring provider focused on helping SMEs and developing countries. CFs advances working capital finance to stakeholders involved in international trading of goods and services. ConsolFreight is active in both trade finance and freight forwarding transactions. Trade finance transactions involve advancing capital to shippers and collecting from the buyers, while financing freight forwarding invoices involves advancing funds to freight forwarders and collecting from shippers. This Tinlake pool is financing a combined portfolio of trade finance transactions and freight forwarding invoices with a 30 to 90 day maturity.",
+      "tranches": [
+        {
+          "id": "0xdB3bC9fB1893222d266762e9fF857EB74D75c7D6-senior",
+          "address": "0x5b2F0521875B188C0afc925B1598e1FF246F9306",
+          "symbol": "DROP",
+          "seniority": "senior",
+          "decimals": 18
+        },
+        {
+          "id": "0xdB3bC9fB1893222d266762e9fF857EB74D75c7D6-junior",
+          "address": "0x05DD145AA26dBDcc7774E4118E34Bb67C64661c6",
+          "symbol": "TIN",
+          "seniority": "junior",
+          "decimals": 18
+        }
+      ],
+      "rootAddress": "0xdB3bC9fB1893222d266762e9fF857EB74D75c7D6",
+      "reserveAddress": "0xFAec38fFEe969cf18e88097EC62E30b70494e234",
+      "assessorAddress": "0x989e5f083cf5b2065c60032d7bafd176237f8e09"
+    },
+    {
+      "id": "0xfc2950dD337ca8496C18dfc0256Fb905A7E7E5c6",
+      "version": "tinlake_v2",
+      "chain": "ethereum",
+      "name": "databased.FINANCE 1",
+      "shortName": "databased.FINANCE 1",
+      "slug": "databased-finance-1",
+      "issuer": "databased.FINANCE Limited",
+      "assetClass": "Branded Inventory Financing",
+      "currency": "DAI",
+      "status": "closed",
+      "createdAt": "",
+      "description": "databased.FINANCE is launching its first Tinlake pool to purchase verified inventory from Amazon Sellers. We are an inventory technology provider that buys from Amazon Sellers who have a Sales History with Amazon and use Fulfilled By Amazon for managing their prepositioned inventory. We purchase their prepositioned inventory and charge a Limited Exclusive Rights Sales fee in 30 day cycles so they can sell it on our behalf. We use a third party Oracle service, Track.one Limited to access the account of the Amazon Seller and verify both historic price, sales volumes, and the current inventory holdings of the brand. This allows us to mark-to-market the value of the inventory. We call this type of finance databased.FINANCE",
+      "tranches": [
+        {
+          "id": "0xfc2950dD337ca8496C18dfc0256Fb905A7E7E5c6-senior",
+          "address": "0x61690DEaa5Ad0f501f377d2384C8645E80e1f642",
+          "symbol": "DROP",
+          "seniority": "senior",
+          "decimals": 18
+        },
+        {
+          "id": "0xfc2950dD337ca8496C18dfc0256Fb905A7E7E5c6-junior",
+          "address": "0xE5300B24bc08Bc62D25e21f48ccB05f6e531E812",
+          "symbol": "TIN",
+          "seniority": "junior",
+          "decimals": 18
+        }
+      ],
+      "rootAddress": "0xfc2950dD337ca8496C18dfc0256Fb905A7E7E5c6",
+      "reserveAddress": "0x729e12cDc0190A2e4Ab4401bca4C16132d75AdC5",
+      "assessorAddress": "0x95bC79d2Aa5147108C285d71CFfB842B7A781a96"
+    },
+    {
+      "id": "281474976710657",
+      "version": "cfg_v3",
+      "chain": "ethereum",
+      "name": "Janus Henderson Anemoy Treasury Fund",
+      "issuer": "Anemoy Capital SPC Limited",
+      "assetClass": "Public credit",
+      "currency": "USDC",
+      "status": "active",
+      "createdAt": "2025-07-16T12:06:23.000Z",
+      "createdAtBlock": 22931643,
+      "metadataUri": "ipfs://QmZDmnQmcbC7wjMqr3pxusK1Dv67aHBjTDQTj8a7Hwb6eR",
+      "tranches": []
+    },
+    {
+      "id": "281474976710658",
+      "version": "cfg_v3",
+      "chain": "ethereum",
+      "name": "Pool 281474976710658",
+      "assetClass": "Unknown",
+      "currency": "USDC",
+      "status": "active",
+      "createdAt": "2025-07-16T13:02:59.000Z",
+      "createdAtBlock": 22931926,
+      "tranches": []
+    },
+    {
+      "id": "281474976710659",
+      "version": "cfg_v3",
+      "chain": "ethereum",
+      "name": "DeFi JAAA Token",
+      "issuer": "OMF Series 2 20-Year Variable Rate Tokenized Notes (\"deJAAA\")",
+      "assetClass": "Tokenized Notes",
+      "currency": "USDC",
+      "status": "active",
+      "createdAt": "2025-07-16T13:02:59.000Z",
+      "createdAtBlock": 22931926,
+      "metadataUri": "ipfs://QmR5EGudykorSSnGxpMvCPjKRxGd5cnB3mr7GbGsmuehoc",
+      "tranches": [
+        {
+          "id": "0x00010000000000030000000000000001",
+          "symbol": "deJAAA",
+          "seniority": "single",
+          "decimals": 18
+        }
+      ]
+    },
+    {
+      "id": "281474976710660",
+      "version": "cfg_v3",
+      "chain": "ethereum",
+      "name": "DeFi JTRSY Token",
+      "issuer": "OMF Series 2 20-Year Variable Rate Tokenized Notes (\"deJTRSY\")",
+      "assetClass": "Tokenized Notes",
+      "currency": "USDC",
+      "status": "active",
+      "createdAt": "2025-07-16T13:02:59.000Z",
+      "createdAtBlock": 22931926,
+      "metadataUri": "ipfs://QmdnC8xDJ38u5kACf4K9HMMyhYFw7Mfy3X6bDqGDzQToN8",
+      "tranches": [
+        {
+          "id": "0x00010000000000040000000000000001",
+          "symbol": "deJTRSY",
+          "seniority": "single",
+          "decimals": 18
+        }
+      ]
+    },
+    {
+      "id": "281474976710661",
+      "version": "cfg_v3",
+      "chain": "ethereum",
+      "name": "Pool 281474976710661",
+      "assetClass": "Unknown",
+      "currency": "USDC",
+      "status": "active",
+      "createdAt": "2025-07-16T13:02:59.000Z",
+      "createdAtBlock": 22931926,
+      "tranches": [
+        {
+          "id": "0x00010000000000050000000000000001",
+          "symbol": "DISTRICT",
+          "seniority": "single",
+          "decimals": 18
+        }
+      ]
+    },
+    {
+      "id": "281474976710662",
+      "version": "cfg_v3",
+      "chain": "ethereum",
+      "name": "Janus Henderson Anemoy Treasury Fund",
+      "issuer": "Anemoy Capital SPC Limited",
+      "assetClass": "Public Credit",
+      "currency": "USD-variant",
+      "status": "active",
+      "createdAt": "2025-07-16T13:51:23.000Z",
+      "createdAtBlock": 22932166,
+      "metadataUri": "ipfs://QmY41xqjBzjL72ejQnpfaKeqraJKXvyBKnMCrBT9x7doZN",
+      "tranches": [
+        {
+          "id": "0x00010000000000060000000000000001",
+          "symbol": "JTRSY",
+          "seniority": "single",
+          "decimals": 6
+        }
+      ]
+    },
+    {
+      "id": "281474976710663",
+      "version": "cfg_v3",
+      "chain": "ethereum",
+      "name": "Janus Henderson Anemoy AAA CLO Fund",
+      "issuer": "Anemoy Capital SPC Limited",
+      "assetClass": "Public Credit",
+      "currency": "USD-variant",
+      "status": "active",
+      "createdAt": "2025-07-16T13:51:23.000Z",
+      "createdAtBlock": 22932166,
+      "metadataUri": "ipfs://QmPh8KqtLyq9rgw3ZAijFJFZwW1evvcXoVkgZ3qy7dNyxS",
+      "tranches": [
+        {
+          "id": "0x00010000000000070000000000000001",
+          "symbol": "JAAA",
+          "seniority": "single",
+          "decimals": 6
+        }
+      ]
+    },
+    {
+      "id": "281474976710664",
+      "version": "cfg_v3",
+      "chain": "ethereum",
+      "name": "Anemoy Tokenized Apollo Diversified Credit Fund",
+      "issuer": "Anemoy Capital SPC Limited",
+      "assetClass": "Private Credit",
+      "currency": "USDC",
+      "status": "active",
+      "createdAt": "2025-09-17T14:19:23.000Z",
+      "createdAtBlock": 23383353,
+      "metadataUri": "ipfs://QmZrtNy7Av46jFtPptVZyEo5bzEz4g55pqzRcm99QSsmgV",
+      "tranches": [
+        {
+          "id": "0x00010000000000080000000000000001",
+          "symbol": "ACRDX",
+          "seniority": "single",
+          "decimals": 18
+        }
+      ]
+    },
+    {
+      "id": "281474976710665",
+      "version": "cfg_v3",
+      "chain": "ethereum",
+      "name": "Janus Henderson Anemoy S&P500® Fund",
+      "issuer": "Anemoy Capital SPC Limited",
+      "assetClass": "Equity Index Fund",
+      "currency": "USDC",
+      "status": "active",
+      "createdAt": "2025-09-19T14:39:35.000Z",
+      "createdAtBlock": 23397777,
+      "metadataUri": "ipfs://QmZsH4ipPyExz5jvErbc92R9qyydL5aPPJHxXudExazxGM",
+      "tranches": [
+        {
+          "id": "0x00010000000000090000000000000001",
+          "symbol": "SPXA",
+          "seniority": "single",
+          "decimals": 18
+        }
+      ]
+    },
+    {
+      "id": "281474976710666",
+      "version": "cfg_v3",
+      "chain": "ethereum",
+      "name": "Pool 281474976710666",
+      "assetClass": "Unknown",
+      "currency": "USDC",
+      "status": "active",
+      "createdAt": "2025-12-16T09:20:23.000Z",
+      "createdAtBlock": 24024233,
+      "tranches": []
+    },
+    {
+      "id": "281474976710667",
+      "version": "cfg_v3",
+      "chain": "ethereum",
+      "name": "DeFi CRDX Token",
+      "issuer": "OMF Series 2 20-Year Variable Rate Tokenized Notes (\"deCRDX\")",
+      "assetClass": "Tokenized Notes",
+      "currency": "USDC",
+      "status": "active",
+      "createdAt": "2025-12-16T09:20:23.000Z",
+      "createdAtBlock": 24024233,
+      "metadataUri": "ipfs://QmVSwDpDVeD5mhwzCigAvX8DjMc6jhWKgNA75VxF92zrxV",
+      "tranches": [
+        {
+          "id": "0x000100000000000b0000000000000001",
+          "symbol": "deCRDX",
+          "seniority": "single",
+          "decimals": 18
+        }
+      ]
+    },
+    {
+      "id": "281474976710668",
+      "version": "cfg_v3",
+      "chain": "ethereum",
+      "name": "DeFi SPXA Token",
+      "issuer": "OMF Series 2 20-Year Variable Rate Tokenized Notes (\"deSPXA\")",
+      "assetClass": "Tokenized Notes",
+      "currency": "USDC",
+      "status": "active",
+      "createdAt": "2025-12-16T09:20:23.000Z",
+      "createdAtBlock": 24024233,
+      "metadataUri": "ipfs://QmPqnqsKWL3n1idoqXLzTFEKKcfPaUqhRk6HXJrK3iViXy",
+      "tranches": [
+        {
+          "id": "0x000100000000000c0000000000000001",
+          "symbol": "deSPXA",
+          "seniority": "single",
+          "decimals": 18
+        }
+      ]
+    },
+    {
+      "id": "281474976710669",
+      "version": "cfg_v3",
+      "chain": "ethereum",
+      "name": "Pool 281474976710669",
+      "issuer": "",
+      "assetClass": "Private credit",
+      "currency": "USD-variant",
+      "status": "active",
+      "createdAt": "2026-02-26T08:02:23.000Z",
+      "createdAtBlock": 24539765,
+      "metadataUri": "ipfs://QmSvMcQE8CjDMm4fKdRRS5xFsHnuzTz1VeMuLMURCQGeTb",
+      "tranches": [
+        {
+          "id": "0x000100000000000d0000000000000001",
+          "symbol": "BTC.b",
+          "seniority": "single",
+          "decimals": 18
+        }
+      ]
+    },
+    {
+      "id": "281474976710670",
+      "version": "cfg_v3",
+      "chain": "ethereum",
+      "name": "Pool 281474976710670",
+      "issuer": "",
+      "assetClass": "Private credit",
+      "currency": "USDC",
+      "status": "active",
+      "createdAt": "2026-02-26T08:08:11.000Z",
+      "createdAtBlock": 24539794,
+      "metadataUri": "ipfs://QmQP6TKoWeiZFNP9wgGYuSuebYLap2twKibPsABTeMWBs4",
+      "tranches": [
+        {
+          "id": "0x000100000000000e0000000000000001",
+          "symbol": "USD.b",
+          "seniority": "single",
+          "decimals": 18
+        }
+      ]
+    },
+    {
+      "id": "844424930131969",
+      "version": "cfg_v3",
+      "chain": "arbitrum",
+      "name": "Pool 844424930131969",
+      "issuer": "",
+      "assetClass": "Private credit",
+      "currency": "USDC",
+      "status": "active",
+      "createdAt": "2026-02-26T13:32:41.000Z",
+      "createdAtBlock": 436181245,
+      "metadataUri": "ipfs://QmY96gPLAvkZ1NaBxugyj5h8h4NBeghRNSvu1fZYaMe84u",
+      "tranches": [
+        {
+          "id": "0x00030000000000010000000000000001",
+          "symbol": "ArkOdin",
+          "seniority": "senior",
+          "decimals": 18
+        },
+        {
+          "id": "0x00030000000000010000000000000002",
+          "symbol": "LIMS",
+          "seniority": "junior",
+          "decimals": 18
+        },
+        {
+          "id": "0x00030000000000010000000000000003",
+          "symbol": "emplifai",
+          "seniority": "junior",
+          "decimals": 18
+        },
+        {
+          "id": "0x00030000000000010000000000000004",
+          "symbol": "ArkCon",
+          "seniority": "junior",
+          "decimals": 18
+        },
+        {
+          "id": "0x00030000000000010000000000000005",
+          "symbol": "ArkAgg",
+          "seniority": "junior",
+          "decimals": 18
+        },
+        {
+          "id": "0x00030000000000010000000000000006",
+          "symbol": "HCCV",
+          "seniority": "junior",
+          "decimals": 18
+        },
+        {
+          "id": "0x00030000000000010000000000000007",
+          "symbol": "ArkProove",
+          "seniority": "junior",
+          "decimals": 18
+        },
+        {
+          "id": "0x00030000000000010000000000000008",
+          "symbol": "MRHB+",
+          "seniority": "junior",
+          "decimals": 18
+        },
+        {
+          "id": "0x00030000000000010000000000000009",
+          "symbol": "JRRT",
+          "seniority": "junior",
+          "decimals": 18
+        }
+      ]
+    },
+    {
+      "id": "844424930131970",
+      "version": "cfg_v3",
+      "chain": "arbitrum",
+      "name": "Pool 844424930131970",
+      "issuer": "",
+      "assetClass": "Private credit",
+      "currency": "USDC",
+      "status": "active",
+      "createdAt": "2026-02-26T13:32:41.000Z",
+      "createdAtBlock": 436181245,
+      "metadataUri": "ipfs://QmXuXGEBiHhnpJQGYX9yWGKWXUgHejisKudX7SxfpNqnmg",
+      "tranches": [
+        {
+          "id": "0x00030000000000020000000000000001",
+          "symbol": "LIMS",
+          "seniority": "senior",
+          "decimals": 18
+        },
+        {
+          "id": "0x00030000000000020000000000000002",
+          "symbol": "p.two",
+          "seniority": "junior",
+          "decimals": 18
+        }
+      ]
+    },
+    {
+      "id": "844424930131971",
+      "version": "cfg_v3",
+      "chain": "arbitrum",
+      "name": "Pool 844424930131971",
+      "issuer": "",
+      "assetClass": "Private credit",
+      "currency": "USDC",
+      "status": "active",
+      "createdAt": "2026-03-17T13:50:07.000Z",
+      "createdAtBlock": 442754700,
+      "metadataUri": "ipfs://QmfX2WP6dJh3zTETdPEe9mQm3q9Mz1nM2sshwFv4GowbTr",
+      "tranches": [
+        {
+          "id": "0x00030000000000030000000000000001",
+          "symbol": "ArkTEST",
+          "seniority": "senior",
+          "decimals": 18
+        },
+        {
+          "id": "0x00030000000000030000000000000002",
+          "symbol": "ARKPLAY",
+          "seniority": "junior",
+          "decimals": 18
+        }
+      ]
+    },
+    {
+      "id": "844424930131972",
+      "version": "cfg_v3",
+      "chain": "arbitrum",
+      "name": "Pool 844424930131972",
+      "assetClass": "Unknown",
+      "currency": "USDC",
+      "status": "active",
+      "createdAt": "2026-04-17T09:49:16.000Z",
+      "createdAtBlock": 453400485,
+      "tranches": []
+    },
+    {
+      "id": "1125899906842625",
+      "version": "cfg_v3",
+      "chain": "plume",
+      "name": "PE TEST",
+      "issuer": "",
+      "assetClass": "Equity",
+      "currency": "USDC",
+      "status": "active",
+      "createdAt": "2025-07-23T06:26:10.000Z",
+      "createdAtBlock": 13957012,
+      "metadataUri": "ipfs://QmbdykSfDA2pmS3QJEbhfp2BGwkHrPhkxUSytX1cnJ62a8",
+      "tranches": [
+        {
+          "id": "0x00040000000000010000000000000001",
+          "symbol": "peqTEST",
+          "seniority": "single",
+          "decimals": 18
+        }
+      ]
+    }
+  ]
+}
