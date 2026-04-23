@@ -13,7 +13,7 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseAbi, formatUnits } from "viem";
 import { gql } from "../lib/centrifuge-api.js";
-import { ethClient, blockForTimestamp, dailyDatesUtc } from "../lib/alchemy.js";
+import { ethClient, blockForTimestamp, dailyDatesUtc, throttle } from "../lib/alchemy.js";
 import type { ApyPoint, Dataset, Pool, PoolHistory, TvlPoint } from "../lib/types.js";
 
 config({ path: ".env.local", override: true });
@@ -21,6 +21,7 @@ config({ path: ".env.local", override: true });
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const POOLS_PATH = join(__dirname, "..", "public", "data", "pools.json");
 const DATASET_PATH = join(__dirname, "..", "public", "data", "dataset.json");
+const BLOCK_CACHE_PATH = join(__dirname, "..", "public", "data", "block-cache.json");
 
 const START_DATE = "2025-01-01";
 const END_DATE = new Date().toISOString().slice(0, 10);
@@ -204,18 +205,44 @@ const ASSESSOR_ABI = parseAbi([
 ]);
 const ERC20_ABI = parseAbi(["function totalSupply() view returns (uint256)"]);
 
+async function loadBlockCache(): Promise<Map<string, bigint>> {
+  try {
+    const raw = await readFile(BLOCK_CACHE_PATH, "utf-8");
+    const obj = JSON.parse(raw) as Record<string, string>;
+    return new Map(Object.entries(obj).map(([k, v]) => [k, BigInt(v)]));
+  } catch {
+    return new Map();
+  }
+}
+
+async function saveBlockCache(m: Map<string, bigint>): Promise<void> {
+  const obj: Record<string, string> = {};
+  for (const [k, v] of m) obj[k] = v.toString();
+  await writeFile(BLOCK_CACHE_PATH, JSON.stringify(obj, null, 2));
+}
+
 async function precomputeBlocks(
   client: ReturnType<typeof ethClient>,
   dates: string[],
   sampleEvery: number,
 ): Promise<Map<string, bigint>> {
-  const m = new Map<string, bigint>();
+  const cache = await loadBlockCache();
+  const m = new Map<string, bigint>(cache);
+  let newLookups = 0;
   for (let i = 0; i < dates.length; i++) {
     if (i % sampleEvery !== 0 && i !== dates.length - 1) continue;
     const date = dates[i];
+    if (m.has(date)) continue; // cached
     const ts = Math.floor(new Date(date + "T23:59:59Z").getTime() / 1000);
     const bn = await blockForTimestamp(client, ts);
     m.set(date, bn);
+    newLookups++;
+  }
+  if (newLookups > 0) {
+    await saveBlockCache(m);
+    console.log(`    (${newLookups} new block lookup(s), rest from cache)`);
+  } else {
+    console.log(`    (all from cache)`);
   }
   return m;
 }
@@ -240,40 +267,47 @@ async function tinlakeTvlHistory(
       continue;
     }
     try {
-      const [seniorSupply, juniorSupply, seniorPrice, juniorPrice] = await Promise.all([
-        senior?.address
-          ? client.readContract({
+      // Sequential reads with throttling — parallel Promise.all() bursts hit 429 on free tier.
+      await throttle();
+      const seniorSupply = senior?.address
+        ? await client
+            .readContract({
               address: senior.address as `0x${string}`,
               abi: ERC20_ABI,
               functionName: "totalSupply",
               blockNumber,
-            }).catch(() => 0n)
-          : Promise.resolve(0n),
-        junior?.address
-          ? client.readContract({
+            })
+            .catch(() => 0n)
+        : 0n;
+      await throttle();
+      const juniorSupply = junior?.address
+        ? await client
+            .readContract({
               address: junior.address as `0x${string}`,
               abi: ERC20_ABI,
               functionName: "totalSupply",
               blockNumber,
-            }).catch(() => 0n)
-          : Promise.resolve(0n),
-        client
-          .readContract({
-            address: pool.assessorAddress as `0x${string}`,
-            abi: ASSESSOR_ABI,
-            functionName: "calcSeniorTokenPrice",
-            blockNumber,
-          })
-          .catch(() => 0n),
-        client
-          .readContract({
-            address: pool.assessorAddress as `0x${string}`,
-            abi: ASSESSOR_ABI,
-            functionName: "calcJuniorTokenPrice",
-            blockNumber,
-          })
-          .catch(() => 0n),
-      ]);
+            })
+            .catch(() => 0n)
+        : 0n;
+      await throttle();
+      const seniorPrice = await client
+        .readContract({
+          address: pool.assessorAddress as `0x${string}`,
+          abi: ASSESSOR_ABI,
+          functionName: "calcSeniorTokenPrice",
+          blockNumber,
+        })
+        .catch(() => 0n);
+      await throttle();
+      const juniorPrice = await client
+        .readContract({
+          address: pool.assessorAddress as `0x${string}`,
+          abi: ASSESSOR_ABI,
+          functionName: "calcJuniorTokenPrice",
+          blockNumber,
+        })
+        .catch(() => 0n);
       const sSupply = Number(formatUnits(seniorSupply as bigint, 18));
       const jSupply = Number(formatUnits(juniorSupply as bigint, 18));
       // Tinlake token price is 27-decimal "ray"

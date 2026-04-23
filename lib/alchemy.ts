@@ -6,8 +6,25 @@ export function ethClient(): PublicClient {
   if (!key) throw new Error("ALCHEMY_API_KEY not set");
   return createPublicClient({
     chain: mainnet,
-    transport: http(`https://eth-mainnet.g.alchemy.com/v2/${key}`),
+    transport: http(`https://eth-mainnet.g.alchemy.com/v2/${key}`, {
+      // viem's retry gives up too quickly for free-tier 429 bursts. Bump it.
+      retryCount: 6,
+      retryDelay: 1500,
+      batch: false,
+      timeout: 30_000,
+    }),
   }) as PublicClient;
+}
+
+// Simple throttle — free-tier Alchemy is ~5 rps. Space out calls.
+let lastCall = 0;
+const MIN_INTERVAL_MS = 220;
+
+export async function throttle(): Promise<void> {
+  const now = Date.now();
+  const wait = MIN_INTERVAL_MS - (now - lastCall);
+  if (wait > 0) await new Promise((r) => setTimeout(r, wait));
+  lastCall = Date.now();
 }
 
 // block-by-timestamp lookup (binary search once, then cache results).
@@ -19,6 +36,7 @@ export async function blockForTimestamp(
   targetTs: number,
 ): Promise<bigint> {
   if (!latestBlock || !latestTs) {
+    await throttle();
     const b = await client.getBlock({ blockTag: "latest" });
     latestBlock = b.number;
     latestTs = Number(b.timestamp);
@@ -31,6 +49,7 @@ export async function blockForTimestamp(
   let hi = latest;
   while (lo + 1n < hi) {
     const mid = (lo + hi) / 2n;
+    await throttle();
     const b = await client.getBlock({ blockNumber: mid });
     const t = Number(b.timestamp);
     if (t <= targetTs) lo = mid;
