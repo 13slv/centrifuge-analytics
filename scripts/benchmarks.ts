@@ -15,34 +15,67 @@ const START_DATE = "2025-01-01";
 
 async function fredCsv(seriesId: string): Promise<{ date: string; value: number }[]> {
   const url = `https://fred.stlouisfed.org/graph/fredgraph.csv?id=${seriesId}&cosd=${START_DATE}`;
-  const res = await fetch(url, { signal: AbortSignal.timeout(30_000) });
-  if (!res.ok) throw new Error(`FRED ${seriesId}: HTTP ${res.status}`);
-  const text = await res.text();
-  const lines = text.trim().split("\n").slice(1); // skip header
-  const out: { date: string; value: number }[] = [];
-  for (const line of lines) {
-    const [date, val] = line.split(",");
-    if (!date || val === "." || val === "") continue;
-    out.push({ date, value: Number(val) / 100 }); // FRED gives % points; store as fraction
+  // Retry-with-backoff — FRED occasionally 5xx's or times out on CI IPs.
+  let lastErr: unknown;
+  for (const timeout of [15_000, 30_000, 60_000]) {
+    try {
+      const res = await fetch(url, {
+        signal: AbortSignal.timeout(timeout),
+        headers: { "User-Agent": "centrifuge-analytics/1.0" },
+      });
+      if (!res.ok) throw new Error(`FRED ${seriesId}: HTTP ${res.status}`);
+      const text = await res.text();
+      const lines = text.trim().split("\n").slice(1);
+      const out: { date: string; value: number }[] = [];
+      for (const line of lines) {
+        const [date, val] = line.split(",");
+        if (!date || val === "." || val === "") continue;
+        out.push({ date, value: Number(val) / 100 });
+      }
+      return out;
+    } catch (e) {
+      lastErr = e;
+    }
   }
-  return out;
+  throw lastErr;
 }
 
 async function main() {
   console.log("Fetching benchmarks (FRED)...");
-  const [ust3m, daaa] = await Promise.all([fredCsv("DGS3MO"), fredCsv("DAAA")]);
-  console.log(`  3M T-Bill: ${ust3m.length} daily points`);
-  console.log(`  AAA bond:  ${daaa.length} daily points`);
 
-  const benchmarks = {
-    ust_3m: ust3m,
-    aaa_corp: daaa,
-  };
+  // Load current dataset — we'll keep existing benchmark data as fallback
   const current = JSON.parse(await readFile(DATASET_PATH, "utf-8")) as Record<string, unknown>;
-  current.benchmarks = benchmarks;
+  const existing =
+    (current.benchmarks as {
+      ust_3m?: { date: string; value: number }[];
+      aaa_corp?: { date: string; value: number }[];
+    } | undefined) ?? {};
+
+  let ust3m = existing.ust_3m ?? [];
+  let daaa = existing.aaa_corp ?? [];
+  const warnings: string[] = [];
+
+  try {
+    ust3m = await fredCsv("DGS3MO");
+    console.log(`  3M T-Bill: ${ust3m.length} daily points`);
+  } catch (e) {
+    const msg = (e as Error).message;
+    warnings.push(`3M T-Bill fetch failed — keeping previous ${existing.ust_3m?.length ?? 0} points. (${msg})`);
+    console.warn(`  3M T-Bill: ${warnings[warnings.length - 1]}`);
+  }
+  try {
+    daaa = await fredCsv("DAAA");
+    console.log(`  AAA bond:  ${daaa.length} daily points`);
+  } catch (e) {
+    const msg = (e as Error).message;
+    warnings.push(`AAA bond fetch failed — keeping previous ${existing.aaa_corp?.length ?? 0} points. (${msg})`);
+    console.warn(`  AAA bond:  ${warnings[warnings.length - 1]}`);
+  }
+
+  current.benchmarks = { ust_3m: ust3m, aaa_corp: daaa };
   current.generatedAt = new Date().toISOString();
   await writeFile(DATASET_PATH, JSON.stringify(current));
-  console.log(`\nWrote benchmarks → dataset.json`);
+  console.log(`\nWrote benchmarks → dataset.json${warnings.length > 0 ? ` (${warnings.length} warning(s))` : ""}`);
 }
 
 main().catch((e) => {
