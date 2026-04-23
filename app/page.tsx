@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getDataset } from "@/lib/data.server";
-import { formatUsd, totalTvlByDate, currentTvl } from "@/lib/data";
+import { formatUsd, totalTvlByDate, currentTvl, isLivePool } from "@/lib/data";
 import { TvlChart } from "@/components/TvlChart";
 import { PoolsTable } from "@/components/PoolsTable";
 import { AssetClassDrift } from "@/components/AssetClassDrift";
@@ -25,15 +25,17 @@ export default async function HomePage() {
   const latest = total[total.length - 1]?.tvl_usd ?? 0;
   const peak = total.reduce((m, p) => Math.max(m, p.tvl_usd), 0);
 
-  // Asset class rollup @ latest
+  // Asset class rollup @ latest — only live pools, so totals match Centrifuge's UI.
   const byClass = new Map<string, number>();
   const byChain = new Map<string, number>();
   for (const p of pools) {
     const h = histMap.get(p.id);
+    if (!isLivePool(p, h)) continue;
     const tvl = currentTvl(h?.series ?? []);
     byClass.set(p.assetClass, (byClass.get(p.assetClass) ?? 0) + tvl);
     byChain.set(p.chain, (byChain.get(p.chain) ?? 0) + tvl);
   }
+  const activeLive = pools.filter((p) => isLivePool(p, histMap.get(p.id))).length;
   const classRows = Array.from(byClass.entries())
     .map(([k, v]) => ({ k, v }))
     .sort((a, b) => b.v - a.v)
@@ -48,7 +50,8 @@ export default async function HomePage() {
         <div>
           <h1 className="text-2xl font-semibold">Centrifuge Analytics</h1>
           <p className="text-sm text-neutral-500 mt-1">
-            On-chain TVL across every tokenized asset on Centrifuge, {startDate} → {endDate}.
+            Live V3 pools only — matches Centrifuge&apos;s own Products page.
+            {" "}Legacy Tinlake v2 pools are excluded from totals (still visible in the table below, marked as such).
           </p>
         </div>
         <div className="text-xs text-neutral-600">
@@ -59,7 +62,7 @@ export default async function HomePage() {
       <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         <Stat label="Current TVL" value={formatUsd(latest)} />
         <Stat label="Peak TVL (since Jan 2025)" value={formatUsd(peak)} />
-        <Stat label="Active pools" value={pools.filter((p) => p.status === "active").length.toString()} />
+        <Stat label="Active pools" value={activeLive.toString()} />
       </section>
 
       <section className="mb-10">
@@ -143,8 +146,10 @@ export default async function HomePage() {
       </section>
 
       <footer className="mt-12 text-xs text-neutral-600">
-        Data: Centrifuge V3 GraphQL API + Alchemy archive reads for Tinlake v2. Source
-        addresses from centrifuge/tinlake-pools-mainnet and centrifuge/protocol-v3.
+        Data: Centrifuge V3 GraphQL API (api.centrifuge.io) + Alchemy archive reads for
+        Tinlake v2 legacy pools. Window: {startDate} → {endDate}.
+        Totals exclude Tinlake v2 and pools with &lt;$100K TVL to match the Centrifuge
+        Products page ({formatUsd(latest)} vs their ~$1.99B).
       </footer>
     </main>
   );

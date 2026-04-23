@@ -13,13 +13,35 @@ export function currentTvl(series: TvlPoint[]): number {
   return 0;
 }
 
+/**
+ * Whether a pool should count toward "active TVL" views.
+ * Matches Centrifuge's own Products page — excludes Tinlake v2 (all in
+ * wind-down since 2024) and any pool with residual / near-zero holdings.
+ */
+export function isLivePool(pool: Pool, history: PoolHistory | undefined): boolean {
+  if (pool.status === "closed") return false;
+  if (pool.version === "tinlake_v2") return false;
+  const cur = currentTvl(history?.series ?? []);
+  return cur >= 100_000;
+}
+
+export function livePools(
+  pools: Pool[],
+  histories: PoolHistory[],
+): Pool[] {
+  const map = new Map(histories.map((h) => [h.poolId, h]));
+  return pools.filter((p) => isLivePool(p, map.get(p.id)));
+}
+
 export function totalTvlByDate(
   pools: Pool[],
   histories: PoolHistory[],
 ): { date: string; tvl_usd: number }[] {
   const byDate = new Map<string, number>();
   const map = new Map(histories.map((h) => [h.poolId, h]));
+  const live = new Set(livePools(pools, histories).map((p) => p.id));
   for (const p of pools) {
+    if (!live.has(p.id)) continue;
     const h = map.get(p.id);
     if (!h) continue;
     for (const pt of h.series) {
