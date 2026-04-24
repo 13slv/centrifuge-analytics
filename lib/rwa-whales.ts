@@ -1,9 +1,17 @@
 /**
  * Known anchor wallets ("whales") and their holdings across RWA products.
  *
- * Holdings are sampled from Etherscan / on-chain reads (see commit log for
- * snapshot date). Real-time tracking is out of scope for Sprint C — these
- * numbers are refreshed manually when significant governance events happen.
+ * REGISTRY_VERIFIED_AT: 2026-04-23 (Grove ALM Proxy)
+ * Sources:
+ *   - Grove ALM Proxy address: vote.sky.money executive (Nov 13 2025) —
+ *     "Whitelist Launch Agent 4 ALMProxy on the LitePSM"
+ *   - Holdings (BUIDL, JTRSY, JAAA): Etherscan token holders + Centrifuge
+ *     V3 indexer at sample time
+ *
+ * Auto-refresh: rwa-whales-refresh.ts pulls live balanceOf daily for
+ * Ethereum-side products. JTRSY/JAAA holdings are pulled from Centrifuge
+ * GraphQL (not Alchemy), so they fall back to declared values until
+ * scripts/holders.ts updates them.
  */
 
 export type WhaleHolding = {

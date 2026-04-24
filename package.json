@@ -15,6 +15,7 @@
     "rwa-whales": "tsx scripts/rwa-whales-refresh.ts",
     "test": "tsx scripts/test-invariants.ts",
     "test:determinism": "tsx scripts/test-determinism.ts",
+    "audit:curated": "tsx scripts/audit-curated.ts",
     "update": "tsx scripts/update-daily.ts"
   },
   "dependencies": {

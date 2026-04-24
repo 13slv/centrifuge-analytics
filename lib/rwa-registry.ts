@@ -4,6 +4,12 @@
  * Each product can live on multiple chains; supply is summed across chains.
  * Price is resolved live where possible (ERC-4626 totalAssets, gold spot)
  * and falls back to last-known NAV stored here.
+ *
+ * REGISTRY_VERIFIED_AT: 2026-04-25
+ * Last manual verification: addresses, decimals, symbols cross-checked
+ * on-chain via `npm run audit:curated`. Polygon BUIDL deployment couldn't
+ * be reached from this Alchemy app (chain not enabled); address sourced
+ * from PolygonScan via search.
  */
 import type { SupportedChain } from "./alchemy";
 

@@ -1,9 +1,20 @@
 /**
  * Counterparty / service provider mapping per issuer.
- * Manually curated from public docs / fund prospectuses.
  *
- * Used to surface concentration risk: e.g. multiple issuers depending on
- * the same custodian or oracle is a single point of failure.
+ * REGISTRY_VERIFIED_AT: 2026-04-25
+ * Sources per issuer:
+ *   - securitize: BlackRock prospectus + Securitize fund page
+ *   - ondo: docs.ondo.finance + USDY fact sheet
+ *   - superstate: docs.superstate.com + fund prospectus
+ *   - hashnote: hashnote.com fund pages
+ *   - centrifuge: Anemoy Treasury Fund deck (Feb 2025)
+ *   - maple: Maple docs (audits.maple.finance)
+ *   - paxos: paxos.com/paxgold + monthly attestation reports
+ *   - tether: tether.to/en/transparency
+ *
+ * Refresh cadence: quarterly. Counterparty changes are rare but material.
+ * Highlighted shared providers (BNY Mellon, WithumSmith, CIMA, etc.) are
+ * computed at runtime by findSharedProviders().
  */
 
 export type ServiceProviders = {
