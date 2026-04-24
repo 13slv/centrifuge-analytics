@@ -20,6 +20,7 @@ try {
   execSync("tsx scripts/benchmarks.ts", { stdio: "inherit" });
   execSync("tsx scripts/rwa-tvl.ts", { stdio: "inherit" });
   execSync("tsx scripts/rwa-whales-refresh.ts", { stdio: "inherit" });
+  execSync("tsx scripts/test-invariants.ts", { stdio: "inherit" });
 } catch (e) {
   console.error((e as Error).message);
   process.exit(1);

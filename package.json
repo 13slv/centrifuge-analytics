@@ -13,6 +13,7 @@
     "benchmarks": "tsx scripts/benchmarks.ts",
     "rwa": "tsx scripts/rwa-tvl.ts",
     "rwa-whales": "tsx scripts/rwa-whales-refresh.ts",
+    "test": "tsx scripts/test-invariants.ts",
     "update": "tsx scripts/update-daily.ts"
   },
   "dependencies": {
