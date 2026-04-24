@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-24T22:30:39.138Z",
+  "generatedAt": "2026-04-24T23:21:42.005Z",
   "products": [
     {
       "slug": "xaut",
@@ -12,10 +12,10 @@
       "address": "0x68749665FF8D2d112Fa859AA293F07A622782F38",
       "decimals": 6,
       "supply": 707747.089,
-      "price_usd": 4697.92,
-      "tvl_usd": 3324939204.3548803,
+      "price_usd": 4698.43,
+      "tvl_usd": 3325300155.3702703,
       "rwaxyz_tvl_usd": 700000000,
-      "tvl_delta_pct": 3.7499131490784006,
+      "tvl_delta_pct": 3.7504287933861002,
       "notes": "1 XAUt = 1 troy oz of gold; Swiss vaults.",
       "launched": "2020-01-23"
     },
@@ -48,30 +48,12 @@
       "address": "0x45804880De22913dAFE09f4980848ECE6EcbAf78",
       "decimals": 18,
       "supply": 481565.416,
-      "price_usd": 4697.92,
-      "tvl_usd": 2262355799.1347203,
+      "price_usd": 4698.43,
+      "tvl_usd": 2262601397.49688,
       "rwaxyz_tvl_usd": 800000000,
-      "tvl_delta_pct": 1.8279447489184004,
+      "tvl_delta_pct": 1.8282517468711001,
       "notes": "1 PAXG = 1 troy oz LBMA-certified gold.",
       "launched": "2019-09-05"
-    },
-    {
-      "slug": "buidl",
-      "name": "BlackRock USD Institutional Digital Liquidity Fund",
-      "symbol": "BUIDL",
-      "issuer": "BlackRock + Securitize",
-      "issuerSlug": "securitize",
-      "category": "mmf",
-      "chain": "ethereum+arbitrum+other",
-      "address": "0x7712c34205737192402172409a8F7ccef8aA2AEc",
-      "decimals": 6,
-      "supply": 1673485388.370349,
-      "price_usd": 1,
-      "tvl_usd": 1673485388.370349,
-      "rwaxyz_tvl_usd": 2500000000,
-      "tvl_delta_pct": -0.33060584465186044,
-      "notes": "Rebasing share: yield as separate distribution token, NAV stays at $1.",
-      "launched": "2024-03-20"
     },
     {
       "slug": "jtrsy",
@@ -92,6 +74,24 @@
       "launched": "2025-07-18"
     },
     {
+      "slug": "buidl",
+      "name": "BlackRock USD Institutional Digital Liquidity Fund",
+      "symbol": "BUIDL",
+      "issuer": "BlackRock + Securitize",
+      "issuerSlug": "securitize",
+      "category": "mmf",
+      "chain": "ethereum+arbitrum+polygon+other",
+      "address": "0x7712c34205737192402172409a8F7ccef8aA2AEc",
+      "decimals": 6,
+      "supply": 1173485388.370349,
+      "price_usd": 1,
+      "tvl_usd": 1173485388.370349,
+      "rwaxyz_tvl_usd": 2500000000,
+      "tvl_delta_pct": -0.5306058446518604,
+      "notes": "Rebasing share: yield as separate distribution token, NAV stays at $1.",
+      "launched": "2024-03-20"
+    },
+    {
       "slug": "syrup-usdc",
       "name": "Maple Syrup USDC",
       "symbol": "syrupUSDC",
@@ -102,10 +102,10 @@
       "address": "0x80ac24aA929eaF5013f6436cdA2a7ba190f5Cc0b",
       "decimals": 6,
       "supply": 918565455.821073,
-      "price_usd": 1.1611905347540539,
-      "tvl_usd": 1066629512.8514731,
+      "price_usd": 1.1611959816940747,
+      "tvl_usd": 1066634516.2224162,
       "rwaxyz_tvl_usd": 1600000000,
-      "tvl_delta_pct": -0.3333565544678293,
+      "tvl_delta_pct": -0.3333534273609899,
       "notes": "ERC-4626 vault; price = totalAssets / totalSupply.",
       "launched": "2024-09-18"
     },
@@ -119,11 +119,11 @@
       "chain": "ethereum",
       "address": "0x43415eB6ff9DB7E26A15b704e7A3eDCe97d31C4e",
       "decimals": 6,
-      "supply": 79160290.655406,
+      "supply": 79158424.239879,
       "price_usd": 10.7,
-      "tvl_usd": 847015110.0128441,
+      "tvl_usd": 846995139.3667052,
       "rwaxyz_tvl_usd": 694000000,
-      "tvl_delta_pct": 0.22048286745366583,
+      "tvl_delta_pct": 0.2204540913064916,
       "notes": "SEC-registered (1940 Act) fund; US qualified purchaser only.",
       "launched": "2024-02-21"
     },
@@ -137,11 +137,11 @@
       "chain": "ethereum+other",
       "address": "0x96F6eF951840721AdBF46Ac996b59E0235CB985C",
       "decimals": 18,
-      "supply": 670485428.0774701,
+      "supply": 670476590.7375252,
       "price_usd": 1.12,
-      "tvl_usd": 750943679.4467665,
+      "tvl_usd": 750933781.6260283,
       "rwaxyz_tvl_usd": 700000000,
-      "tvl_delta_pct": 0.07277668492395213,
+      "tvl_delta_pct": 0.07276254518004042,
       "notes": "LayerZero OFT — burn/mint between chains keeps total supply consistent.",
       "launched": "2023-08-31"
     },
@@ -205,7 +205,7 @@
       "slug": "tether",
       "name": "Tether",
       "products": 1,
-      "tvl_usd": 3324939204.3548803,
+      "tvl_usd": 3325300155.3702703,
       "categories": [
         "commodity"
       ]
@@ -223,7 +223,7 @@
       "slug": "paxos",
       "name": "Paxos",
       "products": 1,
-      "tvl_usd": 2262355799.1347203,
+      "tvl_usd": 2262601397.49688,
       "categories": [
         "commodity"
       ]
@@ -242,7 +242,7 @@
       "slug": "securitize",
       "name": "Securitize (BlackRock)",
       "products": 1,
-      "tvl_usd": 1673485388.370349,
+      "tvl_usd": 1173485388.370349,
       "categories": [
         "mmf"
       ]
@@ -251,7 +251,7 @@
       "slug": "maple",
       "name": "Maple Finance",
       "products": 1,
-      "tvl_usd": 1066629512.8514731,
+      "tvl_usd": 1066634516.2224162,
       "categories": [
         "credit"
       ]
@@ -260,7 +260,7 @@
       "slug": "ondo",
       "name": "Ondo Finance",
       "products": 2,
-      "tvl_usd": 1020869758.4381908,
+      "tvl_usd": 1020859860.6174526,
       "categories": [
         "t_bill"
       ]
@@ -269,7 +269,7 @@
       "slug": "superstate",
       "name": "Superstate",
       "products": 2,
-      "tvl_usd": 957632800.1560472,
+      "tvl_usd": 957612829.5099083,
       "categories": [
         "t_bill",
         "structured"
@@ -277,15 +277,15 @@
     }
   ],
   "totals": {
-    "tvl_usd": 15112240785.124361,
+    "tvl_usd": 14612822469.405977,
     "products": 11,
     "issuers": 8,
     "by_category": {
-      "mmf": 1673485388.370349,
-      "t_bill": 6270558185.859634,
+      "mmf": 1173485388.370349,
+      "t_bill": 6270528317.392757,
       "structured": 110617690.14320318,
-      "credit": 1470284517.2615733,
-      "commodity": 5587295003.489601
+      "credit": 1470289520.6325164,
+      "commodity": 5587901552.86715
     }
   }
 }

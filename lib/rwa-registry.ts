@@ -56,10 +56,10 @@ export const RWA_PRODUCTS: RwaProduct[] = [
     deployments: [
       { chain: "ethereum", address: "0x7712c34205737192402172409a8F7ccef8aA2AEc", decimals: 6 },
       { chain: "arbitrum", address: "0xA6525Ae43eDCd03dC08E775774dCAbd3bb925872", decimals: 6 },
-      // Polygon, Avalanche, Optimism deployments exist but addresses harder to verify;
-      // off_chain_supply captures the gap.
+      { chain: "polygon", address: "0x2893Ef551B6dD69F661Ac00F11D93E5Dc5Dc0e99", decimals: 6 },
+      // Avalanche, Optimism: addresses pending verification (Phase 3 audit)
     ],
-    off_chain_supply: 1_500_000_000, // residual on Polygon / Avalanche / Optimism / Aptos / Solana
+    off_chain_supply: 1_000_000_000, // residual on Avalanche, Optimism, Aptos, Solana — refined after Polygon added on-chain
     price_usd: 1.0,
     priceSource: { kind: "static" },
     rwaxyz_tvl_usd: 2_500_000_000,

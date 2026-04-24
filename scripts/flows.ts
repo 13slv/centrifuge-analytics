@@ -212,8 +212,12 @@ async function main() {
     const daily = new Map<string, { inflow: number; outflow: number; events: LargeEvent[] }>();
     for (const tx of txs) {
       const date = new Date(Number(tx.createdAt)).toISOString().slice(0, 10);
-      // currencyAmount for CLAIMABLE types is in pool accounting decimals (18) ≈ USD
-      const usd = Number(formatUnits(BigInt(tx.currencyAmount || "0"), 18));
+      // Centrifuge V3 indexer emits currencyAmount with mixed decimals: some
+      // events are 6-dec (raw USDC), others 18-dec (pool accounting). Detect
+      // by magnitude — $1 in 6-dec = 1e6, $1 in 18-dec = 1e18 (12 orders apart).
+      const raw = BigInt(tx.currencyAmount || "0");
+      const dec = raw < 1_000_000_000_000_000n ? 6 : 18; // < 1e15 → 6-dec
+      const usd = Number(formatUnits(raw, dec));
       const cur = daily.get(date) ?? { inflow: 0, outflow: 0, events: [] };
       if (tx.type === "DEPOSIT_CLAIMABLE") cur.inflow += usd;
       else if (tx.type === "REDEEM_CLAIMABLE") cur.outflow += usd;
