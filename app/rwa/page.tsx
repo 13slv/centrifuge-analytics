@@ -23,12 +23,22 @@ export default async function RwaPage() {
 
   return (
     <main className="max-w-6xl mx-auto px-6 py-10">
-      <nav className="mb-6 text-sm text-neutral-500">
-        <Link href="/" className="hover:text-violet-400">
-          ← Centrifuge
+      <nav className="mb-6 flex flex-wrap gap-2 text-sm">
+        <Link
+          href="/"
+          className="px-3 py-1.5 rounded-md border border-neutral-800 text-neutral-300 hover:bg-neutral-900 hover:text-violet-300 hover:border-violet-700/50"
+        >
+          Centrifuge
         </Link>
-        <span className="mx-2">·</span>
-        <span>RWA market</span>
+        <span className="px-3 py-1.5 rounded-md bg-violet-500/20 text-violet-300 border border-violet-700/50">
+          RWA market
+        </span>
+        <Link
+          href="/compare"
+          className="px-3 py-1.5 rounded-md border border-neutral-800 text-neutral-300 hover:bg-neutral-900 hover:text-violet-300 hover:border-violet-700/50"
+        >
+          Compare pools
+        </Link>
       </nav>
 
       <header className="mb-8 flex items-baseline justify-between">

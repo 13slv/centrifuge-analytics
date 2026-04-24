@@ -50,21 +50,30 @@ export default async function HomePage() {
 
   return (
     <main className="max-w-6xl mx-auto px-6 py-10">
+      <nav className="mb-6 flex flex-wrap gap-2 text-sm">
+        <span className="px-3 py-1.5 rounded-md bg-violet-500/20 text-violet-300 border border-violet-700/50">
+          Centrifuge
+        </span>
+        <Link
+          href="/rwa"
+          className="px-3 py-1.5 rounded-md border border-neutral-800 text-neutral-300 hover:bg-neutral-900 hover:text-violet-300 hover:border-violet-700/50"
+        >
+          RWA market →
+        </Link>
+        <Link
+          href="/compare"
+          className="px-3 py-1.5 rounded-md border border-neutral-800 text-neutral-300 hover:bg-neutral-900 hover:text-violet-300 hover:border-violet-700/50"
+        >
+          Compare pools
+        </Link>
+      </nav>
+
       <header className="mb-8 flex items-baseline justify-between">
         <div>
           <h1 className="text-2xl font-semibold">Centrifuge Analytics</h1>
           <p className="text-sm text-neutral-500 mt-1">
             Live V3 pools only — matches Centrifuge&apos;s own Products page.
-            {" "}Legacy Tinlake v2 pools are excluded from totals (still visible in the table below, marked as such).
-          </p>
-          <p className="text-xs text-neutral-600 mt-2">
-            <Link href="/rwa" className="text-violet-400 hover:text-violet-300">
-              → Cross-issuer RWA market view
-            </Link>
-            <span className="mx-2">·</span>
-            <Link href="/compare" className="text-violet-400 hover:text-violet-300">
-              Compare pools
-            </Link>
+            {" "}Legacy Tinlake v2 pools are excluded from totals (still visible in the table below).
           </p>
         </div>
         <div className="w-full md:w-auto md:min-w-[280px]">
