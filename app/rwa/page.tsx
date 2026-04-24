@@ -5,6 +5,8 @@ import type { RwaDataset } from "@/lib/rwa-types";
 import { CATEGORY_LABELS } from "@/lib/rwa-registry";
 import { formatUsd } from "@/lib/data";
 import { SectionNote } from "@/components/SectionNote";
+import { WhaleExposurePanel } from "@/components/WhaleExposurePanel";
+import { CounterpartyTable } from "@/components/CounterpartyTable";
 
 export const revalidate = 3600;
 
@@ -200,6 +202,24 @@ export default async function RwaPage() {
             </tbody>
           </table>
         </div>
+      </section>
+
+      <section className="mt-10 mb-10">
+        <h2 className="text-sm text-neutral-400 mb-2">Anchor allocators across RWA products</h2>
+        <SectionNote
+          read="Same address holding several RWA products at scale = one institutional allocator deploying capital across multiple wrappers. Share-of-product %  shows how dependent each product is on that one allocator."
+          insight="Sky Grove (ex-MakerDAO governance) holds JTRSY 85%, BUIDL 59%, JAAA 6% — a single multisig is the dominant LP across the three flagship tokenized funds. If Sky governance reallocates, all three move together."
+        />
+        <WhaleExposurePanel totalRwaTvl={d.totals.tvl_usd} />
+      </section>
+
+      <section className="mt-10 mb-10">
+        <h2 className="text-sm text-neutral-400 mb-2">Counterparty / service provider matrix</h2>
+        <SectionNote
+          read="Every issuer relies on off-chain counterparties: custodian holds the underlying assets, fund admin computes NAV, auditor verifies, oracle pushes price on-chain, regulator sets the legal frame. Highlighted cells = provider used by multiple issuers (potential single-point-of-failure across the RWA market)."
+          insight="Two clusters of counterparty risk: (1) most US-domiciled funds use BNY Mellon or State Street as custodian — concentrated on two banks. (2) WithumSmith audits 3+ issuers (Superstate, Hashnote, Paxos). A single audit failure ripples across multiple products."
+        />
+        <CounterpartyTable />
       </section>
 
       <footer className="mt-12 text-xs text-neutral-600 leading-relaxed">
