@@ -150,14 +150,12 @@ export default async function RwaPage() {
               {d.products.map((p) => (
                 <tr key={p.slug} className="border-t border-neutral-900">
                   <td className="px-3 py-2">
-                    <a
-                      href={`https://etherscan.io/token/${p.address}`}
-                      target="_blank"
-                      rel="noreferrer"
+                    <Link
+                      href={`/rwa/${p.slug}`}
                       className="font-medium hover:text-violet-400"
                     >
                       {p.symbol}
-                    </a>
+                    </Link>
                     <div className="text-xs text-neutral-500">{p.name}</div>
                   </td>
                   <td className="px-3 py-2 text-neutral-400">{p.issuer}</td>

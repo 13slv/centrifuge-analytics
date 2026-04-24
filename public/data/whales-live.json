@@ -1,0 +1,41 @@
+{
+  "generatedAt": "2026-04-24T22:59:28.290Z",
+  "whales": [
+    {
+      "address": "0x491EDFB0B8b608044e227225C715981a30F3A44E",
+      "label": "Grove ALM Proxy",
+      "org": "Sky Ecosystem (ex-MakerDAO)",
+      "controller": "Sky governance (vote.sky.money)",
+      "notes": "Launch Agent 4 of Sky's Liquidity Layer; deploys USDS reserves into tokenized RWA via governance votes.",
+      "holdings": [
+        {
+          "product_slug": "jtrsy",
+          "product_symbol": "JTRSY",
+          "amount_usd": 1292000000,
+          "raw_balance": "n/a",
+          "share_of_product": 0.85,
+          "source": "Centrifuge V3 indexer",
+          "refreshed_at": "2026-04-24T22:59:28.290Z"
+        },
+        {
+          "product_slug": "buidl",
+          "product_symbol": "BUIDL",
+          "amount_usd": 983800000,
+          "raw_balance": "0",
+          "share_of_product": 0.59,
+          "source": "Etherscan (on-chain returned 0)",
+          "refreshed_at": "2026-04-24T22:59:28.288Z"
+        },
+        {
+          "product_slug": "jaaa",
+          "product_symbol": "JAAA",
+          "amount_usd": 23600000,
+          "raw_balance": "n/a",
+          "share_of_product": 0.058,
+          "source": "Centrifuge V3 indexer",
+          "refreshed_at": "2026-04-24T22:59:28.290Z"
+        }
+      ]
+    }
+  ]
+}
