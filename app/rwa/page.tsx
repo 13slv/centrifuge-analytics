@@ -151,7 +151,13 @@ export default async function RwaPage() {
                 <tr key={p.slug} className="border-t border-neutral-900">
                   <td className="px-3 py-2">
                     <Link
-                      href={`/rwa/${p.slug}`}
+                      href={
+                        p.slug === "jtrsy"
+                          ? "/pools/281474976710662"
+                          : p.slug === "jaaa"
+                            ? "/pools/281474976710663"
+                            : `/rwa/${p.slug}`
+                      }
                       className="font-medium hover:text-violet-400"
                     >
                       {p.symbol}
