@@ -232,13 +232,17 @@ async function main() {
       daily.set(date, cur);
     }
 
-    // build flow series aligned with TVL history
+    // Build flow series aligned with TVL history. CRITICAL: initialise
+    // prevTvl to the FIRST day's TVL, not 0. Otherwise day-1 records the
+    // entire opening TVL as "yield", inflating Σflows by the pool's pre-window
+    // balance — which broke Σflows ≈ ΔTVL invariant by 500-1300% on Tinlake.
     const flows: DailyFlow[] = [];
-    let prevTvl = 0;
-    for (const { date, tvl_usd } of history) {
+    let prevTvl = history.length > 0 ? history[0].tvl_usd : 0;
+    for (let i = 0; i < history.length; i++) {
+      const { date, tvl_usd } = history[i];
       const d = daily.get(date) ?? { inflow: 0, outflow: 0, events: [] };
       const netFlow = d.inflow - d.outflow;
-      const delta = tvl_usd - prevTvl;
+      const delta = i === 0 ? 0 : tvl_usd - prevTvl;
       const yieldUsd = delta - netFlow;
       flows.push({
         date,
@@ -268,9 +272,10 @@ async function main() {
   for (const p of pools.filter((x) => x.version === "tinlake_v2")) {
     const history = histMap.get(p.id)?.series ?? [];
     const flows: DailyFlow[] = [];
-    let prevTvl = 0;
-    for (const { date, tvl_usd } of history) {
-      const delta = tvl_usd - prevTvl;
+    let prevTvl = history.length > 0 ? history[0].tvl_usd : 0;
+    for (let i = 0; i < history.length; i++) {
+      const { date, tvl_usd } = history[i];
+      const delta = i === 0 ? 0 : tvl_usd - prevTvl;
       flows.push({
         date,
         inflow_usd: 0,
