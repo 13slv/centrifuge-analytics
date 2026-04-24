@@ -7,6 +7,8 @@ import { AssetClassDrift } from "@/components/AssetClassDrift";
 import { CrossPoolOverlapList } from "@/components/CrossPoolOverlap";
 import { AlertsPanel } from "@/components/AlertsPanel";
 import { SectionNote } from "@/components/SectionNote";
+import { DataQualityBadge } from "@/components/DataQualityBadge";
+import { centrifugeAnomalies } from "@/lib/anomalies";
 import {
   assetClassDriftInsight,
   breakdownInsight,
@@ -18,8 +20,10 @@ import {
 export const revalidate = 3600;
 
 export default async function HomePage() {
+  const dataset = await getDataset();
   const { pools, histories, generatedAt, startDate, endDate, crossPoolOverlap, poolHolders, poolFlows } =
-    await getDataset();
+    dataset;
+  const anomalies = centrifugeAnomalies(dataset);
   const histMap = new Map(histories.map((h) => [h.poolId, h]));
   const total = totalTvlByDate(pools, histories);
   const latest = total[total.length - 1]?.tvl_usd ?? 0;
@@ -63,8 +67,8 @@ export default async function HomePage() {
             </Link>
           </p>
         </div>
-        <div className="text-xs text-neutral-600">
-          updated {new Date(generatedAt).toISOString().slice(0, 16).replace("T", " ")} UTC
+        <div className="w-full md:w-auto md:min-w-[280px]">
+          <DataQualityBadge generatedAt={generatedAt} anomalies={anomalies} />
         </div>
       </header>
 

@@ -7,6 +7,8 @@ import { formatUsd } from "@/lib/data";
 import { SectionNote } from "@/components/SectionNote";
 import { WhaleExposurePanel } from "@/components/WhaleExposurePanel";
 import { CounterpartyTable } from "@/components/CounterpartyTable";
+import { DataQualityBadge } from "@/components/DataQualityBadge";
+import { rwaAnomalies } from "@/lib/anomalies";
 
 export const revalidate = 3600;
 
@@ -17,6 +19,7 @@ async function getRwaData(): Promise<RwaDataset> {
 
 export default async function RwaPage() {
   const d = await getRwaData();
+  const anomalies = rwaAnomalies(d);
 
   return (
     <main className="max-w-6xl mx-auto px-6 py-10">
@@ -35,9 +38,8 @@ export default async function RwaPage() {
             On-chain snapshot of the main tokenized real-world-asset products across issuers.
           </p>
         </div>
-        <div className="text-xs text-neutral-600">
-          updated{" "}
-          {new Date(d.generatedAt).toISOString().slice(0, 16).replace("T", " ")} UTC
+        <div className="w-full md:w-auto md:min-w-[280px]">
+          <DataQualityBadge generatedAt={d.generatedAt} anomalies={anomalies} />
         </div>
       </header>
 
