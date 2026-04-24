@@ -127,7 +127,7 @@ export default async function RwaPage() {
       <section>
         <h2 className="text-sm text-neutral-400 mb-2">Products</h2>
         <SectionNote
-          read="Per-product snapshot. Supply = on-chain totalSupply of the share token. Price = last known NAV. TVL = supply × price, Ethereum mainnet only (multi-chain aggregation is Sprint B)."
+          read="Supply = on-chain totalSupply summed across all known EVM deployments + off-chain supply (non-EVM chains like Aptos/Solana/Canton). Price = live NAV (gold spot for commodities, ERC-4626 totalAssets/totalSupply for vaults, last-known otherwise). TVL = supply × price. Δ vs RWA.xyz shows how our calc compares to their published TVL."
           insight={buildProductsInsight(d)}
         />
         <div className="border border-neutral-900 rounded-md overflow-hidden">
@@ -139,7 +139,9 @@ export default async function RwaPage() {
                 <th className="text-left px-3 py-2 font-normal">Category</th>
                 <th className="text-right px-3 py-2 font-normal">Supply</th>
                 <th className="text-right px-3 py-2 font-normal">Price</th>
-                <th className="text-right px-3 py-2 font-normal">TVL</th>
+                <th className="text-right px-3 py-2 font-normal">TVL (ours)</th>
+                <th className="text-right px-3 py-2 font-normal">RWA.xyz</th>
+                <th className="text-right px-3 py-2 font-normal">Δ</th>
               </tr>
             </thead>
             <tbody>
@@ -161,7 +163,9 @@ export default async function RwaPage() {
                     {CATEGORY_LABELS[p.category]}
                   </td>
                   <td className="px-3 py-2 text-right tabular-nums text-neutral-400">
-                    {p.supply.toLocaleString("en-US", { maximumFractionDigits: 0 })}
+                    {p.supply > 0
+                      ? p.supply.toLocaleString("en-US", { maximumFractionDigits: 0 })
+                      : "—"}
                   </td>
                   <td className="px-3 py-2 text-right tabular-nums text-neutral-500">
                     $
@@ -173,6 +177,24 @@ export default async function RwaPage() {
                   <td className="px-3 py-2 text-right tabular-nums">
                     {formatUsd(p.tvl_usd)}
                   </td>
+                  <td className="px-3 py-2 text-right tabular-nums text-neutral-400">
+                    {p.rwaxyz_tvl_usd != null ? formatUsd(p.rwaxyz_tvl_usd) : "—"}
+                  </td>
+                  <td
+                    className={`px-3 py-2 text-right tabular-nums ${
+                      p.tvl_delta_pct == null
+                        ? "text-neutral-600"
+                        : Math.abs(p.tvl_delta_pct) < 0.05
+                          ? "text-emerald-400"
+                          : Math.abs(p.tvl_delta_pct) < 0.2
+                            ? "text-amber-400"
+                            : "text-rose-400"
+                    }`}
+                  >
+                    {p.tvl_delta_pct == null
+                      ? "—"
+                      : `${p.tvl_delta_pct >= 0 ? "+" : ""}${(p.tvl_delta_pct * 100).toFixed(0)}%`}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -180,9 +202,12 @@ export default async function RwaPage() {
         </div>
       </section>
 
-      <footer className="mt-12 text-xs text-neutral-600">
-        Registry is Ethereum-mainnet only — BUIDL (7 chains), USDY (3 chains), syrupUSDC (3 chains) have
-        additional supply elsewhere that will be aggregated in Sprint B (multi-chain + RWA.xyz cross-check).
+      <footer className="mt-12 text-xs text-neutral-600 leading-relaxed">
+        On-chain supply via Alchemy across {`{ethereum, arbitrum, polygon, optimism, base, avalanche}`}.
+        Non-EVM chains (Aptos, Solana, Sui, Canton) tracked via off-chain supply hardcoded from issuer
+        reports. Live NAV: gold spot from CoinGecko, ERC-4626 vaults priced via{" "}
+        <code>totalAssets / totalSupply</code>, others use last-known. RWA.xyz reference TVL refreshed manually;
+        large Δ usually means a chain we don&apos;t cover or a NAV stale in our registry.
       </footer>
     </main>
   );

@@ -1,19 +1,40 @@
 import { createPublicClient, http, type PublicClient } from "viem";
-import { mainnet } from "viem/chains";
+import { mainnet, polygon, arbitrum, optimism, base, avalanche } from "viem/chains";
 
-export function ethClient(): PublicClient {
+export type SupportedChain =
+  | "ethereum"
+  | "polygon"
+  | "arbitrum"
+  | "optimism"
+  | "base"
+  | "avalanche";
+
+const CHAIN_MAP = {
+  ethereum: { chain: mainnet, host: "eth-mainnet" },
+  polygon: { chain: polygon, host: "polygon-mainnet" },
+  arbitrum: { chain: arbitrum, host: "arb-mainnet" },
+  optimism: { chain: optimism, host: "opt-mainnet" },
+  base: { chain: base, host: "base-mainnet" },
+  avalanche: { chain: avalanche, host: "avax-mainnet" },
+} as const;
+
+export function chainClient(chain: SupportedChain): PublicClient {
   const key = process.env.ALCHEMY_API_KEY;
   if (!key) throw new Error("ALCHEMY_API_KEY not set");
+  const cfg = CHAIN_MAP[chain];
   return createPublicClient({
-    chain: mainnet,
-    transport: http(`https://eth-mainnet.g.alchemy.com/v2/${key}`, {
-      // viem's retry gives up too quickly for free-tier 429 bursts. Bump it.
+    chain: cfg.chain,
+    transport: http(`https://${cfg.host}.g.alchemy.com/v2/${key}`, {
       retryCount: 6,
       retryDelay: 1500,
       batch: false,
       timeout: 30_000,
     }),
   }) as PublicClient;
+}
+
+export function ethClient(): PublicClient {
+  return chainClient("ethereum");
 }
 
 // Simple throttle — free-tier Alchemy is ~5 rps. Space out calls.

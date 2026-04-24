@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-24T22:18:05.737Z",
+  "generatedAt": "2026-04-24T22:30:39.138Z",
   "products": [
     {
       "slug": "xaut",
@@ -12,12 +12,30 @@
       "address": "0x68749665FF8D2d112Fa859AA293F07A622782F38",
       "decimals": 6,
       "supply": 707747.089,
-      "price_usd": 4000,
-      "tvl_usd": 2830988356,
-      "rwaxyz_tvl_usd": null,
-      "tvl_delta_pct": null,
-      "notes": "1 XAUt = 1 troy oz of gold; stored in Swiss vaults.",
+      "price_usd": 4697.92,
+      "tvl_usd": 3324939204.3548803,
+      "rwaxyz_tvl_usd": 700000000,
+      "tvl_delta_pct": 3.7499131490784006,
+      "notes": "1 XAUt = 1 troy oz of gold; Swiss vaults.",
       "launched": "2020-01-23"
+    },
+    {
+      "slug": "usyc",
+      "name": "Hashnote Short Duration Yield Fund",
+      "symbol": "USYC",
+      "issuer": "Hashnote / Circle",
+      "issuerSlug": "hashnote",
+      "category": "t_bill",
+      "chain": "ethereum+other",
+      "address": "0x136471a34f6ef19fE571EFFC1CA711fdb8E49f2b",
+      "decimals": 6,
+      "supply": 2597296439.467206,
+      "price_usd": 1.11,
+      "tvl_usd": 2882999047.808599,
+      "rwaxyz_tvl_usd": 2900000000,
+      "tvl_delta_pct": -0.0058623973073796565,
+      "notes": "Reverse-repo + T-Bill. Circle acquired in 2025; majority of supply on Canton chain.",
+      "launched": "2023-09-29"
     },
     {
       "slug": "paxg",
@@ -30,12 +48,48 @@
       "address": "0x45804880De22913dAFE09f4980848ECE6EcbAf78",
       "decimals": 18,
       "supply": 481565.416,
-      "price_usd": 4000,
-      "tvl_usd": 1926261664,
-      "rwaxyz_tvl_usd": null,
-      "tvl_delta_pct": null,
-      "notes": "1 PAXG = 1 troy oz of LBMA-certified gold.",
+      "price_usd": 4697.92,
+      "tvl_usd": 2262355799.1347203,
+      "rwaxyz_tvl_usd": 800000000,
+      "tvl_delta_pct": 1.8279447489184004,
+      "notes": "1 PAXG = 1 troy oz LBMA-certified gold.",
       "launched": "2019-09-05"
+    },
+    {
+      "slug": "buidl",
+      "name": "BlackRock USD Institutional Digital Liquidity Fund",
+      "symbol": "BUIDL",
+      "issuer": "BlackRock + Securitize",
+      "issuerSlug": "securitize",
+      "category": "mmf",
+      "chain": "ethereum+arbitrum+other",
+      "address": "0x7712c34205737192402172409a8F7ccef8aA2AEc",
+      "decimals": 6,
+      "supply": 1673485388.370349,
+      "price_usd": 1,
+      "tvl_usd": 1673485388.370349,
+      "rwaxyz_tvl_usd": 2500000000,
+      "tvl_delta_pct": -0.33060584465186044,
+      "notes": "Rebasing share: yield as separate distribution token, NAV stays at $1.",
+      "launched": "2024-03-20"
+    },
+    {
+      "slug": "jtrsy",
+      "name": "Janus Henderson Anemoy Treasury Fund",
+      "symbol": "JTRSY",
+      "issuer": "Centrifuge / Anemoy",
+      "issuerSlug": "centrifuge",
+      "category": "t_bill",
+      "chain": "centrifuge-v3",
+      "address": "0x281474976710662",
+      "decimals": 6,
+      "supply": 0,
+      "price_usd": 1,
+      "tvl_usd": 1519674269.6000001,
+      "rwaxyz_tvl_usd": 1519000000,
+      "tvl_delta_pct": null,
+      "notes": "Sourced from Centrifuge V3 graphql; see /pools/281474976710662",
+      "launched": "2025-07-18"
     },
     {
       "slug": "syrup-usdc",
@@ -48,11 +102,11 @@
       "address": "0x80ac24aA929eaF5013f6436cdA2a7ba190f5Cc0b",
       "decimals": 6,
       "supply": 918565455.821073,
-      "price_usd": 1.15,
-      "tvl_usd": 1056350274.1942339,
-      "rwaxyz_tvl_usd": null,
-      "tvl_delta_pct": null,
-      "notes": "Overcollateralized loans to crypto institutions. 4626 vault.",
+      "price_usd": 1.1611905347540539,
+      "tvl_usd": 1066629512.8514731,
+      "rwaxyz_tvl_usd": 1600000000,
+      "tvl_delta_pct": -0.3333565544678293,
+      "notes": "ERC-4626 vault; price = totalAssets / totalSupply.",
       "launched": "2024-09-18"
     },
     {
@@ -68,8 +122,8 @@
       "supply": 79160290.655406,
       "price_usd": 10.7,
       "tvl_usd": 847015110.0128441,
-      "rwaxyz_tvl_usd": null,
-      "tvl_delta_pct": null,
+      "rwaxyz_tvl_usd": 694000000,
+      "tvl_delta_pct": 0.22048286745366583,
       "notes": "SEC-registered (1940 Act) fund; US qualified purchaser only.",
       "launched": "2024-02-21"
     },
@@ -80,16 +134,34 @@
       "issuer": "Ondo",
       "issuerSlug": "ondo",
       "category": "t_bill",
-      "chain": "ethereum",
+      "chain": "ethereum+other",
       "address": "0x96F6eF951840721AdBF46Ac996b59E0235CB985C",
       "decimals": 18,
-      "supply": 470485428.0774701,
+      "supply": 670485428.0774701,
       "price_usd": 1.12,
-      "tvl_usd": 526943679.4467666,
-      "rwaxyz_tvl_usd": null,
-      "tvl_delta_pct": null,
-      "notes": "Yield-bearing note; appreciates vs USD. Non-US retail-eligible.",
+      "tvl_usd": 750943679.4467665,
+      "rwaxyz_tvl_usd": 700000000,
+      "tvl_delta_pct": 0.07277668492395213,
+      "notes": "LayerZero OFT — burn/mint between chains keeps total supply consistent.",
       "launched": "2023-08-31"
+    },
+    {
+      "slug": "jaaa",
+      "name": "Janus Henderson Anemoy AAA CLO Fund",
+      "symbol": "JAAA",
+      "issuer": "Centrifuge / Anemoy",
+      "issuerSlug": "centrifuge",
+      "category": "credit",
+      "chain": "centrifuge-v3",
+      "address": "0x281474976710663",
+      "decimals": 6,
+      "supply": 0,
+      "price_usd": 1,
+      "tvl_usd": 403655004.41010034,
+      "rwaxyz_tvl_usd": 403000000,
+      "tvl_delta_pct": null,
+      "notes": "Sourced from Centrifuge V3 graphql; see /pools/281474976710663",
+      "launched": "2025-07-18"
     },
     {
       "slug": "ousg",
@@ -104,28 +176,10 @@
       "supply": 2399342.924368216,
       "price_usd": 112.5,
       "tvl_usd": 269926078.9914243,
-      "rwaxyz_tvl_usd": null,
-      "tvl_delta_pct": null,
+      "rwaxyz_tvl_usd": 673000000,
+      "tvl_delta_pct": -0.5989211307705433,
       "notes": "Wraps BUIDL primarily; NAV-appreciating ERC-20.",
       "launched": "2023-01-30"
-    },
-    {
-      "slug": "buidl",
-      "name": "BlackRock USD Institutional Digital Liquidity Fund",
-      "symbol": "BUIDL",
-      "issuer": "BlackRock + Securitize",
-      "issuerSlug": "securitize",
-      "category": "mmf",
-      "chain": "ethereum",
-      "address": "0x7712c34205737192402172409a8F7ccef8aA2AEc",
-      "decimals": 6,
-      "supply": 147575339.220349,
-      "price_usd": 1,
-      "tvl_usd": 147575339.220349,
-      "rwaxyz_tvl_usd": null,
-      "tvl_delta_pct": null,
-      "notes": "Rebasing share: yield accrues as BUIDL-I distribution tokens, share price stays at $1.",
-      "launched": "2024-03-20"
     },
     {
       "slug": "uscc",
@@ -140,28 +194,10 @@
       "supply": 10952246.548832,
       "price_usd": 10.1,
       "tvl_usd": 110617690.14320318,
-      "rwaxyz_tvl_usd": null,
-      "tvl_delta_pct": null,
+      "rwaxyz_tvl_usd": 110000000,
+      "tvl_delta_pct": 0.005615364938210764,
       "notes": "BTC/ETH basis + T-Bill yield; US qualified purchaser.",
       "launched": "2024-06-28"
-    },
-    {
-      "slug": "usyc",
-      "name": "Hashnote Short Duration Yield Fund",
-      "symbol": "USYC",
-      "issuer": "Hashnote / Circle",
-      "issuerSlug": "hashnote",
-      "category": "t_bill",
-      "chain": "ethereum",
-      "address": "0x136471a34f6ef19fE571EFFC1CA711fdb8E49f2b",
-      "decimals": 6,
-      "supply": 97296439.467206,
-      "price_usd": 1.11,
-      "tvl_usd": 107999047.80859867,
-      "rwaxyz_tvl_usd": null,
-      "tvl_delta_pct": null,
-      "notes": "Reverse-repo + T-Bill portfolio. Circle acquired in 2025.",
-      "launched": "2023-09-29"
     }
   ],
   "issuers": [
@@ -169,27 +205,64 @@
       "slug": "tether",
       "name": "Tether",
       "products": 1,
-      "tvl_usd": 2830988356,
+      "tvl_usd": 3324939204.3548803,
       "categories": [
         "commodity"
+      ]
+    },
+    {
+      "slug": "hashnote",
+      "name": "Hashnote / Circle",
+      "products": 1,
+      "tvl_usd": 2882999047.808599,
+      "categories": [
+        "t_bill"
       ]
     },
     {
       "slug": "paxos",
       "name": "Paxos",
       "products": 1,
-      "tvl_usd": 1926261664,
+      "tvl_usd": 2262355799.1347203,
       "categories": [
         "commodity"
+      ]
+    },
+    {
+      "slug": "centrifuge",
+      "name": "Centrifuge / Anemoy",
+      "products": 2,
+      "tvl_usd": 1923329274.0101004,
+      "categories": [
+        "t_bill",
+        "credit"
+      ]
+    },
+    {
+      "slug": "securitize",
+      "name": "Securitize (BlackRock)",
+      "products": 1,
+      "tvl_usd": 1673485388.370349,
+      "categories": [
+        "mmf"
       ]
     },
     {
       "slug": "maple",
       "name": "Maple Finance",
       "products": 1,
-      "tvl_usd": 1056350274.1942339,
+      "tvl_usd": 1066629512.8514731,
       "categories": [
         "credit"
+      ]
+    },
+    {
+      "slug": "ondo",
+      "name": "Ondo Finance",
+      "products": 2,
+      "tvl_usd": 1020869758.4381908,
+      "categories": [
+        "t_bill"
       ]
     },
     {
@@ -201,45 +274,18 @@
         "t_bill",
         "structured"
       ]
-    },
-    {
-      "slug": "ondo",
-      "name": "Ondo Finance",
-      "products": 2,
-      "tvl_usd": 796869758.4381909,
-      "categories": [
-        "t_bill"
-      ]
-    },
-    {
-      "slug": "securitize",
-      "name": "Securitize (BlackRock)",
-      "products": 1,
-      "tvl_usd": 147575339.220349,
-      "categories": [
-        "mmf"
-      ]
-    },
-    {
-      "slug": "hashnote",
-      "name": "Hashnote / Circle",
-      "products": 1,
-      "tvl_usd": 107999047.80859867,
-      "categories": [
-        "t_bill"
-      ]
     }
   ],
   "totals": {
-    "tvl_usd": 7823677239.81742,
-    "products": 9,
-    "issuers": 7,
+    "tvl_usd": 15112240785.124361,
+    "products": 11,
+    "issuers": 8,
     "by_category": {
-      "mmf": 147575339.220349,
-      "t_bill": 1751883916.2596338,
+      "mmf": 1673485388.370349,
+      "t_bill": 6270558185.859634,
       "structured": 110617690.14320318,
-      "credit": 1056350274.1942339,
-      "commodity": 4757250020
+      "credit": 1470284517.2615733,
+      "commodity": 5587295003.489601
     }
   }
 }
