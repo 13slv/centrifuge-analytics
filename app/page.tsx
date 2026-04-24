@@ -53,6 +53,15 @@ export default async function HomePage() {
             Live V3 pools only — matches Centrifuge&apos;s own Products page.
             {" "}Legacy Tinlake v2 pools are excluded from totals (still visible in the table below, marked as such).
           </p>
+          <p className="text-xs text-neutral-600 mt-2">
+            <Link href="/rwa" className="text-violet-400 hover:text-violet-300">
+              → Cross-issuer RWA market view
+            </Link>
+            <span className="mx-2">·</span>
+            <Link href="/compare" className="text-violet-400 hover:text-violet-300">
+              Compare pools
+            </Link>
+          </p>
         </div>
         <div className="text-xs text-neutral-600">
           updated {new Date(generatedAt).toISOString().slice(0, 16).replace("T", " ")} UTC

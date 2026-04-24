@@ -1,0 +1,245 @@
+{
+  "generatedAt": "2026-04-24T22:18:05.737Z",
+  "products": [
+    {
+      "slug": "xaut",
+      "name": "Tether Gold",
+      "symbol": "XAUt",
+      "issuer": "Tether",
+      "issuerSlug": "tether",
+      "category": "commodity",
+      "chain": "ethereum",
+      "address": "0x68749665FF8D2d112Fa859AA293F07A622782F38",
+      "decimals": 6,
+      "supply": 707747.089,
+      "price_usd": 4000,
+      "tvl_usd": 2830988356,
+      "rwaxyz_tvl_usd": null,
+      "tvl_delta_pct": null,
+      "notes": "1 XAUt = 1 troy oz of gold; stored in Swiss vaults.",
+      "launched": "2020-01-23"
+    },
+    {
+      "slug": "paxg",
+      "name": "PAX Gold",
+      "symbol": "PAXG",
+      "issuer": "Paxos",
+      "issuerSlug": "paxos",
+      "category": "commodity",
+      "chain": "ethereum",
+      "address": "0x45804880De22913dAFE09f4980848ECE6EcbAf78",
+      "decimals": 18,
+      "supply": 481565.416,
+      "price_usd": 4000,
+      "tvl_usd": 1926261664,
+      "rwaxyz_tvl_usd": null,
+      "tvl_delta_pct": null,
+      "notes": "1 PAXG = 1 troy oz of LBMA-certified gold.",
+      "launched": "2019-09-05"
+    },
+    {
+      "slug": "syrup-usdc",
+      "name": "Maple Syrup USDC",
+      "symbol": "syrupUSDC",
+      "issuer": "Maple Finance",
+      "issuerSlug": "maple",
+      "category": "credit",
+      "chain": "ethereum",
+      "address": "0x80ac24aA929eaF5013f6436cdA2a7ba190f5Cc0b",
+      "decimals": 6,
+      "supply": 918565455.821073,
+      "price_usd": 1.15,
+      "tvl_usd": 1056350274.1942339,
+      "rwaxyz_tvl_usd": null,
+      "tvl_delta_pct": null,
+      "notes": "Overcollateralized loans to crypto institutions. 4626 vault.",
+      "launched": "2024-09-18"
+    },
+    {
+      "slug": "ustb",
+      "name": "Superstate Short Duration US Government Securities Fund",
+      "symbol": "USTB",
+      "issuer": "Superstate",
+      "issuerSlug": "superstate",
+      "category": "t_bill",
+      "chain": "ethereum",
+      "address": "0x43415eB6ff9DB7E26A15b704e7A3eDCe97d31C4e",
+      "decimals": 6,
+      "supply": 79160290.655406,
+      "price_usd": 10.7,
+      "tvl_usd": 847015110.0128441,
+      "rwaxyz_tvl_usd": null,
+      "tvl_delta_pct": null,
+      "notes": "SEC-registered (1940 Act) fund; US qualified purchaser only.",
+      "launched": "2024-02-21"
+    },
+    {
+      "slug": "usdy",
+      "name": "Ondo US Dollar Yield",
+      "symbol": "USDY",
+      "issuer": "Ondo",
+      "issuerSlug": "ondo",
+      "category": "t_bill",
+      "chain": "ethereum",
+      "address": "0x96F6eF951840721AdBF46Ac996b59E0235CB985C",
+      "decimals": 18,
+      "supply": 470485428.0774701,
+      "price_usd": 1.12,
+      "tvl_usd": 526943679.4467666,
+      "rwaxyz_tvl_usd": null,
+      "tvl_delta_pct": null,
+      "notes": "Yield-bearing note; appreciates vs USD. Non-US retail-eligible.",
+      "launched": "2023-08-31"
+    },
+    {
+      "slug": "ousg",
+      "name": "Ondo Short-Term US Government Bond Fund",
+      "symbol": "OUSG",
+      "issuer": "Ondo",
+      "issuerSlug": "ondo",
+      "category": "t_bill",
+      "chain": "ethereum",
+      "address": "0x1B19C19393e2d034D8Ff31ff34c81252FcBbee92",
+      "decimals": 18,
+      "supply": 2399342.924368216,
+      "price_usd": 112.5,
+      "tvl_usd": 269926078.9914243,
+      "rwaxyz_tvl_usd": null,
+      "tvl_delta_pct": null,
+      "notes": "Wraps BUIDL primarily; NAV-appreciating ERC-20.",
+      "launched": "2023-01-30"
+    },
+    {
+      "slug": "buidl",
+      "name": "BlackRock USD Institutional Digital Liquidity Fund",
+      "symbol": "BUIDL",
+      "issuer": "BlackRock + Securitize",
+      "issuerSlug": "securitize",
+      "category": "mmf",
+      "chain": "ethereum",
+      "address": "0x7712c34205737192402172409a8F7ccef8aA2AEc",
+      "decimals": 6,
+      "supply": 147575339.220349,
+      "price_usd": 1,
+      "tvl_usd": 147575339.220349,
+      "rwaxyz_tvl_usd": null,
+      "tvl_delta_pct": null,
+      "notes": "Rebasing share: yield accrues as BUIDL-I distribution tokens, share price stays at $1.",
+      "launched": "2024-03-20"
+    },
+    {
+      "slug": "uscc",
+      "name": "Superstate Crypto Carry Fund",
+      "symbol": "USCC",
+      "issuer": "Superstate",
+      "issuerSlug": "superstate",
+      "category": "structured",
+      "chain": "ethereum",
+      "address": "0x14d60E7FDC0D71d8611742720E4C50E7a974020c",
+      "decimals": 6,
+      "supply": 10952246.548832,
+      "price_usd": 10.1,
+      "tvl_usd": 110617690.14320318,
+      "rwaxyz_tvl_usd": null,
+      "tvl_delta_pct": null,
+      "notes": "BTC/ETH basis + T-Bill yield; US qualified purchaser.",
+      "launched": "2024-06-28"
+    },
+    {
+      "slug": "usyc",
+      "name": "Hashnote Short Duration Yield Fund",
+      "symbol": "USYC",
+      "issuer": "Hashnote / Circle",
+      "issuerSlug": "hashnote",
+      "category": "t_bill",
+      "chain": "ethereum",
+      "address": "0x136471a34f6ef19fE571EFFC1CA711fdb8E49f2b",
+      "decimals": 6,
+      "supply": 97296439.467206,
+      "price_usd": 1.11,
+      "tvl_usd": 107999047.80859867,
+      "rwaxyz_tvl_usd": null,
+      "tvl_delta_pct": null,
+      "notes": "Reverse-repo + T-Bill portfolio. Circle acquired in 2025.",
+      "launched": "2023-09-29"
+    }
+  ],
+  "issuers": [
+    {
+      "slug": "tether",
+      "name": "Tether",
+      "products": 1,
+      "tvl_usd": 2830988356,
+      "categories": [
+        "commodity"
+      ]
+    },
+    {
+      "slug": "paxos",
+      "name": "Paxos",
+      "products": 1,
+      "tvl_usd": 1926261664,
+      "categories": [
+        "commodity"
+      ]
+    },
+    {
+      "slug": "maple",
+      "name": "Maple Finance",
+      "products": 1,
+      "tvl_usd": 1056350274.1942339,
+      "categories": [
+        "credit"
+      ]
+    },
+    {
+      "slug": "superstate",
+      "name": "Superstate",
+      "products": 2,
+      "tvl_usd": 957632800.1560472,
+      "categories": [
+        "t_bill",
+        "structured"
+      ]
+    },
+    {
+      "slug": "ondo",
+      "name": "Ondo Finance",
+      "products": 2,
+      "tvl_usd": 796869758.4381909,
+      "categories": [
+        "t_bill"
+      ]
+    },
+    {
+      "slug": "securitize",
+      "name": "Securitize (BlackRock)",
+      "products": 1,
+      "tvl_usd": 147575339.220349,
+      "categories": [
+        "mmf"
+      ]
+    },
+    {
+      "slug": "hashnote",
+      "name": "Hashnote / Circle",
+      "products": 1,
+      "tvl_usd": 107999047.80859867,
+      "categories": [
+        "t_bill"
+      ]
+    }
+  ],
+  "totals": {
+    "tvl_usd": 7823677239.81742,
+    "products": 9,
+    "issuers": 7,
+    "by_category": {
+      "mmf": 147575339.220349,
+      "t_bill": 1751883916.2596338,
+      "structured": 110617690.14320318,
+      "credit": 1056350274.1942339,
+      "commodity": 4757250020
+    }
+  }
+}

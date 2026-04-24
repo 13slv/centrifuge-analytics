@@ -11,6 +11,7 @@
     "flows": "tsx scripts/flows.ts",
     "holders": "tsx scripts/holders.ts",
     "benchmarks": "tsx scripts/benchmarks.ts",
+    "rwa": "tsx scripts/rwa-tvl.ts",
     "update": "tsx scripts/update-daily.ts"
   },
   "dependencies": {
