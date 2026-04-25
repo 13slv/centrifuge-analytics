@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { getDataset } from "@/lib/data.server";
 import { formatUsd, totalTvlByDate, currentTvl, isLivePool } from "@/lib/data";
-import { TvlChart } from "@/components/TvlChart";
 import { PoolsTable } from "@/components/PoolsTable";
 import { AssetClassDrift } from "@/components/AssetClassDrift";
+import { PoolTvlStack } from "@/components/PoolTvlStack";
 import { CrossPoolOverlapList } from "@/components/CrossPoolOverlap";
 import { AlertsPanel } from "@/components/AlertsPanel";
 import { SectionNote } from "@/components/SectionNote";
@@ -88,12 +88,19 @@ export default async function HomePage() {
       </section>
 
       <section className="mb-10">
-        <h2 className="text-sm text-neutral-400 mb-2">Total TVL — all Centrifuge pools</h2>
+        <h2 className="text-sm text-neutral-400 mb-2">
+          Total TVL — composition by pool
+        </h2>
         <SectionNote
-          read="Area = sum of every pool's USD TVL, one dot per day. Flat stretches + sudden step-ups are typical of RWA pools where value is added in discrete tranches (pool launches or admin mints)."
+          read="Stacked area: each colour is one pool. Top 7 pools shown individually, the rest bucketed as 'Other'. Hover for per-pool USD on a given date. Sum of all bands = total Centrifuge TVL on that day."
           insight={totalTvlInsight(total)}
         />
-        <TvlChart data={total} height={320} />
+        <PoolTvlStack
+          pools={pools.filter((p) => isLivePool(p, histMap.get(p.id)))}
+          histories={histories}
+          topN={7}
+          height={340}
+        />
       </section>
 
       <section className="mb-10">
