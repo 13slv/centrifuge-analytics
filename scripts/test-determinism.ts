@@ -81,15 +81,17 @@ async function testIdempotency() {
     const drift = Math.abs((a.totals.tvl_usd - b.totals.tvl_usd) / a.totals.tvl_usd);
     assert(drift < 0.01, `total TVL drift between consecutive runs < 1% (got ${(drift * 100).toFixed(3)}%)`);
 
-    // Per-product TVL should match within tolerance
+    // Per-product TVL should match within tolerance.
+    // 2% allows for: gold spot live updates between calls, ERC-4626 deposits
+    // landing between two consecutive snapshots, on-chain mempool re-org.
     let highDrift = 0;
     for (const p of a.products) {
       const matchB = b.products.find((q) => q.slug === p.slug);
       if (!matchB) continue;
       const d = p.tvl_usd > 0 ? Math.abs((p.tvl_usd - matchB.tvl_usd) / p.tvl_usd) : 0;
-      if (d > 0.01) highDrift++;
+      if (d > 0.02) highDrift++;
     }
-    assert(highDrift === 0, `no product drifts >1% between runs (${highDrift} did)`);
+    assert(highDrift === 0, `no product drifts >2% between runs (${highDrift} did)`);
   } finally {
     // Restore baseline
     await copyFile(backup, rwaPath);
