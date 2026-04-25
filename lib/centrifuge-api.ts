@@ -13,7 +13,8 @@ export async function gql<T>(query: string, variables?: Record<string, unknown>)
   return json.data;
 }
 
-// centrifugeId → chain slug used in our dataset
+// centrifugeId → chain slug used in our dataset.
+// Source: api.centrifuge.io blockchains query (verified 2026-04-25).
 export const CENTRIFUGE_CHAIN_MAP: Record<string, { chain: string; chainId: number }> = {
   "1": { chain: "ethereum", chainId: 1 },
   "2": { chain: "base", chainId: 8453 },
@@ -23,6 +24,8 @@ export const CENTRIFUGE_CHAIN_MAP: Record<string, { chain: string; chainId: numb
   "6": { chain: "bnb", chainId: 56 },
   "9": { chain: "hyperevm", chainId: 999 },
   "10": { chain: "optimism", chainId: 10 },
+  "11": { chain: "monad", chainId: 143 },
+  "12": { chain: "lumia", chainId: 1672 },
 };
 
 export async function fetchIpfsJson(uri: string): Promise<unknown | null> {

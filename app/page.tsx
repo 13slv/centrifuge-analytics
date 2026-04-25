@@ -32,12 +32,27 @@ export default async function HomePage() {
   // Asset class rollup @ latest — only live pools, so totals match Centrifuge's UI.
   const byClass = new Map<string, number>();
   const byChain = new Map<string, number>();
+  const chainProductCount = new Map<string, number>();
   for (const p of pools) {
     const h = histMap.get(p.id);
     if (!isLivePool(p, h)) continue;
     const tvl = currentTvl(h?.series ?? []);
     byClass.set(p.assetClass, (byClass.get(p.assetClass) ?? 0) + tvl);
-    byChain.set(p.chain, (byChain.get(p.chain) ?? 0) + tvl);
+    // Distribute TVL by *actual* chain where the token instance lives
+    // (not just pool's hub chain). Pre-Sprint X this incorrectly attributed
+    // JAAA's $258M Avalanche supply to "ethereum" because that's JAAA's hub.
+    const chainTvl = h?.chainTvl;
+    if (chainTvl && Object.keys(chainTvl).length > 0) {
+      for (const [chain, v] of Object.entries(chainTvl)) {
+        if (v <= 0) continue;
+        byChain.set(chain, (byChain.get(chain) ?? 0) + v);
+        chainProductCount.set(chain, (chainProductCount.get(chain) ?? 0) + 1);
+      }
+    } else {
+      // Fallback for pools without chainTvl breakdown (legacy data)
+      byChain.set(p.chain, (byChain.get(p.chain) ?? 0) + tvl);
+      chainProductCount.set(p.chain, (chainProductCount.get(p.chain) ?? 0) + 1);
+    }
   }
   const activeLive = pools.filter((p) => isLivePool(p, histMap.get(p.id))).length;
   const classRows = Array.from(byClass.entries())
@@ -140,10 +155,16 @@ export default async function HomePage() {
         <div>
           <h2 className="text-sm text-neutral-400 mb-2">TVL by chain</h2>
           <SectionNote
-            read="Sum of TVL for all pools living on each chain."
+            read="Distributed by where each pool's token-instance supply actually lives — JAAA on Avalanche shows up here as Avalanche, not as Ethereum (its hub chain)."
             insight={breakdownInsight(chainRows, "chain")}
           />
-          <BreakdownList rows={chainRows} />
+          <BreakdownList
+            rows={chainRows.map((r) => ({
+              ...r,
+              count: chainProductCount.get(r.k) ?? 0,
+            }))}
+            showCount
+          />
         </div>
       </section>
 
@@ -193,13 +214,24 @@ function Stat({ label, value }: { label: string; value: string }) {
   );
 }
 
-function BreakdownList({ rows }: { rows: { k: string; v: number }[] }) {
+function BreakdownList({
+  rows,
+  showCount = false,
+}: {
+  rows: { k: string; v: number; count?: number }[];
+  showCount?: boolean;
+}) {
   const total = rows.reduce((s, r) => s + r.v, 0) || 1;
   return (
     <div className="space-y-1">
-      {rows.map(({ k, v }) => (
+      {rows.map(({ k, v, count }) => (
         <div key={k} className="flex items-center gap-3 text-sm">
-          <div className="w-40 truncate text-neutral-300">{k}</div>
+          <div className="w-40 truncate text-neutral-300">
+            {k}
+            {showCount && count != null && (
+              <span className="text-neutral-600 ml-1.5 text-xs">×{count}</span>
+            )}
+          </div>
           <div className="flex-1 h-1.5 bg-neutral-900 rounded">
             <div
               className="h-full bg-violet-500 rounded"

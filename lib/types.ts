@@ -55,6 +55,8 @@ export type PoolHistory = {
   poolId: string;
   series: TvlPoint[];
   apySeries?: ApyPoint[];
+  /** Latest TVL distributed by chain where the token instance lives. */
+  chainTvl?: Record<string, number>;
 };
 
 export type LargeEvent = {

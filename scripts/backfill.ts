@@ -12,7 +12,7 @@ import { writeFile, readFile } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseAbi, formatUnits } from "viem";
-import { gql } from "../lib/centrifuge-api.js";
+import { gql, CENTRIFUGE_CHAIN_MAP } from "../lib/centrifuge-api.js";
 import { ethClient, blockForTimestamp, dailyDatesUtc, throttle } from "../lib/alchemy.js";
 import type { ApyPoint, Dataset, Pool, PoolHistory, TvlPoint } from "../lib/types.js";
 
@@ -115,7 +115,7 @@ function buildTvlSeries(
   instanceSnaps: Map<string, InstanceSnapshot[]>, // key = tokenId|centrifugeId
   apySnaps: Map<string, TokenSnapshot[]>, // key = tokenId
   decimalsByToken: Map<string, number>,
-): { tvl: TvlPoint[]; apy: ApyPoint[] } {
+): { tvl: TvlPoint[]; apy: ApyPoint[]; chainTvl: Record<string, number> } {
   const dayInstanceTvl = new Map<string, Map<string, number>>(); // date -> instanceKey -> tvl
   const dayTokenApy = new Map<string, Map<string, number>>();
   const startMs = new Date(START_DATE + "T00:00:00Z").getTime();
@@ -195,7 +195,18 @@ function buildTvlSeries(
     }
     if (den > 0) apy.push({ date, apy: num / den });
   }
-  return { tvl, apy };
+
+  // Latest snapshot — break TVL down by chain (centrifugeId) so the dashboard
+  // can show "where does this pool's value actually live?" instead of just
+  // attributing everything to the pool's hub chain.
+  const chainTvl: Record<string, number> = {};
+  for (const [instKey, v] of lastInstTvl) {
+    const cid = instKey.split("|")[1];
+    const chain = CENTRIFUGE_CHAIN_MAP[cid]?.chain ?? `cfgId-${cid}`;
+    chainTvl[chain] = (chainTvl[chain] ?? 0) + v;
+  }
+
+  return { tvl, apy, chainTvl };
 }
 
 // --- Tinlake v2 on-chain reads ---
@@ -362,13 +373,17 @@ async function main() {
         }
         apyByToken.set(t.id, await apySnapshots(t.id));
       }
-      const { tvl, apy } = buildTvlSeries(instSnaps, apyByToken, decByToken);
-      histories.push({ poolId: p.id, series: tvl, apySeries: apy });
+      const { tvl, apy, chainTvl } = buildTvlSeries(instSnaps, apyByToken, decByToken);
+      histories.push({ poolId: p.id, series: tvl, apySeries: apy, chainTvl });
       const peak = tvl.reduce((m, s) => Math.max(m, s.tvl_usd), 0);
       const lastApy = apy[apy.length - 1]?.apy;
       const apyStr = lastApy != null ? ` · APY ${(lastApy * 100).toFixed(2)}%` : "";
+      const chains = Object.entries(chainTvl)
+        .filter(([, v]) => v > 100_000)
+        .map(([c, v]) => `${c}:$${(v / 1e6).toFixed(0)}M`)
+        .join(" + ");
       console.log(
-        `${tvl.length.toString().padStart(4)}d, peak $${(peak / 1e6).toFixed(2)}M${apyStr}`,
+        `${tvl.length.toString().padStart(4)}d, peak $${(peak / 1e6).toFixed(2)}M${apyStr}${chains ? `  [${chains}]` : ""}`,
       );
     } catch (e) {
       console.log(`ERROR: ${(e as Error).message}`);
