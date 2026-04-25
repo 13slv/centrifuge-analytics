@@ -65,11 +65,16 @@ export const RWA_PRODUCTS: RwaProduct[] = [
       { chain: "polygon", address: "0x2893Ef551B6dD69F661Ac00F11D93E5Dc5Dc0e99", decimals: 6 },
       // Avalanche, Optimism: addresses pending verification (Phase 3 audit)
     ],
-    off_chain_supply: 1_000_000_000, // residual on Avalanche, Optimism, Aptos, Solana — refined after Polygon added on-chain
+    // BUIDL multi-chain distribution per The Block (Apr 2026):
+    //   Ethereum (principal share class): ~$148M  [we read on-chain]
+    //   Ethereum BUIDL-I (yield distribution): ~$1.07B  [different contract, off-chain here]
+    //   Aptos $559M, Solana $526M, BSC $508M  [non-EVM, off-chain]
+    //   Avalanche $111M, Optimism $26M, Arbitrum $26M, Polygon $10M  [partial on-chain]
+    off_chain_supply: 2_240_000_000, // Eth BUIDL-I + Aptos + Solana + BSC + remaining EVM gap
     price_usd: 1.0,
     priceSource: { kind: "static" },
-    rwaxyz_tvl_usd: 2_500_000_000,
-    rwaxyz_as_of: "2026-04-24",
+    rwaxyz_tvl_usd: 2_390_000_000, // refreshed 2026-04-25 (CoinGecko / The Block)
+    rwaxyz_as_of: "2026-04-25",
     notes: "Rebasing share: yield as separate distribution token, NAV stays at $1.",
     launched: "2024-03-20",
   },
@@ -83,11 +88,12 @@ export const RWA_PRODUCTS: RwaProduct[] = [
     deployments: [
       { chain: "ethereum", address: "0x1B19C19393e2d034D8Ff31ff34c81252FcBbee92", decimals: 18 },
     ],
+    off_chain_supply: 3_500_000, // OUSG also lives on Solana, Sui, Mantle (not Alchemy-EVM)
     price_usd: 112.5,
     priceSource: { kind: "static" },
     rwaxyz_tvl_usd: 673_000_000,
-    rwaxyz_as_of: "2026-04-24",
-    notes: "Wraps BUIDL primarily; NAV-appreciating ERC-20.",
+    rwaxyz_as_of: "2026-04-25",
+    notes: "Wraps BUIDL primarily; NAV-appreciating ERC-20. Supply spread across Eth + Solana + Sui + Mantle.",
     launched: "2023-01-30",
   },
   {
@@ -195,8 +201,8 @@ export const RWA_PRODUCTS: RwaProduct[] = [
     ],
     price_usd: 4000,
     priceSource: { kind: "gold-spot" },
-    rwaxyz_tvl_usd: 800_000_000,
-    rwaxyz_as_of: "2026-04-24",
+    rwaxyz_tvl_usd: 2_300_000_000, // refreshed 2026-04-25 — gold rallied + supply grew
+    rwaxyz_as_of: "2026-04-25",
     notes: "1 PAXG = 1 troy oz LBMA-certified gold.",
     launched: "2019-09-05",
   },
@@ -212,8 +218,8 @@ export const RWA_PRODUCTS: RwaProduct[] = [
     ],
     price_usd: 4000,
     priceSource: { kind: "gold-spot" },
-    rwaxyz_tvl_usd: 700_000_000,
-    rwaxyz_as_of: "2026-04-24",
+    rwaxyz_tvl_usd: 3_600_000_000, // refreshed 2026-04-25 — XAUT $3.6B per BingX (Feb 2026)
+    rwaxyz_as_of: "2026-04-25",
     notes: "1 XAUt = 1 troy oz of gold; Swiss vaults.",
     launched: "2020-01-23",
   },
