@@ -15,20 +15,25 @@ import { parseAbi, formatUnits } from "viem";
 import { gql, CENTRIFUGE_CHAIN_MAP } from "../lib/centrifuge-api.js";
 
 /**
- * Native Centrifuge Chain (Polkadot parachain) supply per pool, in shares.
+ * Reverted: previously tried to hardcode "native parachain supply" to close
+ * the gap with RWA.xyz, but the gap is actually a NAV-pricing difference,
+ * not missing supply.
  *
- * V3 GraphQL `tokenInstances` only covers EVM chains. For pools that launched
- * on the native parachain BEFORE V3 (JTRSY, JAAA — both Anemoy), original
- * investor shares still live there and never migrated to EVM. RWA.xyz
- * includes them in their headline market cap; we hardcode the delta here.
+ * Verified directly via Polkadot.js connection to wss://fullnode.centrifuge.io
+ * (scripts/probe-parachain.ts):
+ *   - Centrifuge Chain has 4 native pools: JTRSY (362M shares), JAAA
+ *     (751M shares), New Silver 3 (0), Anemoy DeFi Yield 1 (dust).
+ *   - These are SEPARATE legacy funds with same branding, NOT additional
+ *     supply for the V3 EVM-side JTRSY/JAAA. RWA.xyz market cap matches our
+ *     V3 EVM-only supply (1.288B JTRSY shares).
+ *   - Gap is in price: V3 tokenPrice = $1.101, RWA.xyz implied = $1.184.
+ *     7.5% NAV difference, source unknown (likely issuer-reported AUM vs
+ *     on-chain published price).
  *
- * Sourced from: RWA.xyz market cap minus our V3 EVM sum (verified 2026-04-25).
- * Refresh quarterly or when RWA.xyz delta drifts > 5%.
+ * Resolution: keep V3 EVM-only as our authoritative number, document the gap
+ * via DataQualityBadge anomaly. Investigating whether to expose JH's NAV
+ * feed as an alternative pricing source is a Phase 8 work item.
  */
-const CFG_CHAIN_NATIVE_SHARES: Record<string, number> = {
-  "281474976710662": 86_000_000, // JTRSY: RWA.xyz $1.52B vs our V3 $1.43B = +$90M @ price $1.10
-  "281474976710663": 4_500_000, // JAAA: RWA.xyz $408M vs our V3 $403M = +$5M @ price $1.03
-};
 import { ethClient, blockForTimestamp, dailyDatesUtc, throttle } from "../lib/alchemy.js";
 import type { ApyPoint, Dataset, Pool, PoolHistory, TvlPoint } from "../lib/types.js";
 
@@ -390,26 +395,6 @@ async function main() {
         apyByToken.set(t.id, await apySnapshots(t.id));
       }
       const { tvl, apy, chainTvl } = buildTvlSeries(instSnaps, apyByToken, decByToken);
-
-      // Add Centrifuge Chain native supply (parachain — pre-V3 issuance) to
-      // the latest snapshot so totals match RWA.xyz / Centrifuge UI.
-      const nativeShares = CFG_CHAIN_NATIVE_SHARES[p.id];
-      if (nativeShares && tvl.length > 0) {
-        const lastDay = tvl[tvl.length - 1];
-        // Use the last day's implied per-share price = current TVL / V3 supply
-        // approximation. Simpler: take a representative share price from the
-        // latest token snapshot. Here we derive: native USD = nativeShares × $1.
-        // Using $1.10 for JTRSY, $1.03 for JAAA (their stable NAVs as of 2026-04-25).
-        const nativePrice = p.id === "281474976710662" ? 1.10 : 1.03;
-        const nativeUsd = nativeShares * nativePrice;
-        // Bump the latest TVL point and retroactively add to all later dates
-        // (we don't have history for parachain — assume constant).
-        for (const point of tvl) {
-          if (point.tvl_usd > 0) point.tvl_usd += nativeUsd;
-        }
-        chainTvl["centrifuge_chain"] = nativeUsd;
-      }
-
       histories.push({ poolId: p.id, series: tvl, apySeries: apy, chainTvl });
       const peak = tvl.reduce((m, s) => Math.max(m, s.tvl_usd), 0);
       const lastApy = apy[apy.length - 1]?.apy;

@@ -27,6 +27,7 @@
     "viem": "^2.48.4"
   },
   "devDependencies": {
+    "@polkadot/api": "^16.5.6",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
