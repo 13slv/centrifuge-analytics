@@ -290,12 +290,17 @@ async function testKnownDatapoints() {
     assertClose(peak, 1_020_000_000, 0.1, "JAAA peak ≈ \$1.02B");
   }
 
-  // Sky Grove holds JTRSY ~85%
+  // Sky Grove is structurally dominant in JTRSY — top-1 share > 50%.
+  // (Use a structural claim instead of a fixed number — real share drifts as
+  // Sky governance rebalances, e.g. moved 85% → 78.7% over 2 weeks.)
   const jtrsyHolders = d.poolHolders?.find((h) => h.poolId === "281474976710662");
   if (jtrsyHolders) {
     const top1 = jtrsyHolders.top[0];
     if (top1) {
-      assertClose(top1.share, 0.85, 0.05, "JTRSY top-1 share ≈ 85% (Sky Grove)");
+      assert(
+        top1.share > 0.5,
+        `JTRSY top-1 (Sky Grove) share > 50% (got ${(top1.share * 100).toFixed(1)}%) — structural anchor still in place`,
+      );
     }
   }
 }
