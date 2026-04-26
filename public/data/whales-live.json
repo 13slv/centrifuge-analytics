@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-24T22:59:28.290Z",
+  "generatedAt": "2026-04-26T09:05:11.731Z",
   "whales": [
     {
       "address": "0x491EDFB0B8b608044e227225C715981a30F3A44E",
@@ -15,7 +15,7 @@
           "raw_balance": "n/a",
           "share_of_product": 0.85,
           "source": "Centrifuge V3 indexer",
-          "refreshed_at": "2026-04-24T22:59:28.290Z"
+          "refreshed_at": "2026-04-26T09:05:11.731Z"
         },
         {
           "product_slug": "buidl",
@@ -24,7 +24,7 @@
           "raw_balance": "0",
           "share_of_product": 0.59,
           "source": "Etherscan (on-chain returned 0)",
-          "refreshed_at": "2026-04-24T22:59:28.288Z"
+          "refreshed_at": "2026-04-26T09:05:11.731Z"
         },
         {
           "product_slug": "jaaa",
@@ -33,7 +33,7 @@
           "raw_balance": "n/a",
           "share_of_product": 0.058,
           "source": "Centrifuge V3 indexer",
-          "refreshed_at": "2026-04-24T22:59:28.290Z"
+          "refreshed_at": "2026-04-26T09:05:11.731Z"
         }
       ]
     }
