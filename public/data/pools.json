@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-28T11:20:35.789Z",
+  "generatedAt": "2026-04-29T10:33:24.777Z",
   "pools": [
     {
       "id": "0x09e43329552c9D81cF205Fd5f44796fBC40c822e",
@@ -632,7 +632,7 @@
       "status": "active",
       "createdAt": "2025-07-16T13:02:59.000Z",
       "createdAtBlock": 22931926,
-      "metadataUri": "ipfs://QmR5EGudykorSSnGxpMvCPjKRxGd5cnB3mr7GbGsmuehoc",
+      "metadataUri": "ipfs://QmeM6vuW6fuSnjxyqHiPrRm1Jbeqagv7dnWkP9coPU5A1P",
       "tranches": [
         {
           "id": "0x00010000000000030000000000000001",
