@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T11:27:45.486Z",
+  "generatedAt": "2026-05-08T08:59:47.189Z",
   "pools": [
     {
       "id": "0x09e43329552c9D81cF205Fd5f44796fBC40c822e",
@@ -980,6 +980,12 @@
         {
           "id": "0x00030000000000030000000000000002",
           "symbol": "ARKPLAY",
+          "seniority": "junior",
+          "decimals": 18
+        },
+        {
+          "id": "0x00030000000000030000000000000003",
+          "symbol": "ARKTEST01",
           "seniority": "junior",
           "decimals": 18
         }
