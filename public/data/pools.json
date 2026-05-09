@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-08T08:59:47.189Z",
+  "generatedAt": "2026-05-09T09:03:25.801Z",
   "pools": [
     {
       "id": "0x09e43329552c9D81cF205Fd5f44796fBC40c822e",
@@ -928,6 +928,12 @@
           "symbol": "JRRT",
           "seniority": "junior",
           "decimals": 18
+        },
+        {
+          "id": "0x0003000000000001000000000000000a",
+          "symbol": "APYDGI",
+          "seniority": "junior",
+          "decimals": 18
         }
       ]
     },
@@ -986,6 +992,18 @@
         {
           "id": "0x00030000000000030000000000000003",
           "symbol": "ARKTEST01",
+          "seniority": "junior",
+          "decimals": 18
+        },
+        {
+          "id": "0x00030000000000030000000000000004",
+          "symbol": "ARKTEST02",
+          "seniority": "junior",
+          "decimals": 18
+        },
+        {
+          "id": "0x00030000000000030000000000000005",
+          "symbol": "ARKTEST03",
           "seniority": "junior",
           "decimals": 18
         }
