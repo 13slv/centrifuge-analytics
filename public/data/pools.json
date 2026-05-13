@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-12T11:32:52.882Z",
+  "generatedAt": "2026-05-13T11:51:48.419Z",
   "pools": [
     {
       "id": "0x09e43329552c9D81cF205Fd5f44796fBC40c822e",
@@ -873,7 +873,7 @@
       "status": "active",
       "createdAt": "2026-02-26T13:32:41.000Z",
       "createdAtBlock": 436181245,
-      "metadataUri": "ipfs://QmY96gPLAvkZ1NaBxugyj5h8h4NBeghRNSvu1fZYaMe84u",
+      "metadataUri": "ipfs://QmXutrHszimXU3wSzDCWU7Aj9CqEuYZ45vQNYSr9TTGyhV",
       "tranches": [
         {
           "id": "0x00030000000000010000000000000001",
@@ -931,7 +931,7 @@
         },
         {
           "id": "0x0003000000000001000000000000000a",
-          "symbol": "APYDGI",
+          "symbol": "APXR",
           "seniority": "junior",
           "decimals": 18
         }
