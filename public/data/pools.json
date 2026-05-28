@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-27T08:07:08.533Z",
+  "generatedAt": "2026-05-28T08:04:29.238Z",
   "pools": [
     {
       "id": "0x09e43329552c9D81cF205Fd5f44796fBC40c822e",
@@ -932,6 +932,12 @@
         {
           "id": "0x0003000000000001000000000000000a",
           "symbol": "APXR",
+          "seniority": "junior",
+          "decimals": 18
+        },
+        {
+          "id": "0x0003000000000001000000000000000b",
+          "symbol": "DGI",
           "seniority": "junior",
           "decimals": 18
         }
