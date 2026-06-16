@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-15T10:26:01.624Z",
+  "generatedAt": "2026-06-16T09:29:13.454Z",
   "pools": [
     {
       "id": "0x09e43329552c9D81cF205Fd5f44796fBC40c822e",
@@ -693,7 +693,7 @@
       "status": "active",
       "createdAt": "2025-07-16T13:51:23.000Z",
       "createdAtBlock": 22932166,
-      "metadataUri": "ipfs://QmW7YCvhhwEzBD1ecZofBtG1pcLJ5pEf1EfB81AwUFwvrb",
+      "metadataUri": "ipfs://QmQvjy2hqxvXrZ4N9nxKNy6fnNjgh6LGViySiRTWnZ4i77",
       "tranches": [
         {
           "id": "0x00010000000000060000000000000001",
@@ -714,7 +714,7 @@
       "status": "active",
       "createdAt": "2025-07-16T13:51:23.000Z",
       "createdAtBlock": 22932166,
-      "metadataUri": "ipfs://QmWN4CgRKfC1ujSTECPDeu8nQZXYEfEyxmFSZyGaN3gXvb",
+      "metadataUri": "ipfs://QmZQ6B2L9hXxby48d9oRwp95yCayJeRLFxrzPM3DJHg28r",
       "tranches": [
         {
           "id": "0x00010000000000070000000000000001",
@@ -735,7 +735,7 @@
       "status": "active",
       "createdAt": "2025-09-17T14:19:23.000Z",
       "createdAtBlock": 23383353,
-      "metadataUri": "ipfs://QmTAgFP5Q4ruWoaj5CaeNuuE2bKujnB2RpWUFZ5mi1cV2n",
+      "metadataUri": "ipfs://QmYmM7SCddMEcvnyuCFPwSiWK4NP3T2m5EnsEB1yyVqeU8",
       "tranches": [
         {
           "id": "0x00010000000000080000000000000001",
@@ -861,6 +861,18 @@
           "decimals": 18
         }
       ]
+    },
+    {
+      "id": "281474976710671",
+      "version": "cfg_v3",
+      "chain": "ethereum",
+      "name": "Pool 0671",
+      "assetClass": "Unknown",
+      "currency": "USDC",
+      "status": "active",
+      "createdAt": "2026-06-15T13:04:35.000Z",
+      "createdAtBlock": 25323082,
+      "tranches": []
     },
     {
       "id": "844424930131969",
@@ -1010,6 +1022,18 @@
         {
           "id": "0x00030000000000030000000000000005",
           "symbol": "ARKTEST03",
+          "seniority": "junior",
+          "decimals": 18
+        },
+        {
+          "id": "0x00030000000000030000000000000006",
+          "symbol": "ARKTEST04",
+          "seniority": "junior",
+          "decimals": 18
+        },
+        {
+          "id": "0x00030000000000030000000000000007",
+          "symbol": "ARKTEST05",
           "seniority": "junior",
           "decimals": 18
         }
