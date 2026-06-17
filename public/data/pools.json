@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T09:29:13.454Z",
+  "generatedAt": "2026-06-17T09:04:29.282Z",
   "pools": [
     {
       "id": "0x09e43329552c9D81cF205Fd5f44796fBC40c822e",
@@ -613,13 +613,28 @@
       "id": "281474976710658",
       "version": "cfg_v3",
       "chain": "ethereum",
-      "name": "Pool 0658",
-      "assetClass": "Unknown",
+      "name": "Centrifuge Real World Assets - Integration Test",
+      "issuer": "",
+      "assetClass": "Private credit",
       "currency": "USDC",
       "status": "active",
       "createdAt": "2025-07-16T13:02:59.000Z",
       "createdAtBlock": 22931926,
-      "tranches": []
+      "metadataUri": "ipfs://QmeoutGHmN8Fh3ffYZ91zak8H73zV7fWwnfPqWwsnTSWWB",
+      "tranches": [
+        {
+          "id": "0x00010000000000020000000000000001",
+          "symbol": "RWAt",
+          "seniority": "senior",
+          "decimals": 18
+        },
+        {
+          "id": "0x00010000000000020000000000000002",
+          "symbol": "deRWAt",
+          "seniority": "junior",
+          "decimals": 18
+        }
+      ]
     },
     {
       "id": "281474976710659",
@@ -866,13 +881,22 @@
       "id": "281474976710671",
       "version": "cfg_v3",
       "chain": "ethereum",
-      "name": "Pool 0671",
-      "assetClass": "Unknown",
+      "name": "HYB (Pool 0671)",
+      "issuer": "",
+      "assetClass": "Private credit",
       "currency": "USDC",
       "status": "active",
       "createdAt": "2026-06-15T13:04:35.000Z",
       "createdAtBlock": 25323082,
-      "tranches": []
+      "metadataUri": "ipfs://QmRFm4v2wQToav42i95gQNRV8ByTinuXjBC8fwHydgcZtX",
+      "tranches": [
+        {
+          "id": "0x000100000000000f0000000000000001",
+          "symbol": "HYB",
+          "seniority": "single",
+          "decimals": 18
+        }
+      ]
     },
     {
       "id": "844424930131969",
@@ -1034,6 +1058,18 @@
         {
           "id": "0x00030000000000030000000000000007",
           "symbol": "ARKTEST05",
+          "seniority": "junior",
+          "decimals": 18
+        },
+        {
+          "id": "0x00030000000000030000000000000008",
+          "symbol": "ARKTEST06",
+          "seniority": "junior",
+          "decimals": 18
+        },
+        {
+          "id": "0x00030000000000030000000000000009",
+          "symbol": "ARKTESTT",
           "seniority": "junior",
           "decimals": 18
         }
