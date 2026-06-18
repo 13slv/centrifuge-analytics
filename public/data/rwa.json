@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T09:39:36.288Z",
+  "generatedAt": "2026-06-18T09:25:12.230Z",
   "products": [
     {
       "slug": "xaut",
@@ -12,10 +12,10 @@
       "address": "0x68749665FF8D2d112Fa859AA293F07A622782F38",
       "decimals": 6,
       "supply": 707747.089,
-      "price_usd": 4318.74,
-      "tvl_usd": 3056575663.14786,
+      "price_usd": 4261.34,
+      "tvl_usd": 3015950980.23926,
       "rwaxyz_tvl_usd": 3600000000,
-      "tvl_delta_pct": -0.15095120468114998,
+      "tvl_delta_pct": -0.16223583882242773,
       "notes": "1 XAUt = 1 troy oz of gold; Swiss vaults.",
       "launched": "2020-01-23"
     },
@@ -29,11 +29,11 @@
       "chain": "ethereum+other",
       "address": "0x136471a34f6ef19fE571EFFC1CA711fdb8E49f2b",
       "decimals": 6,
-      "supply": 2582051800.624363,
+      "supply": 2578077935.865322,
       "price_usd": 1.11,
-      "tvl_usd": 2866077498.693043,
+      "tvl_usd": 2861666508.810508,
       "rwaxyz_tvl_usd": 2900000000,
-      "tvl_delta_pct": -0.011697414243778195,
+      "tvl_delta_pct": -0.01321844523775594,
       "notes": "Reverse-repo + T-Bill. Circle acquired in 2025; majority of supply on Canton chain.",
       "launched": "2023-09-29"
     },
@@ -47,11 +47,11 @@
       "chain": "ethereum+arbitrum+polygon+other",
       "address": "0x7712c34205737192402172409a8F7ccef8aA2AEc",
       "decimals": 6,
-      "supply": 2460765787.040349,
+      "supply": 2460784993.330349,
       "price_usd": 1,
-      "tvl_usd": 2460765787.040349,
+      "tvl_usd": 2460784993.330349,
       "rwaxyz_tvl_usd": 2390000000,
-      "tvl_delta_pct": 0.02960911591646402,
+      "tvl_delta_pct": 0.029617152021066514,
       "notes": "Rebasing share: yield as separate distribution token, NAV stays at $1.",
       "launched": "2024-03-20"
     },
@@ -65,11 +65,11 @@
       "chain": "ethereum",
       "address": "0x45804880De22913dAFE09f4980848ECE6EcbAf78",
       "decimals": 18,
-      "supply": 456894.511,
-      "price_usd": 4318.74,
-      "tvl_usd": 1973208600.4361398,
+      "supply": 454419.461,
+      "price_usd": 4261.34,
+      "tvl_usd": 1936435825.93774,
       "rwaxyz_tvl_usd": 2300000000,
-      "tvl_delta_pct": -0.14208321720167832,
+      "tvl_delta_pct": -0.15807138002706952,
       "notes": "1 PAXG = 1 troy oz LBMA-certified gold.",
       "launched": "2019-09-05"
     },
@@ -83,11 +83,11 @@
       "chain": "ethereum+other",
       "address": "0x96F6eF951840721AdBF46Ac996b59E0235CB985C",
       "decimals": 18,
-      "supply": 1173329582.5607042,
+      "supply": 1173303291.5056202,
       "price_usd": 1.12,
-      "tvl_usd": 1314129132.467989,
+      "tvl_usd": 1314099686.4862947,
       "rwaxyz_tvl_usd": 700000000,
-      "tvl_delta_pct": 0.8773273320971271,
+      "tvl_delta_pct": 0.8772852664089925,
       "notes": "LayerZero OFT — burn/mint between chains keeps total supply consistent.",
       "launched": "2023-08-31"
     },
@@ -101,11 +101,11 @@
       "chain": "ethereum",
       "address": "0x80ac24aA929eaF5013f6436cdA2a7ba190f5Cc0b",
       "decimals": 6,
-      "supply": 1114889054.938162,
-      "price_usd": 1.1691917276800248,
-      "tvl_usd": 1303519060.3147,
+      "supply": 1108798353.249232,
+      "price_usd": 1.1693418292356812,
+      "tvl_usd": 1296564294.641968,
       "rwaxyz_tvl_usd": 1600000000,
-      "tvl_delta_pct": -0.18530058730331256,
+      "tvl_delta_pct": -0.18964731584876998,
       "notes": "ERC-4626 vault; price = totalAssets / totalSupply.",
       "launched": "2024-09-18"
     },
@@ -121,7 +121,7 @@
       "decimals": 6,
       "supply": 0,
       "price_usd": 1,
-      "tvl_usd": 888157168.1534522,
+      "tvl_usd": 888473146.084702,
       "rwaxyz_tvl_usd": 1519000000,
       "tvl_delta_pct": null,
       "notes": "Sourced from Centrifuge V3 graphql; see /pools/281474976710662",
@@ -137,11 +137,11 @@
       "chain": "ethereum",
       "address": "0x43415eB6ff9DB7E26A15b704e7A3eDCe97d31C4e",
       "decimals": 6,
-      "supply": 74133954.723519,
+      "supply": 71948675.070084,
       "price_usd": 10.7,
-      "tvl_usd": 793233315.5416533,
+      "tvl_usd": 769850823.2498988,
       "rwaxyz_tvl_usd": 694000000,
-      "tvl_delta_pct": 0.14298748637125833,
+      "tvl_delta_pct": 0.10929513436584841,
       "notes": "SEC-registered (1940 Act) fund; US qualified purchaser only.",
       "launched": "2024-02-21"
     },
@@ -157,7 +157,7 @@
       "decimals": 6,
       "supply": 0,
       "price_usd": 1,
-      "tvl_usd": 684709700.5352396,
+      "tvl_usd": 684677140.1200001,
       "rwaxyz_tvl_usd": 403000000,
       "tvl_delta_pct": null,
       "notes": "Sourced from Centrifuge V3 graphql; see /pools/281474976710663",
@@ -191,11 +191,11 @@
       "chain": "ethereum",
       "address": "0x14d60E7FDC0D71d8611742720E4C50E7a974020c",
       "decimals": 6,
-      "supply": 10732634.633443,
+      "supply": 10438797.645487,
       "price_usd": 10.1,
-      "tvl_usd": 108399609.7977743,
+      "tvl_usd": 105431856.21941869,
       "rwaxyz_tvl_usd": 110000000,
-      "tvl_delta_pct": -0.014549001838415454,
+      "tvl_delta_pct": -0.04152857982346646,
       "notes": "BTC/ETH basis + T-Bill yield; US qualified purchaser.",
       "launched": "2024-06-28"
     }
@@ -205,7 +205,7 @@
       "slug": "tether",
       "name": "Tether",
       "products": 1,
-      "tvl_usd": 3056575663.14786,
+      "tvl_usd": 3015950980.23926,
       "categories": [
         "commodity"
       ]
@@ -214,7 +214,7 @@
       "slug": "hashnote",
       "name": "Hashnote / Circle",
       "products": 1,
-      "tvl_usd": 2866077498.693043,
+      "tvl_usd": 2861666508.810508,
       "categories": [
         "t_bill"
       ]
@@ -223,7 +223,7 @@
       "slug": "securitize",
       "name": "Securitize (BlackRock)",
       "products": 1,
-      "tvl_usd": 2460765787.040349,
+      "tvl_usd": 2460784993.330349,
       "categories": [
         "mmf"
       ]
@@ -232,7 +232,7 @@
       "slug": "paxos",
       "name": "Paxos",
       "products": 1,
-      "tvl_usd": 1973208600.4361398,
+      "tvl_usd": 1936435825.93774,
       "categories": [
         "commodity"
       ]
@@ -241,7 +241,7 @@
       "slug": "ondo",
       "name": "Ondo Finance",
       "products": 2,
-      "tvl_usd": 1921495628.039182,
+      "tvl_usd": 1921466182.0574877,
       "categories": [
         "t_bill"
       ]
@@ -250,7 +250,7 @@
       "slug": "centrifuge",
       "name": "Centrifuge / Anemoy",
       "products": 2,
-      "tvl_usd": 1572866868.6886916,
+      "tvl_usd": 1573150286.2047021,
       "categories": [
         "t_bill",
         "credit"
@@ -260,7 +260,7 @@
       "slug": "maple",
       "name": "Maple Finance",
       "products": 1,
-      "tvl_usd": 1303519060.3147,
+      "tvl_usd": 1296564294.641968,
       "categories": [
         "credit"
       ]
@@ -269,7 +269,7 @@
       "slug": "superstate",
       "name": "Superstate",
       "products": 2,
-      "tvl_usd": 901632925.3394276,
+      "tvl_usd": 875282679.4693174,
       "categories": [
         "t_bill",
         "structured"
@@ -277,15 +277,15 @@
     }
   ],
   "totals": {
-    "tvl_usd": 16056142031.699392,
+    "tvl_usd": 15941301750.691336,
     "products": 11,
     "issuers": 8,
     "by_category": {
-      "mmf": 2460765787.040349,
-      "t_bill": 6468963610.42733,
-      "structured": 108399609.7977743,
-      "credit": 1988228760.8499393,
-      "commodity": 5029784263.584
+      "mmf": 2460784993.330349,
+      "t_bill": 6441456660.202597,
+      "structured": 105431856.21941869,
+      "credit": 1981241434.7619681,
+      "commodity": 4952386806.177
     }
   }
 }
